@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/configuracoes.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='cartola.png') }}">
+    <script src="{{ url_for('static', filename='js/configuracoes.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <title>Configurações</title>
 </head>
 <body>
     <div id="bloco_configuracoes">
-        <form action="{{ url_for('teste') }}">
-            <input type="file" id="inp_foto_perfil" accept="image/jpeg,image/png">
-            <button type="submit">enviar</button>
+        <form action="{{ url_for('configuracoes') }}" method="POST" enctype="multipart/form-data">
+            <input type="file" id="inp_foto_perfil" accept="image/jpeg,image/png" name="imagem">
+            <button type="submit" id="btn_submit" value="Submit">enviar</button>
         </form>
     </div>
 </body>

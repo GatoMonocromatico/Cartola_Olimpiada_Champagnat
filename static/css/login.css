@@ -1,0 +1,128 @@
+* {
+    padding: 0;
+    border: 0;
+    outline: 0;
+}
+
+:root {
+    --azul-mais-claro: #6382fb;
+    --azul-claro: #4b6bde;
+    --azul-normal: #2c4dc9;
+    --azul-escuro: #233e9e;
+}
+
+#bloco_login {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto auto auto auto;
+    border-radius: 20px;
+    height: 70vh;
+    width: 90vw;
+    background-color: var(--azul-normal);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.bloco_filho_bloco_login {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    font-family: monaco, monospace, courier new;
+}
+
+.placeholder_login {
+    position: absolute;
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--azul-mais-claro);
+    z-index: 1;
+    margin-left: 56px;
+    line-height: 51px;
+}
+
+.inp_login {
+    width: 230px;
+    padding: 10px;
+    border-radius: 0px 7px 7px 0px;
+    background: var(--azul-claro);
+    color: var(--azul-escuro);
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.bloco_filho_bloco_login:focus .placeholder_login{
+    display: none;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 50px;
+    height: 50px;
+    background-color: var(--azul-escuro);
+    border-radius: 7px 0px 0px 7px;
+}
+  
+#arco {
+    width: 14px;
+    height: 14px;
+    background: transparent;
+    border-radius: 100px;
+    border: 3px solid var(--azul-mais-claro);
+}
+  
+#corpo_cadeado {
+    width: 22.5px;
+    height: 18.0px;
+    background-color: var(--azul-mais-claro);
+    margin-top: -9.225px;
+}
+  
+#fechadura_circulo {
+    width: 5.625px;
+    height: 5.625px;
+    background-color: var(--azul-escuro);
+    border-radius: 100px;
+    margin-top: -13.25px;
+}
+  
+#fechadura_traco {
+    width: 3.375px;
+    height: 3.6px;
+    background-color: var(--azul-escuro);
+    margin-top: -0.75px;
+}
+  
+#cabeca {
+    width: 14.625px;
+    height: 14.625px;
+    background-color: var(--azul-mais-claro);
+    border-radius: 50px;
+    border: 0.9px solid var(--azul-escuro);
+    z-index: 1;
+}
+  
+#corpo_pessoa {
+    width: 22.5px;
+    height: 17.55px;
+    background-color: var(--azul-mais-claro);
+    border-radius: 70% 70% 35% 35% / 90% 90% 90% 90%;
+    margin-top: -4.95px;
+}
+
+#botao_login {
+    height: 50px;
+    width: 300px;
+    background-color: var(--azul-escuro);
+    color: var(--azul-claro);
+    border-radius: 7px;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 15vh;
+}

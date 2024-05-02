@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='cartola.png') }}">
+    <script src="{{ url_for('static', filename='js/login.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+    <div id="bloco_login">
+        <span style="font-size: 20px;color:red;font-family: courier new;margin-top: 4vh;margin-bottom: -4vh">{{ erro }}</span>
+        <form action="{{ url_for('login') }}" method="post">
+            <div id="bloco_login_usuario" class="bloco_filho_bloco_login">
+                <div class="container" id="container_login_1">
+                    <span id="cabeca"></span>
+                    <span id="corpo_pessoa"></span>
+                </div>
+
+                <span class="placeholder_login" id="placeholder_usuario_login">usuário</span>
+
+                <input type="text" id="inp_usuario_login" class="inp_login" name="usuario" required>
+            </div>
+
+            <div id="bloco_login_senha" class="bloco_filho_bloco_login">
+                <div class="container" id="container_login_2">
+                    <span id="arco"></span>
+                    <span id="corpo_cadeado"></span>
+                    <span id="fechadura_circulo"></span>
+                    <span id="fechadura_traco"></span>
+                </div>
+
+                <span class="placeholder_login" id="placeholder_senha_login">senha</span>
+
+                <input type="text" id="inp_senha_login" class="inp_login" name="senha" required>
+            </div>
+
+            <button id="botao_login" type="submit">Entrar</button>
+        </form>
+    </div>
+
+</body>
+</html>
