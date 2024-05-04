@@ -67,6 +67,8 @@
     height: 50px;
     background-color: var(--azul-escuro);
     border-radius: 7px 0px 0px 7px;
+    color: var(--azul-mais-claro);
+    font-size: 25px;
 }
   
 #arco {
@@ -124,5 +126,24 @@
     border-radius: 7px;
     font-size: 25px;
     font-weight: bold;
-    margin-top: 15vh;
+    margin-top: calc(10vh - 50px);
+}
+
+#bloco_login_inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+#trocar_signin_signup {
+    background: transparent;
+    font-size: 17px;
+    color: var(--azul-claro);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    margin-top: 1vh;
+}
+
+#trocar_signin_signup:hover {
+    text-decoration: underline var(--azul-mais-claro);
+    color: var(--azul-mais-claro);
 }

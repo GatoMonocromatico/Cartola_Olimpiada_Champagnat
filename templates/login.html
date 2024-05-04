@@ -12,32 +12,36 @@
 
     <div id="bloco_login">
         <span style="font-size: 20px;color:red;font-family: courier new;margin-top: 4vh;margin-bottom: -4vh">{{ erro }}</span>
-        <form action="{{ url_for('login') }}" method="post">
-            <div id="bloco_login_usuario" class="bloco_filho_bloco_login">
-                <div class="container" id="container_login_1">
-                    <span id="cabeca"></span>
-                    <span id="corpo_pessoa"></span>
+        <div class="bloco_filho_bloco_login" id="bloco_login_inputs">
+            <form action="{{ url_for('login') }}" method="post">
+                <div id="bloco_login_usuario" class="bloco_filho_bloco_login">
+                    <div class="container" id="container_login_1">
+                        <span id="cabeca"></span>
+                        <span id="corpo_pessoa"></span>
+                    </div>
+
+                    <span class="placeholder_login" id="placeholder_usuario_login">usuário</span>
+
+                    <input type="text" id="inp_usuario_login" class="inp_login" name="usuario" required>
                 </div>
 
-                <span class="placeholder_login" id="placeholder_usuario_login">usuário</span>
+                <div id="bloco_login_senha" class="bloco_filho_bloco_login">
+                    <div class="container" id="container_login_2">
+                        <span id="arco"></span>
+                        <span id="corpo_cadeado"></span>
+                        <span id="fechadura_circulo"></span>
+                        <span id="fechadura_traco"></span>
+                    </div>
 
-                <input type="text" id="inp_usuario_login" class="inp_login" name="usuario" required>
-            </div>
+                    <span class="placeholder_login" id="placeholder_senha_login">senha</span>
 
-            <div id="bloco_login_senha" class="bloco_filho_bloco_login">
-                <div class="container" id="container_login_2">
-                    <span id="arco"></span>
-                    <span id="corpo_cadeado"></span>
-                    <span id="fechadura_circulo"></span>
-                    <span id="fechadura_traco"></span>
+                    <input type="text" id="inp_senha_login" class="inp_login" name="senha" required>
                 </div>
-
-                <span class="placeholder_login" id="placeholder_senha_login">senha</span>
-
-                <input type="text" id="inp_senha_login" class="inp_login" name="senha" required>
+                <div class="bloco_filho_bloco_login" id="bloco_login_nome"><div class="container">●</div><span class="placeholder_login" id="placeholder_nome_login">nome</span><input type="text" id="inp_nome_login" class="inp_login" name="nome" required></div>
             </div>
 
-            <button id="botao_login" type="submit">Entrar</button>
+            <button id="botao_login" type="submit" value="true" name="signup">Entrar</button>
+            <button id="trocar_signin_signup">já tem uma conta?</button>
         </form>
     </div>
 
