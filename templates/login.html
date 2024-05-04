@@ -1,49 +1,36 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='cartola.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}">
     <script src="{{ url_for('static', filename='js/login.js') }}" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Cartola Champagnat</title>
 </head>
-<body>
-
-    <div id="bloco_login">
-        <span style="font-size: 20px;color:red;font-family: courier new;margin-top: 4vh;margin-bottom: -4vh">{{ erro }}</span>
-        <div class="bloco_filho_bloco_login" id="bloco_login_inputs">
-            <form action="{{ url_for('login') }}" method="post">
-                <div id="bloco_login_usuario" class="bloco_filho_bloco_login">
-                    <div class="container" id="container_login_1">
-                        <span id="cabeca"></span>
-                        <span id="corpo_pessoa"></span>
-                    </div>
-
-                    <span class="placeholder_login" id="placeholder_usuario_login">usuário</span>
-
-                    <input type="text" id="inp_usuario_login" class="inp_login" name="usuario" required>
+<body id="body">
+        <div class="logo-row">
+            <img src="{{ url_for('static', filename='images/logo1.png') }}" class="logo-icon"/>
+            <img src="{{ url_for('static', filename='images/logo2.png') }}" class="logo-text"/>
+        </div>
+        <div id="form" class="form">
+            <img src="{{ url_for('static', filename='images/detail1.png') }}" class="detail1" id="detail1"/>
+            <img src="{{ url_for('static', filename='images/detail2.png') }}" class="detail2" id="detail2"/>
+            <img src="{{ url_for('static', filename='images/detail3.png') }}" class="detail3" id="detail3"/>
+            <img src="{{ url_for('static', filename='images/detail3.png') }}" class="detail4" id="detail4"/>
+            <div class="input-colunm" id="input-colunm"> 
+                <input type="text" placeholder="Número de matrícula" class="input" id="matrícula"/>
+                <input type="password" placeholder="Senha" class="input" id="password" maxlength="8">
+                <i id="eye-icon" class="fas fa-eye-slash"></i>
+                <button class="sign-up" id="button">
+                    <b class="sign-up-text">Entrar</b>
+                </button>
+                <div class="have-an-account">
+                    <a class="have-an-account-text">Não possui uma conta?</a>
+                    <b class="have-an-account-link" id="goToRegister">Registrar-se</b>
                 </div>
-
-                <div id="bloco_login_senha" class="bloco_filho_bloco_login">
-                    <div class="container" id="container_login_2">
-                        <span id="arco"></span>
-                        <span id="corpo_cadeado"></span>
-                        <span id="fechadura_circulo"></span>
-                        <span id="fechadura_traco"></span>
-                    </div>
-
-                    <span class="placeholder_login" id="placeholder_senha_login">senha</span>
-
-                    <input type="text" id="inp_senha_login" class="inp_login" name="senha" required>
-                </div>
-                <div class="bloco_filho_bloco_login" id="bloco_login_nome"><div class="container">●</div><span class="placeholder_login" id="placeholder_nome_login">nome</span><input type="text" id="inp_nome_login" class="inp_login" name="nome" required></div>
             </div>
-
-            <button id="botao_login" type="submit" value="true" name="signup">Entrar</button>
-            <button id="trocar_signin_signup">já tem uma conta?</button>
-        </form>
-    </div>
-
+        </div>
 </body>
 </html>
