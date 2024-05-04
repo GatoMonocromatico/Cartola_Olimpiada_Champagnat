@@ -1,149 +1,138 @@
-* {
+html,body{
+    margin: 0;
     padding: 0;
-    border: 0;
-    outline: 0;
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
 }
-
-:root {
-    --azul-mais-claro: #6382fb;
-    --azul-claro: #4b6bde;
-    --azul-normal: #2c4dc9;
-    --azul-escuro: #233e9e;
-}
-
-#bloco_login {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    margin: auto auto auto auto;
-    border-radius: 20px;
-    height: 70vh;
-    width: 90vw;
-    background-color: var(--azul-normal);
-    display: flex;
+body{
+    background: linear-gradient(to top, #0b1b28 0%, #17598D 100%);
     align-items: center;
+    display: flex;
     flex-direction: column;
 }
-
-.bloco_filho_bloco_login {
-    margin-top: 5vh;
-    display: flex;
+.logo-row{
+    margin-top: 60px;
+    margin-bottom: 20px;
     flex-direction: row;
-    font-family: monaco, monospace, courier new;
+    display: flex;
+    min-width: 299.1px;
 }
-
-.placeholder_login {
-    position: absolute;
-    font-size: 25px;
-    font-weight: bold;
-    color: var(--azul-mais-claro);
-    z-index: 1;
-    margin-left: 56px;
-    line-height: 51px;
+.logo-icon{
+    width: 111.5px;
+    height: 102.8px;
 }
-
-.inp_login {
-    width: 230px;
-    padding: 10px;
-    border-radius: 0px 7px 7px 0px;
-    background: var(--azul-claro);
-    color: var(--azul-escuro);
-    font-size: 25px;
-    font-weight: bold;
+.input-colunm{
+    display: flex;
+    flex-direction: column;
 }
-
-.bloco_filho_bloco_login:focus .placeholder_login{
-    display: none;
+.logo-text{
+    width: 187.6px;
+    height: 77.3px;
+    vertical-align: top;
 }
-
-.container {
+.form{
+    background: linear-gradient(to top, #c7c7c7, #ffffff);
+    border-radius: 25px;
+    height: 65%;
+    width: 60%;
+    min-width: 300px;
+    max-width: 500px;
+    min-height: 400px;
+    max-height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    width: 50px;
-    height: 50px;
-    background-color: var(--azul-escuro);
-    border-radius: 7px 0px 0px 7px;
-    color: var(--azul-mais-claro);
-    font-size: 25px;
 }
-  
-#arco {
-    width: 14px;
-    height: 14px;
-    background: transparent;
-    border-radius: 100px;
-    border: 3px solid var(--azul-mais-claro);
+.input{
+    border-radius: 25px;
+    border: 2px solid;
+    border-color:#0F3B5E;
+    box-shadow: #0F3B5E -6px 6px 0px 0px;
+    outline: none;
+    height: 30px;
+    width: 200px;
+    margin-bottom: 15px;
+    font-size: 10px;
+    padding-left: 5px;
+    transition: transform 300ms, box-shadow 300ms;
 }
-  
-#corpo_cadeado {
-    width: 22.5px;
-    height: 18.0px;
-    background-color: var(--azul-mais-claro);
-    margin-top: -9.225px;
-}
-  
-#fechadura_circulo {
-    width: 5.625px;
-    height: 5.625px;
-    background-color: var(--azul-escuro);
-    border-radius: 100px;
-    margin-top: -13.25px;
-}
-  
-#fechadura_traco {
-    width: 3.375px;
-    height: 3.6px;
-    background-color: var(--azul-escuro);
-    margin-top: -0.75px;
-}
-  
-#cabeca {
-    width: 14.625px;
-    height: 14.625px;
-    background-color: var(--azul-mais-claro);
-    border-radius: 50px;
-    border: 0.9px solid var(--azul-escuro);
-    z-index: 1;
-}
-  
-#corpo_pessoa {
-    width: 22.5px;
-    height: 17.55px;
-    background-color: var(--azul-mais-claro);
-    border-radius: 70% 70% 35% 35% / 90% 90% 90% 90%;
-    margin-top: -4.95px;
+.input:active{
+    box-shadow: #0F3B5E 0px 0px 0px 0px;
+    transform: translateY(6px) translateX(-6px);
 }
 
-#botao_login {
-    height: 50px;
-    width: 300px;
-    background-color: var(--azul-escuro);
-    color: var(--azul-claro);
-    border-radius: 7px;
-    font-size: 25px;
+.sign-up{
+    margin-top: 20px;
+    border-radius: 17px;
+    border: 2px solid;
+    border-color:#0F3B5E;
+    box-shadow: #0F3B5E -6px 6px 0px 0px;
+    background-color: #FBB834;
+    height: 60px;
+    width: 200px;
+    transition: transform 200ms, box-shadow 200ms;
+}
+.sign-up:active{
+    box-shadow: #0F3B5E 0px 0px 0px 0px;
+    transform: translateY(6px) translateX(-6px);
+
+}
+.sign-up-text{
+    color: rgb(255, 255, 255);
     font-weight: bold;
-    margin-top: calc(10vh - 50px);
+    font-size: 15px;
 }
-
-#bloco_login_inputs {
+.have-an-account{
+    margin-top: 15px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
-
-#trocar_signin_signup {
-    background: transparent;
-    font-size: 17px;
-    color: var(--azul-claro);
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bolder;
-    margin-top: 1vh;
+.have-an-account-text{
+    color: rgb(0, 0, 0);
+    font-size: 10px;
+    font-family: Arial;
 }
-
-#trocar_signin_signup:hover {
-    text-decoration: underline var(--azul-mais-claro);
-    color: var(--azul-mais-claro);
+.have-an-account-link{
+    color: #FBB834;
+    font-weight: bold;
+    font-size: 10px;
+    font-family: Arial;
+    transition: color 200ms;
+}
+.have-an-account-link:hover{
+    color: #ffd787;
+}
+.detail1{
+    width: 90px;
+    height: 90px;
+    position:absolute;
+    top:175.5px;
+    
+}
+.detail2{
+    width: 110px;
+    height: 110px;
+    position: absolute;
+    top:200px;
+    rotate: 90deg
+}
+.detail3{
+    width: 65px;
+    height: 185px;
+    position: absolute;
+    top: 350px
+}
+.detail4{
+    width: 65px;
+    height: 185px;
+    position: absolute;
+    top:220px
+}
+#eye-icon{
+    position:absolute;
+    transition: transform 300ms;
 }
