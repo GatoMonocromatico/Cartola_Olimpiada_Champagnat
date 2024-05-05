@@ -8,11 +8,12 @@ const btnEscolheEsporteQualquer = $(".btn_escolhe_esporte")
 const blocoEscalacao = $("#bloco_escalacao")
 const btnEscolheJogador = $(".btn_escolhe_jogador")
 const blocoEscolheJogador = $("#bloco_escolhe_jogador")
+const btnVoltar = $("#btn_voltar_escalacao")
 //variaveis escalacao
 
 
 btnEscolheEsporteQualquer.on("click", function() {
-    blocoEscolherEsporte.css("opacity", "0")
+    blocoEscolherEsporte.remove()
     blocoEscalacao.css ("opacity", "100%")
 })
 
@@ -38,3 +39,10 @@ btnEscolheJogador.on("click", function() {
 
 })
 //funções escolher esporte
+
+
+btnVoltar.on("click", function() {
+    blocoEscalacao.remove()
+    blocoEscolherEsporte.css("opacity", "100%")
+})
+//funções escalacao
