@@ -15,6 +15,14 @@ const eye = document.getElementById('eye-icon');
 const button = document.getElementById('button');
 const goToRegister = document.getElementById('goToRegister');
 
+const button_jq = $("#button")
+const btnTrocaSigninSignup = $("#trocar_signin_signup")
+const bloco_login_inputs = $("#bloco_login_inputs")
+const introdutorBtnTrocaSigninSignup = $("#introdutor_trocar_signin_signup")
+
+const inpLoginNomeAparente = $("#inp_nome_login_aparente")
+const inpLoginNomeForm = $("#inp_nome_login_form")
+
 // função de loop
 function loop() {
     // pegando as larguras e alturas  
@@ -83,7 +91,32 @@ loop();
       passwordInput.style.borderColor = "#0F3B5E";
     }
   })
-  // botão de registrar-se foi clicado?
-  goToRegister.addEventListener("click",function (){
-    window.location.href = '/'
-  })
+
+btnTrocaSigninSignup.on("click", function() {
+  let novoAttr = ""
+  if (button_jq.attr("name") == "signin") {
+      novoAttr = "signup"
+      bloco_login_inputs.append('<input type="text" placeholder="Nome" class="input" id="inp_nome_login_aparente"/>')
+      button_jq.css("margin-top", "20px")
+      introdutorBtnTrocaSigninSignup.html("Já possui uma conta?")
+      btnTrocaSigninSignup.html("Sign in")
+      button_jq.html('<b class="sign-up-text">Registrar</b>')
+  }
+  else {
+      novoAttr = "signin"
+      $("#inp_nome_login_aparente").remove()
+      button_jq.css("margin-top", "70px")
+      introdutorBtnTrocaSigninSignup.html("Não possui uma conta?")
+      btnTrocaSigninSignup.html("Registrar")
+      button_jq.html('<b class="sign-up-text">Registrar</b>')
+      button_jq.html('<b class="sign-up-text">Sign in</b>')
+      inpLoginNomeForm.val("")
+  }
+
+  button_jq.attr("name", novoAttr)
+})
+
+$("body").on("keyup", function() {
+  console.log($("#inp_nome_login_aparente").val(), inpLoginNomeForm.val())
+  inpLoginNomeForm.val($("#inp_nome_login_aparente").val())
+})
