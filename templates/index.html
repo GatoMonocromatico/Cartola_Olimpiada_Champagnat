@@ -11,8 +11,8 @@
 <body>
 
     <div id="bloco_perfil">
-        <img src="">
-        <span>nome do usuario</span>
+        <img id="img_perfil" src="data:image/png;base64, {{ foto_de_perfil }}" style="border-radius: 100000px;height: 100px;width: auto">
+        <span>{{ nome_de_usuario }}</span>
         <a href="/configurações">configurações</a>
     </div>
 
@@ -24,6 +24,7 @@
     </div>
 
     <div id="bloco_escalacao">
+        <span id="btn_voltar_escalacao"><</span>
         <button class="btn_escolhe_jogador">+</button>
         <button class="btn_escolhe_jogador">+</button>
         <button class="btn_escolhe_jogador">+</button>
