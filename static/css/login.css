@@ -32,6 +32,14 @@ body{
     height: 77.3px;
     vertical-align: top;
 }
+
+#bloco_login_inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .form{
     background: linear-gradient(to top, #c7c7c7, #ffffff);
     border-radius: 25px;
