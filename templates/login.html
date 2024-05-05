@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='logo1.png') }}">
     <script src="{{ url_for('static', filename='js/login.js') }}" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
@@ -11,26 +11,32 @@
 </head>
 <body id="body">
         <div class="logo-row">
-            <img src="{{ url_for('static', filename='images/logo1.png') }}" class="logo-icon"/>
-            <img src="{{ url_for('static', filename='images/logo2.png') }}" class="logo-text"/>
+            <img src="{{ url_for('static', filename='logo1.png') }}" class="logo-icon"/>
+            <img src="{{ url_for('static', filename='logo2.1.png') }}" class="logo-text"/>
         </div>
-        <div id="form" class="form">
-            <img src="{{ url_for('static', filename='images/detail1.png') }}" class="detail1" id="detail1"/>
-            <img src="{{ url_for('static', filename='images/detail2.png') }}" class="detail2" id="detail2"/>
-            <img src="{{ url_for('static', filename='images/detail3.png') }}" class="detail3" id="detail3"/>
-            <img src="{{ url_for('static', filename='images/detail3.png') }}" class="detail4" id="detail4"/>
-            <div class="input-colunm" id="input-colunm"> 
-                <input type="text" placeholder="Número de matrícula" class="input" id="matrícula"/>
-                <input type="password" placeholder="Senha" class="input" id="password" maxlength="8">
-                <i id="eye-icon" class="fas fa-eye-slash"></i>
-                <button class="sign-up" id="button">
-                    <b class="sign-up-text">Entrar</b>
-                </button>
-                <div class="have-an-account">
-                    <a class="have-an-account-text">Não possui uma conta?</a>
-                    <b class="have-an-account-link" id="goToRegister">Registrar-se</b>
+        <form action="{{ url_for('login') }}" method="post">
+            <div id="form" class="form">
+                <img src="{{ url_for('static', filename='detail1.png') }}" class="detail1" id="detail1"/>
+                <img src="{{ url_for('static', filename='detail2.png') }}" class="detail2" id="detail2"/>
+                <img src="{{ url_for('static', filename='detail3.png') }}" class="detail3" id="detail3"/>
+                <img src="{{ url_for('static', filename='detail3.png') }}" class="detail4" id="detail4"/>
+                <div class="input-colunm" id="input-colunm">
+                    <div id="bloco_login_inputs">
+                        <input name="usuario" type="text" placeholder="Número de matrícula" class="input" id="matrícula"/>
+                        <input name="senha" type="password" placeholder="Senha" class="input" id="password" maxlength="8">
+                        <input type="text" placeholder="Nome" class="input" id="inp_nome_login_aparente"/>
+                        <input name="nome" id="inp_nome_login_form" style="display: none">
+                        <i id="eye-icon" class="fas fa-eye-slash"></i>
+                    </div>
+                    <button class="sign-up" id="button" type="submit" name="signup" value="true">
+                        <b class="sign-up-text">Registrar</b>
+                    </button>
+                    <div class="have-an-account">
+                        <span class="have-an-account-text" id="introdutor_trocar_signin_signup">Já possui uma conta?</span>
+                        <button class="have-an-account-link" id="trocar_signin_signup" style="border: none;background: transparent">Sign in</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
 </body>
 </html>
