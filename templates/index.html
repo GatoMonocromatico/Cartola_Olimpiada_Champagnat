@@ -11,35 +11,20 @@
 <body>
 
     <div id="bloco_perfil">
-        <img id="img_perfil" src="data:image/png;base64, {{ foto_de_perfil }}" style="border-radius: 100000px;height: 100px;width: auto">
-        <span>{{ nome_de_usuario }}</span>
-        <a href="/configurações">configurações</a>
+        <div style="display: flex;flex-direction: row;align-items: center;">
+            <img id="img_perfil" src="data:image/png;base64, {{ foto_de_perfil }}">
+            <span id="nome_usuario">{{ nome_de_usuario }}</span>
+        </div>
+        <a href="/configurações" id="configuracoes_redirect">⚙️</a>
     </div>
 
     <div id="bloco_escolha_do_esporte">
-        <button id="btn_escolhe_futsal_masc" class="btn_escolhe_esporte">Futsal Masculino</button>
-        <button id="btn_escolhe_futsal_fem" class="btn_escolhe_esporte">Futsal Feminino</button>
-        <button id="btn_escolhe_basquete" class="btn_escolhe_esporte">Basquete</button>
-        <button id="btn_escolhe_handebol" class="btn_escolhe_esporte">Handebol</button>
+        <button id="btn_escolhe_futsal_masc" class="btn_escolhe_esporte" onclick="escalacao('futsal_masculino')">Futsal Masculino</button>
+        <button id="btn_escolhe_futsal_fem" class="btn_escolhe_esporte" onclick="escalacao('futsal_feminino')">Futsal Feminino</button>
+        <button id="btn_escolhe_basquete" class="btn_escolhe_esporte" onclick="escalacao('basquete')">Basquete</button>
+        <button id="btn_escolhe_handebol" class="btn_escolhe_esporte" onclick="escalacao('handebol')">Handebol</button>
     </div>
-
     <div id="bloco_escalacao">
-        <span id="btn_voltar_escalacao"><</span>
-        <button class="btn_escolhe_jogador">+</button>
-        <button class="btn_escolhe_jogador">+</button>
-        <button class="btn_escolhe_jogador">+</button>
-        <button class="btn_escolhe_jogador">+</button>
-        <button class="btn_escolhe_jogador">+</button>
-
-        <div id="bloco_escolhe_jogador">
-            <div id="jogador_1">
-                <img>
-                <label>jogador genérico</label>
-                <label>equipe 1</label>
-                <button>Comprar</button>
-            </div>
-        </div>
     </div>
-
 </body>
 </html>

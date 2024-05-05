@@ -16,24 +16,25 @@
         </div>
         <form action="{{ url_for('login') }}" method="post">
             <div id="form" class="form">
+                <span style="position: absolute;margin-top: 215px;top:0px;bottom: 0px; margin-down: auto;color: #ffc835;font-family:arial;font-weight: bold;z-index:1;text-shadow: #c16359 -2px 2px">{{ erro }}</span>
                 <img src="{{ url_for('static', filename='detail1.png') }}" class="detail1" id="detail1"/>
                 <img src="{{ url_for('static', filename='detail2.png') }}" class="detail2" id="detail2"/>
                 <img src="{{ url_for('static', filename='detail3.png') }}" class="detail3" id="detail3"/>
                 <img src="{{ url_for('static', filename='detail3.png') }}" class="detail4" id="detail4"/>
                 <div class="input-colunm" id="input-colunm">
                     <div id="bloco_login_inputs">
-                        <input name="usuario" type="text" placeholder="Número de matrícula" class="input" id="matrícula"/>
-                        <input name="senha" type="password" placeholder="Senha" class="input" id="password" maxlength="8">
+                        <input name="usuario" type="text" placeholder="Número de matrícula" class="input" id="matrícula" required>
+                        <input name="senha" type="password" placeholder="Senha" class="input" id="password" maxlength="8" required>
                         <input type="text" placeholder="Nome" class="input" id="inp_nome_login_aparente"/>
-                        <input name="nome" id="inp_nome_login_form" style="display: none">
-                        <i id="eye-icon" class="fas fa-eye-slash"></i>
+                        <input name="nome" id="inp_nome_login_form" style="display: none" required value="None">
+                        <i id="eye-icon" class="fas fa-eye-slash" style="z-index: 2"></i>
                     </div>
-                    <button class="sign-up" id="button" type="submit" name="signup" value="true">
+                    <button class="sign-up" id="button" type="submit" name="signup" value="true" style="z-index: 1">
                         <b class="sign-up-text">Registrar</b>
                     </button>
                     <div class="have-an-account">
                         <span class="have-an-account-text" id="introdutor_trocar_signin_signup">Já possui uma conta?</span>
-                        <button class="have-an-account-link" id="trocar_signin_signup" style="border: none;background: transparent">Sign in</button>
+                        <button class="have-an-account-link" id="trocar_signin_signup" style="border: none;background: transparent;z-index: 1" type="button">Sign in</button>
                     </div>
                 </div>
             </div>

@@ -49,8 +49,9 @@ function loop() {
     detail4.style.left = detail4LeftValue + 'px';
     eye.style.right = iconRigthValue + 'px';
     eye.style.top = iconTopValue + 'px';
+    console.log("rodou")
 
-    setTimeout(loop, 0);
+    setTimeout(loop, 50);
   }
   
 // Inicia o loop
@@ -117,6 +118,10 @@ btnTrocaSigninSignup.on("click", function() {
 })
 
 $("body").on("keyup", function() {
-  console.log($("#inp_nome_login_aparente").val(), inpLoginNomeForm.val())
-  inpLoginNomeForm.val($("#inp_nome_login_aparente").val())
+  if (button_jq.attr("name") == "signup") {
+    inpLoginNomeForm.val($("#inp_nome_login_aparente").val())
+  }
+  else {
+    inpLoginNomeForm.val("None")
+  }
 })

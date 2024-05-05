@@ -65,6 +65,7 @@ body{
     font-size: 10px;
     padding-left: 5px;
     transition: transform 300ms, box-shadow 300ms;
+    z-index: 1;
 }
 .input:active{
     box-shadow: #0F3B5E 0px 0px 0px 0px;

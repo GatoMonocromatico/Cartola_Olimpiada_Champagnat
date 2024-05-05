@@ -2,6 +2,7 @@
     padding: 0;
     border: 0;
     outline: 0;
+    margin: 0;
 }
 
 :root {
@@ -11,6 +12,108 @@
     --azul-escuro: #233e9e;
 }
 
+body {
+    overflow: hidden;
+}
+
+#bloco_perfil {
+    margin: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #ea7559;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#img_perfil {
+    border-radius: 60px;
+    height: 60px;
+    width: auto;
+    margin-left: 5px
+}
+
+#nome_usuario {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fbb835;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+#configuracoes_redirect {
+    margin-right: 5px;
+    font-size: 25px;
+    text-decoration: none;
+}
+
+#bloco_escolha_do_esporte {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 70px);
+    width: 100%;
+    background-color: #f0efea;
+}
+
+.btn_escolhe_esporte {
+    position: relative;
+    height: 50px;
+    width: 200px;
+    background-color: #ff8275;
+    box-shadow: #fbb835 -5px 5px 0 0;
+    border-radius: 1000px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    color: #fbb835;
+    font-weight: bold;
+}
+
 #bloco_escalacao {
-    opacity: 0;
+    position: absolute;
+
+}
+
+.simbolo {
+    display: inline-block;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 30px;
+    font-weight: bolder;
+    background-color: rgb(231, 231, 231);
+    border: lightslategray 1px solid;
+    border-radius: 100px;
+}
+
+#quadra {
+    width: 80vw;
+    margin-top: 5vw;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    z-index: 2;
+}
+
+#btn_escolhe_jogador {
+    position: absolute;
+}
+
+#goleiro::after {
+    display: block;
+    content: "goleiro";
+    font-size: 15px;
+    font-weight: normal;
+    z-index: 1;
+}
+
+#bloco_escolhe_jogador {
+    position: absolute;
+    top: calc(10vh - 70px);
+    left: 10vw;
+    width: 80vw;
+    height: 80vh;
+    background-color: #fbb835;
 }
