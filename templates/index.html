@@ -1,30 +1,44 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='cartola.png') }}">
     <script src="{{ url_for('static', filename='js/index.js') }}" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cartola Champagnat</title>
 </head>
 <body>
-
-    <div id="bloco_perfil">
-        <div style="display: flex;flex-direction: row;align-items: center;">
-            <img id="img_perfil" src="data:image/png;base64, {{ foto_de_perfil }}">
-            <span id="nome_usuario">{{ nome_de_usuario }}</span>
+    <div class="profile-bar">
+        <div class="profile">
+            <img id="profile-picture" class="profile-picture" src="{{ url_for('static', filename='images/profilePicture.png') }}">
+            <a class="nome-so-de-bonito">Nome de usuário</a>
         </div>
-        <a href="/configurações" id="configuracoes_redirect">⚙️</a>
+        <span id="nome_usuario" class="nome-usuario">{{ nome_de_usuario }}</span>
+        <i id="icon" class="fa fa-bars" ></i>
     </div>
-
-    <div id="bloco_escolha_do_esporte">
-        <button id="btn_escolhe_futsal_masc" class="btn_escolhe_esporte" onclick="escalacao('futsal_masculino')">Futsal Masculino</button>
-        <button id="btn_escolhe_futsal_fem" class="btn_escolhe_esporte" onclick="escalacao('futsal_feminino')">Futsal Feminino</button>
-        <button id="btn_escolhe_basquete" class="btn_escolhe_esporte" onclick="escalacao('basquete')">Basquete</button>
-        <button id="btn_escolhe_handebol" class="btn_escolhe_esporte" onclick="escalacao('handebol')">Handebol</button>
-    </div>
-    <div id="bloco_escalacao">
+    <div class="repeat" ></div>
+    <div class="container" id="container">
+        <div class="buttons-collunm">
+            <button class="futMascBut" id="futMascBut">
+                <img src="{{ url_for('static', filename='images/futMasc.png') }}" id="futMascIcon">
+                <a class="futMascText" id="futMascText">Futsal Masculino</a>
+            </button>
+            <button class="futFemBut" id="futFemBut">
+                <img src="{{ url_for('static', filename='images/futFem.png') }}" id="futFemIcon">
+                <a class="futFemText" id="futFemText" >Futsal Feminino</a>
+            </button>
+            <button class="handBut" id="handBut">
+                <img src="{{ url_for('static', filename='images/hand.png') }}" id="handIcon">
+                <a class="handText" id="handText">Handebol</a>
+            </button>
+            <button class="basketBut" id="basketBut">
+                <img src="{{ url_for('static', filename='images/bask.png') }}" id="baskIcon">
+                <a class="basketText" id="basketText">Basquete</a>
+            </button>
+        </div>   
     </div>
 </body>
 </html>
