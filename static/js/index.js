@@ -1,105 +1,139 @@
-const body = "body"
+// pegando os botões
+const futMascBut = document.getElementById("futMascBut");
+const futFemBut = document.getElementById("futFemBut");
+const handBut = document.getElementById("handBut");
+const basketBut = document.getElementById("basketBut");
+const container = document.getElementById("container");
 
-const blocoEscolherEsporte = $("#bloco_escolha_do_esporte")
-const btnEscolheFutsalMasc = "#btn_escolhe_futsal_masc"
-const btnEscolheFutsalFem = "#btn_escolhe_futsal_fem"
-const btnEscolheBasquete = "#btn_escolhe_basquete"
-const btnEscolheHandebol = "#btn_escolhe_handebol"
-const btnEscolheEsporteQualquer = ".btn_escolhe_esporte"
+//pegando os textos dos botões
+const futMascText = document.getElementById("futMascText");
+const futFemText = document.getElementById("futFemText");
+const handText = document.getElementById("handText");
+const basketText = document.getElementById("basketText");
 
-var HTMLs = new Map
-HTMLs.set("HTML_bloco_escolha_do_esporte", `
-<button id="btn_escolhe_futsal_masc" class="btn_escolhe_esporte" onclick="escalacao('futsal_masculino')">Futsal Masculino</button>
-<button id="btn_escolhe_futsal_fem" class="btn_escolhe_esporte" onclick="escalacao('futsal_feminino')">Futsal Feminino</button>
-<button id="btn_escolhe_basquete" class="btn_escolhe_esporte" onclick="escalacao('basquete')">Basquete</button>
-<button id="btn_escolhe_handebol" class="btn_escolhe_esporte" onclick="escalacao('handebol')">Handebol</button>
-`)
+//pegando os icones
+const img1 = document.getElementById("futMascIcon");
+const img2 = document.getElementById("futFemIcon");
+const img3 = document.getElementById("handIcon");
+const img4 = document.getElementById("baskIcon");
 
-//variaveis escolher esporte
-const blocoEscalacao = $("#bloco_escalacao")
-const btnEscolheJogador = ".btn_escolhe_jogador"
-const blocoEscolheJogador = "#bloco_escolhe_jogador"
-const btnVoltar = "#btn_voltar_escalacao"
+//funçõa de loop 
+function loop(){
+    //pegando o tamanho dos botões
+    var but1Height = futMascBut.offsetHeight
+    var but2Height = futFemBut.offsetHeight
+    var but3Height = handBut.offsetHeight
+    var but4Height = basketBut.offsetHeight
 
-HTMLs.set("HTML_bloco_escalacao_futsal_masculino", `
-<span class="simbolo" id="btn_voltar_escalacao" onclick="voltar('bloco_escalacao', 'bloco_escolha_do_esporte')"><</span>
-<button class="btn_escolhe_jogador simbolo" id="goleiro">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador1">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador2">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador3">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador4">+</button>
-<img src="static/quadra_futsal.png" id="quadra">
+    //calculando o quanto de margin-rigth os icones devem ter
+    var img1Right = futMascBut.offsetWidth - (50/100 * img1.offsetWidth)
+    var img2Right = futFemBut.offsetWidth - (65/100 * img2.offsetWidth)
+    var img3Right = handBut.offsetWidth - (50/100 * img3.offsetWidth)
+    var img4Right = basketBut.offsetWidth - (110/100 * img4.offsetWidth)
 
-<div id="bloco_escolhe_jogador">
-    <div id="jogador_1">
-        <img src="">
-        <label>jogador genérico</label>
-        <label>equipe 1</label>
-        <button>Comprar</button>
-</div>`)
-HTMLs.set("HTML_bloco_escalacao_futsal_feminino", `
-<span class="simbolo" id="btn_voltar_escalacao" onclick="voltar('bloco_escalacao', 'bloco_escolha_do_esporte')"><</span>
-<button class="btn_escolhe_jogador simbolo" id="goleiro">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador1">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador2">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador3">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador4">+</button>
-<img src="static/quadra_futsal.png" id="quadra">
+    //alterando o tamanho dos icones conforme o necessário
+    img1.style.height = 105/100 * but1Height + "px";
+    img2.style.height = 115/100 * but2Height + "px";
+    img3.style.height = 120/100 * but3Height + "px";
+    img4.style.height = 137/100 * but4Height + "px";
 
-<div id="bloco_escolhe_jogador">
-    <div id="jogador_1">
-        <img src="">
-        <label>jogador genérico</label>
-        <label>equipe 1</label>
-        <button>Comprar</button>
-</div>`)
-HTMLs.set("HTML_bloco_escalacao_basquete", `
-<span class="simbolo" id="btn_voltar_escalacao" onclick="voltar('bloco_escalacao', 'bloco_escolha_do_esporte')"><</span>
-<button class="btn_escolhe_jogador simbolo" id="jogador1">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador2">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador3">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador4">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador5">+</button>
-<img src="static/quadra_basquete.png" id="quadra">
+    //alterando o margin-right dos icones conforme o necessário
+    img1.style.marginRight = img1Right + "px";
+    img2.style.marginRight = img2Right + "px";
+    img3.style.marginRight = img3Right + "px";
+    img4.style.marginRight = img4Right + "px";
 
-<div id="bloco_escolhe_jogador">
-    <div id="jogador_1">
-        <img src="">
-        <label>jogador genérico</label>
-        <label>equipe 1</label>
-        <button>Comprar</button>
-</div>`)
-HTMLs.set("HTML_bloco_escalacao_handebol", `
-<span class="simbolo" id="btn_voltar_escalacao" onclick="voltar('bloco_escalacao', 'bloco_escolha_do_esporte')"><</span>
-<button class="btn_escolhe_jogador simbolo" id="goleiro">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador1">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador2">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador3">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador4">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador5">+</button>
-<button class="btn_escolhe_jogador simbolo" id="jogador6">+</button>
-<img src="static/quadra_handebol.png" id="quadra">
+    //alterando o margin-bottom dos icones conforme o necessário
+    img1.style.marginBottom = 17 + "px";
+    img2.style.marginBottom = 27 + "px";
+    img3.style.marginBottom = 34 + "px";
+    img4.style.marginBottom = 57 + "px";
 
-<div id="bloco_escolhe_jogador">
-    <div id="jogador_1">
-        <img src="">
-        <label>jogador genérico</label>
-        <label>equipe 1</label>
-        <button>Comprar</button>
-</div>`)
-//variaveis escalacao
-
-function escalacao(esporte) {
-    HTML_escalacao = HTMLs.get("HTML_bloco_escalacao_"+esporte)
-
-    blocoEscolherEsporte.html("")
-    blocoEscalacao.append(HTML_escalacao)
+    setTimeout(loop,1)
 }
+//botando o loop pra funcionar a cada 1 segundo
+loop()
 
+//funções de mouseenter e mouseleave dos botões para as animações
+futMascBut.addEventListener("mouseenter", () => {
+    img1.style.opacity = "100%";
+    futMascBut.style.height = "25%";
+    futMascText.style.color = "#FBB834";
+    futMascText.style.fontSize = "18px";
+})
+futMascBut.addEventListener("mouseleave", () => {
+    img1.style.opacity = "0%";
+    futMascBut.style.height = "15%";
+    futMascText.style.color = "#0F3B5E";
+    futMascText.style.fontSize = "14px";
+})
+futFemBut.addEventListener("mouseenter", () => {
+    img2.style.opacity = "100%";
+    futFemBut.style.height = "25%";
+    futFemText.style.color = "#FBB834";
+    futFemText.style.fontSize = "18px";
+})
+futFemBut.addEventListener("mouseleave", () => {
+    futFemBut.style.height = "15%";
+    img2.style.opacity = "0%";
+    futFemText.style.color = "#0F3B5E";
+    futFemText.style.fontSize = "14px";
+})
+handBut.addEventListener("mouseenter", () => {
+    img3.style.opacity = "100%";
+    handBut.style.height = "25%";
+    handText.style.color = "#FBB834";
+    handText.style.fontSize = "18px";
+})
+handBut.addEventListener("mouseleave", () => {
+    img3.style.opacity = "0%";
+    handBut.style.height = "15%";
+    handText.style.color = "#0F3B5E";
+    handText.style.fontSize = "14px";
+})
+basketBut.addEventListener("mouseenter", () => {
+    img4.style.opacity = "100%";
+    basketBut.style.height = "25%";
+    basketText.style.color = "#FBB834";
+    basketText.style.fontSize = "18px";
+})
+basketBut.addEventListener("mouseleave", () => {
+    img4.style.opacity = "0%";
+    basketBut.style.height = "15%";
+    basketText.style.color = "#0F3B5E";
+    basketText.style.fontSize = "14px";
+})
 
-function voltar(blocoAtual, blocoDestino) {
-    $("#" + blocoAtual).html("")
-    $("#" + blocoDestino).append(HTMLs.get("HTML_" + blocoDestino))
-}
-
-function comprar_jogador(posição, id_posição)
+//funções de mouseup e mousedown dos botões para quando forem clicados ou soltos
+futMascBut.addEventListener("mousedown", () => {
+    futMascBut.style.boxShadow = "0 0 0 0 #0F3B5E";
+    futMascBut.style.transform = "translateY(13px) translateX(-13px)";
+})
+futMascBut.addEventListener("mouseup", () => {
+    futMascBut.style.boxShadow = "-13px 13px 0 0 #0F3B5E";
+    futMascBut.style.transform = "translateY(0px) translateX(0px)";
+})
+futFemBut.addEventListener("mousedown", () => {
+    futFemBut.style.boxShadow = "0 0 0 0 #0F3B5E";
+    futFemBut.style.transform = "translateY(13px) translateX(-13px)";
+})
+futFemBut.addEventListener("mouseup", () => {
+    futFemBut.style.boxShadow = "-13px 13px 0 0 #0F3B5E";
+    futFemBut.style.transform = "translateY(0px) translateX(0px)";
+})
+handBut.addEventListener("mousedown", () => {
+    handBut.style.boxShadow = "0 0 0 0 #0F3B5E";
+    handBut.style.transform = "translateY(13px) translateX(-13px)";
+})
+handBut.addEventListener("mouseup", () => {
+    handBut.style.boxShadow = "-13px 13px 0 0 #0F3B5E";
+    handBut.style.transform = "translateY(0px) translateX(0px)";
+})
+basketBut.addEventListener("mousedown", () => {
+    basketBut.style.boxShadow = "0 0 0 0 #0F3B5E";
+    basketBut.style.transform = "translateY(13px) translateX(-13px)";
+})
+basketBut.addEventListener("mouseup", () => {
+    basketBut.style.boxShadow = "-13px 13px 0 0 #0F3B5E";
+    basketBut.style.transform = "translateY(0px) translateX(0px)";
+})
