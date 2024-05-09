@@ -150,6 +150,7 @@ button{
         width:85%;
         margin-top: 50px;
         min-height: 57px;
+        min-width: 57px;
     }
     .profile{
         width: 90%;
