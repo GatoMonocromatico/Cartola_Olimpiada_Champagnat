@@ -135,6 +135,22 @@ button{
     opacity: 0%;
     transition: opacity 200ms transform 200ms;
 }
+.futMascBut:active{
+    box-shadow: 0px 0px 0px 0px #0F3B5E;
+    transform: translateY(13px) translateX(-13px);
+}
+.futFemBut:active{
+    box-shadow: 0px 0px 0px 0px #0F3B5E;
+    transform: translateY(13px) translateX(-13px);
+}
+.handBut:active{
+    box-shadow: 0px 0px 0px 0px #0F3B5E;
+    transform: translateY(13px) translateX(-13px);
+}
+.basketBut:active{
+    box-shadow: 0px 0px 0px 0px #0F3B5E;
+    transform: translateY(13px) translateX(-13px);
+}
 @media screen and (max-width: 980px) and (max-height: 1000px){
     .profile-picture{
         margin-left: 0;
