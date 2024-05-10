@@ -103,37 +103,3 @@ basketBut.addEventListener("mouseleave", () => {
     basketText.style.color = "#0F3B5E";
     basketText.style.fontSize = "14px";
 })
-
-//funções de mouseup e mousedown dos botões para quando forem clicados ou soltos
-futMascBut.addEventListener("mousedown", () => {
-    futMascBut.style.boxShadow = "0 0 0 0 #0F3B5E";
-    futMascBut.style.transform = "translateY(13px) translateX(-13px)";
-})
-futMascBut.addEventListener("mouseup", () => {
-    futMascBut.style.boxShadow = "-13px 13px 0 0 #0F3B5E";
-    futMascBut.style.transform = "translateY(0px) translateX(0px)";
-})
-futFemBut.addEventListener("mousedown", () => {
-    futFemBut.style.boxShadow = "0 0 0 0 #0F3B5E";
-    futFemBut.style.transform = "translateY(13px) translateX(-13px)";
-})
-futFemBut.addEventListener("mouseup", () => {
-    futFemBut.style.boxShadow = "-13px 13px 0 0 #0F3B5E";
-    futFemBut.style.transform = "translateY(0px) translateX(0px)";
-})
-handBut.addEventListener("mousedown", () => {
-    handBut.style.boxShadow = "0 0 0 0 #0F3B5E";
-    handBut.style.transform = "translateY(13px) translateX(-13px)";
-})
-handBut.addEventListener("mouseup", () => {
-    handBut.style.boxShadow = "-13px 13px 0 0 #0F3B5E";
-    handBut.style.transform = "translateY(0px) translateX(0px)";
-})
-basketBut.addEventListener("mousedown", () => {
-    basketBut.style.boxShadow = "0 0 0 0 #0F3B5E";
-    basketBut.style.transform = "translateY(13px) translateX(-13px)";
-})
-basketBut.addEventListener("mouseup", () => {
-    basketBut.style.boxShadow = "-13px 13px 0 0 #0F3B5E";
-    basketBut.style.transform = "translateY(0px) translateX(0px)";
-})
