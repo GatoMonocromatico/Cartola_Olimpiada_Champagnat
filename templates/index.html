@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
@@ -13,32 +16,378 @@
 <body>
     <div class="profile-bar">
         <div class="profile">
-            <img id="profile-picture" class="profile-picture" src="{{ url_for('static', filename='images/profilePicture.png') }}">
-            <a class="nome-so-de-bonito">Nome de usuário</a>
+            <img id="profile-picture" class="profile-picture"src="{{ url_for('static', filename='images/profilePicture.png') }}">
+            <span class="nome-so-de-bonito">Nome de usuário</span>
         </div>
         <span id="nome_usuario" class="nome-usuario">{{ nome_de_usuario }}</span>
         <i id="icon" class="fa fa-bars" ></i>
     </div>
-    <div class="repeat" ></div>
+    <div class="repeat" >
+    </div>
     <div class="container" id="container">
         <div class="buttons-collunm">
-            <button class="futMascBut" id="futMascBut">
-                <img src="{{ url_for('static', filename='images/futMasc.png') }}" id="futMascIcon">
+            <button class="futMascBut" id="futMascBut" onmouseenter="
+                const futMascBut = document.getElementById('futMascBut');
+                const futMascText = document.getElementById('futMascText');
+
+                futMascBut.style.height = '25%';
+                futMascText.style.color = '#FBB834';
+                futMascText.style.fontSize = '18px';
+                document.getElementById('dtl1').style.opacity = '100%';
+                document.getElementById('dtl1-2').style.opacity = '100%';
+                "
+                
+                onmouseleave="
+                const futMascBut = document.getElementById('futMascBut');
+                const futMascText = document.getElementById('futMascText');
+
+                futMascBut.style.height = '15%';
+                futMascText.style.color = '#0F3B5E';
+                futMascText.style.fontSize = '14px';
+                document.getElementById('dtl1').style.opacity = '0%';
+                document.getElementById('dtl1-2').style.opacity = '0%';
+                ">
+                <img class="btnDetail" id="dtl1" src="{{ url_for('static',filename='btnDetail.png')}}">
                 <a class="futMascText" id="futMascText">Futsal Masculino</a>
+                <img class="btnDetail2" id="dtl1-2" src="{{ url_for('static',filename='btnDetail.png')}}">
             </button>
-            <button class="futFemBut" id="futFemBut">
-                <img src="{{ url_for('static', filename='images/futFem.png') }}" id="futFemIcon">
+            <button class="futFemBut" id="futFemBut" onmouseenter="
+                const futFemBut = document.getElementById('futFemBut');
+                const futFemText = document.getElementById('futFemText');
+
+                futFemBut.style.height = '25%';
+                futFemText.style.color = '#FBB834';
+                futFemText.style.fontSize = '18px';
+                document.getElementById('dtl2').style.opacity = '100%';
+                document.getElementById('dtl2-2').style.opacity = '100%'
+
+            "
+            onmouseleave="
+                const futFemBut = document.getElementById('futFemBut');
+                const futFemText = document.getElementById('futFemText');
+
+                futFemBut.style.height = '15%';
+                futFemText.style.color = '#0F3B5E';
+                futFemText.style.fontSize = '14px';
+                document.getElementById('dtl2').style.opacity = '0%';
+                document.getElementById('dtl2-2').style.opacity = '0%';
+            "
+            >
+                <img class="btnDetail" id="dtl2" src="{{ url_for('static',filename='btnDetail.png')}}">
                 <a class="futFemText" id="futFemText" >Futsal Feminino</a>
+                <img class="btnDetail2" id="dtl2-2" src="{{ url_for('static',filename='btnDetail.png')}}">
             </button>
-            <button class="handBut" id="handBut">
-                <img src="{{ url_for('static', filename='images/hand.png') }}" id="handIcon">
+            <button class="handBut" id="handBut" onmouseenter="
+                const handBut = document.getElementById('handBut');
+                const handText = document.getElementById('handText');
+
+                handBut.style.height = '25%';
+                handText.style.color = '#FBB834';
+                handText.style.fontSize = '18px';
+                document.getElementById('dtl3').style.opacity = '100%';
+                document.getElementById('dtl3-2').style.opacity = '100%';
+            "
+            onmouseleave="
+                const handBut = document.getElementById('handBut');
+                const handText = document.getElementById('handText');
+
+                handBut.style.height = '15%';
+                handText.style.color = '#0F3B5E';
+                handText.style.fontSize = '14px';
+                document.getElementById('dtl3').style.opacity = '0%';
+                document.getElementById('dtl3-2').style.opacity = '0%';
+            "
+            >
+                <img class="btnDetail" id="dtl3" src="{{ url_for('static',filename='btnDetail.png')}}">
                 <a class="handText" id="handText">Handebol</a>
+                <img class="btnDetail2" id="dtl3-2" src="{{ url_for('static',filename='btnDetail.png')}}">
             </button>
-            <button class="basketBut" id="basketBut">
-                <img src="{{ url_for('static', filename='images/bask.png') }}" id="baskIcon">
+            <button class="basketBut" id="basketBut" onmouseenter="
+                const basketBut = document.getElementById('basketBut');
+                const basketText = document.getElementById('basketText');
+
+                basketBut.style.height = '25%';
+                basketText.style.color = '#FBB834';
+                basketText.style.fontSize = '18px';
+                document.getElementById('dtl4').style.opacity = '100%'; 
+                document.getElementById('dtl4-2').style.opacity = '100%'; 
+            "
+            onmouseleave="
+                const basketBut = document.getElementById('basketBut');
+                const basketText = document.getElementById('basketText');
+
+                basketBut.style.height = '15%';
+                basketText.style.color = '#0F3B5E';
+                basketText.style.fontSize = '14px';
+                document.getElementById('dtl4').style.opacity = '0%';
+                document.getElementById('dtl4-2').style.opacity = '0%';
+
+            "
+            >
+                <img class="btnDetail" id="dtl4" src="{{ url_for('static',filename='btnDetail.png')}}">
                 <a class="basketText" id="basketText">Basquete</a>
+                <img class="btnDetail2" id="dtl4-2" src="{{ url_for('static',filename='btnDetail.png')}}">
             </button>
-        </div>   
+        </div>
+        <!-- <div class="escalação_container" id="esc_container">
+            <i class="fa fa-arrow-left" id="icon2" ></i>
+            <div class="title">
+                <p class="esc_title1">
+                    escalação
+                </p>
+                <p id="esc_title2" class="esc_title2">
+                    Futsal Masculino
+                </p>
+            </div>
+            <div style="
+                width: 70px;
+                padding: 0;
+                border-radius: 13px;
+                background-color: whitesmoke;
+                box-shadow: 0 5px 0 0 #0F3B5E;
+                border: 1px solid #0F3B5E;
+                text-align: center;
+            ">
+            <p style="margin: 5px; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">9999</p>
+            </div>
+            <div class="escalações">
+                <img src="{{ url_for('static', filename='images/quadra.png') }}" id="quadra" class="escalações_img">
+                <button id="goleiroFutMasc">+</button>
+                <button id="posição1FutMasc">+</button>
+                <button id="posição2FutMasc">+</button>
+                <button id="posição3FutMasc">+</button>
+                <button id="posição4FutMasc">+</button>
+                <label id="goleiroFutMascText" >Goleiro</label>
+                <label id="posicao1FutMascText">Posição 1</label>
+                <label id="posicao2FutMascText">Posição 2</label>
+                <label id="posicao3FutMascText">Posição 3</label>
+                <label id="posicao4FutMascText">Posição 4</label>
+            </div>
+        </div> -->
+        <!-- <div class="escalação_container" id="esc_container">
+            <i class="fa fa-arrow-left" id="icon2" ></i>
+            <div class="title">
+                <p class="esc_title1">
+                    escalação
+                </p>
+                <p id="esc_title2" class="esc_title2">
+                    Futsal Feminino
+                </p>
+            </div>
+            <div style="
+                width: 70px;
+                padding: 0;
+                border-radius: 13px;
+                background-color: whitesmoke;
+                box-shadow: 0 5px 0 0 #0F3B5E;
+                border: 1px solid #0F3B5E;
+                text-align: center;
+            ">
+                <p style="margin: 5px; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">9999</p>
+            </div>
+            <div class="escalações">
+                <img src="{{ url_for('static', filename='images/quadra.png') }}" id="quadra" class="escalações_img">
+                <button id="goleiroFutFem">+</button>
+                <button id="posicao1FutFem">+</button>
+                <button id="posicao2FutFem">+</button>
+                <button id="posicao3FutFem">+</button>
+                <button id="posicao4FutFem">+</button>
+                <label id="goleiroFutFemText" >Goleira</label>
+                <label id="posicao1FutFemText">Posição 1</label>
+                <label id="posicao2FutFemText">Posição 2</label>
+                <label id="posicao3FutFemText">Posição 3</label>
+                <label id="posicao4FutFemText">Posição 4</label>
+            </div>
+        </div> -->
+        <!-- <div class="escalação_container" id="esc_container">
+            <i class="fa fa-arrow-left" id="icon2" ></i>
+            <div class="title">
+                <p class="esc_title1">
+                    escalação
+                </p>
+                <p id="esc_title2" class="esc_title2">
+                    Handebol
+                </p>   
+            </div>
+            <div style="
+                width: 70px;
+                padding: 0;
+                border-radius: 13px;
+                background-color: whitesmoke;
+                box-shadow: 0 5px 0 0 #0F3B5E;
+                border: 1px solid #0F3B5E;
+                text-align: center;
+            ">
+            <p style="margin: 5px; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">9999</p>
+            </div>
+            <div class="escalações">
+                <img src="{{ url_for('static', filename='images/quadra.png') }}" id="quadra" class="escalações_img">
+                <button id="goleiroHandebol">+</button>
+                <button id="posicao1Handebol">+</button>
+                <button id="posicao2Handebol">+</button>
+                <button id="posicao3Handebol">+</button>
+                <button id="posicao4Handebol">+</button>
+                <button id="posicao5Handebol">+</button>
+                <button id="posicao6Handebol">+</button>
+                <label id="goleiroHandebolText" >Goleiro</label>
+                <label id="posicao1HandebolText">Posição 1</label>
+                <label id="posicao2HandebolText">Posição 2</label>
+                <label id="posicao3HandebolText">Posição 3</label>
+                <label id="posicao4HandebolText">Posição 4</label>
+                <label id="posicao5HandebolText">Posição 5</label>
+                <label id="posicao6HandebolText">Posição 6</label>
+            </div>    
+        </div> -->
+        <!-- <div class="escalação_container" id="esc_container">
+            <i class="fa fa-arrow-left" id="icon2" ></i>
+            <div class="title">
+                <p class="esc_title1">
+                    escalação
+                </p>
+                <p id="esc_title2" class="esc_title2">
+                    Basquete
+                </p>
+            </div>
+            <div style="
+                width: 70px;
+                padding: 0;
+                border-radius: 13px;
+                background-color: whitesmoke;
+                box-shadow: 0 5px 0 0 #0F3B5E;
+                border: 1px solid #0F3B5E;
+                text-align: center;
+            ">
+            <p style="margin: 5px; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">9999</p>
+            </div>
+            <div class="escalações">
+                <img src="{{ url_for('static', filename='images/quadra.png') }}" id="quadra" class="escalações_img">
+                <button id="posicao1Basket">+</button>
+                <button id="posicao2Basket">+</button>
+                <button id="posicao3Basket">+</button>
+                <button id="posicao4Basket">+</button>
+                <button id="posicao5Basket">+</button>
+                <label id="posicao1BasketText">Posição 1</label>
+                <label id="posicao2BasketText">Posição 2</label>
+                <label id="posicao3BasketText">Posição 3</label>
+                <label id="posicao4BasketText">Posição 4</label>
+                <label id="posicao5BasketText">Posição 5</label>
+            </div>
+        </div> -->
+        <div class="popUp" id="popUp">
+            <i class="fa fa-arrow-left" id="icon3"></i>
+            <div class="players">
+                <div class="player">
+                    <img src="{{url_for('static',filename='images/profilePicture.png')}}"/>
+                    <div style="display:flex; flex-direction: column; width: 100%;">
+                        <div style="display: flex; flex-direction: column; margin-left: 20px; margin-bottom: 10px;">
+                            <p style="margin: 0; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">Nome</p>
+                            <p style="margin: 0; font-size: 10px;  color: #0F3B5E">Time</p>
+                        </div>
+                        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%">
+                            <div style="display: flex; flex-direction: row; margin-left: 20px;">
+                                <div style="display: flex; flex-direction: column; text-align: center; margin-right: 5px;">
+                                    <p style="margin: 0; font-size: 11px; color: #0F3B5E; font-family: 'Open Sans', sans-serif;">última</p>
+                                    <p style="margin: 0; color: #FBB834">99</p>
+                                </div>
+                                <div style="display: flex; flex-direction: column; text-align: center;">
+                                    <p style="margin: 0; font-size: 11px; color: #0F3B5E; font-family: 'Open Sans', sans-serif;">média</p>
+                                    <p style="margin: 0; color: #FBB834">99</p>
+                                </div>
+                            </div>
+                            <button>Selecionar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="player">
+                    <img src="{{url_for('static',filename='images/profilePicture.png')}}"/>
+                    <div style="display:flex; flex-direction: column; width: 100%;">
+                        <div style="display: flex; flex-direction: column; margin-left: 20px; margin-bottom: 10px;">
+                            <p style="margin: 0; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">Nome</p>
+                            <p style="margin: 0; font-size: 10px;  color: #0F3B5E">Time</p>
+                        </div>
+                        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%">
+                            <div style="display: flex; flex-direction: row; margin-left: 20px;">
+                                <div style="display: flex; flex-direction: column; text-align: center; margin-right: 5px;">
+                                    <p style="margin: 0; font-size: 11px; color: #0F3B5E; font-family: 'Open Sans', sans-serif;">última</p>
+                                    <p style="margin: 0; color: #FBB834">99</p>
+                                </div>
+                                <div style="display: flex; flex-direction: column; text-align: center;">
+                                    <p style="margin: 0; font-size: 11px; color: #0F3B5E; font-family: 'Open Sans', sans-serif;">média</p>
+                                    <p style="margin: 0; color: #FBB834">99</p>
+                                </div>
+                            </div>
+                            <button>Selecionar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="player">
+                    <img src="{{url_for('static',filename='images/profilePicture.png')}}"/>
+                    <div style="display:flex; flex-direction: column; width: 100%;">
+                        <div style="display: flex; flex-direction: column; margin-left: 20px; margin-bottom: 10px;">
+                            <p style="margin: 0; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">Nome</p>
+                            <p style="margin: 0; font-size: 10px;  color: #0F3B5E">Time</p>
+                        </div>
+                        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%">
+                            <div style="display: flex; flex-direction: row; margin-left: 20px;">
+                                <div style="display: flex; flex-direction: column; text-align: center; margin-right: 5px;">
+                                    <p style="margin: 0; font-size: 11px; color: #0F3B5E; font-family: 'Open Sans', sans-serif;">última</p>
+                                    <p style="margin: 0; color: #FBB834">99</p>
+                                </div>
+                                <div style="display: flex; flex-direction: column; text-align: center;">
+                                    <p style="margin: 0; font-size: 11px; color: #0F3B5E; font-family: 'Open Sans', sans-serif;">média</p>
+                                    <p style="margin: 0; color: #FBB834">99</p>
+                                </div>
+                            </div>
+                            <button>Selecionar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="player">
+                    <img src="{{url_for('static',filename='images/profilePicture.png')}}"/>
+                    <div style="display:flex; flex-direction: column; width: 100%;">
+                        <div style="display: flex; flex-direction: column; margin-left: 20px; margin-bottom: 10px;">
+                            <p style="margin: 0; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">Nome</p>
+                            <p style="margin: 0; font-size: 10px;  color: #0F3B5E">Time</p>
+                        </div>
+                        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%">
+                            <div style="display: flex; flex-direction: row; margin-left: 20px;">
+                                <div style="display: flex; flex-direction: column; text-align: center; margin-right: 5px;">
+                                    <p style="margin: 0; font-size: 11px; color: #0F3B5E; font-family: 'Open Sans', sans-serif;">última</p>
+                                    <p style="margin: 0; color: #FBB834">99</p>
+                                </div>
+                                <div style="display: flex; flex-direction: column; text-align: center;">
+                                    <p style="margin: 0; font-size: 11px; color: #0F3B5E; font-family: 'Open Sans', sans-serif;">média</p>
+                                    <p style="margin: 0; color: #FBB834">99</p>
+                                </div>
+                            </div>
+                            <button>Selecionar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="player">
+                    <img src="{{url_for('static',filename='images/profilePicture.png')}}"/>
+                    <div style="display:flex; flex-direction: column; width: 100%;">
+                        <div style="display: flex; flex-direction: column; margin-left: 20px; margin-bottom: 10px;">
+                            <p style="margin: 0; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">Nome</p>
+                            <p style="margin: 0; font-size: 10px;  color: #0F3B5E">Time</p>
+                        </div>
+                        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 100%">
+                            <div style="display: flex; flex-direction: row; margin-left: 20px;">
+                                <div style="display: flex; flex-direction: column; text-align: center; margin-right: 5px;">
+                                    <p style="margin: 0; font-size: 11px; color: #0F3B5E; font-family: 'Open Sans', sans-serif;">última</p>
+                                    <p style="margin: 0; color: #FBB834">99</p>
+                                </div>
+                                <div style="display: flex; flex-direction: column; text-align: center;">
+                                    <p style="margin: 0; font-size: 11px; color: #0F3B5E; font-family: 'Open Sans', sans-serif;">média</p>
+                                    <p style="margin: 0; color: #FBB834">99</p>
+                                </div>
+                            </div>
+                            <button>Selecionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
