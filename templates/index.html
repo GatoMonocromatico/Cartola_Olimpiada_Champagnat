@@ -14,13 +14,18 @@
     <title>Cartola Champagnat</title>
 </head>
 <body>
-    <div class="profile-bar">
-        <div class="profile">
-            <img id="profile-picture" class="profile-picture"src="{{ url_for('static', filename='images/profilePicture.png') }}">
-            <span class="nome-so-de-bonito">Nome de usuário</span>
+    <div class="profile-bar-container">    
+        <div class="profile-bar">
+            <div class="profile">
+                <img id="profile-picture" class="profile-picture"src="{{ url_for('static', filename='images/profilePicture.png') }}">
+                <span class="nome-so-de-bonito">Nome de usuário</span>
+            </div>
+            <span id="nome_usuario" class="nome-usuario">{{ nome_de_usuario }}</span>
+            <i id="icon" class="fa fa-bars" ></i>
         </div>
-        <span id="nome_usuario" class="nome-usuario">{{ nome_de_usuario }}</span>
-        <i id="icon" class="fa fa-bars" ></i>
+        <div class="placar">
+            <i class="fa fa-trophy" id="trophy"></i>
+        </div>
     </div>
     <div class="repeat" >
     </div>
