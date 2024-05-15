@@ -90,9 +90,10 @@ HTMLs.set("HTML_bloco_escalacao_futsal_masculino", `
     </p>
 </div>
 <div class="container_pontos_e_salvar">
-<div style="
+<span id="mercado_fechado"></span>
+<div class="pontos_escalacao" style="
     width: 70px;
-    padding: 2px;
+    padding: 0;
     border-radius: 13px;
     background-color: whitesmoke;
     box-shadow: 0 5px 0 0 #0F3B5E;
@@ -111,11 +112,11 @@ HTMLs.set("HTML_bloco_escalacao_futsal_masculino", `
     <button class="posição2FutMasc escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
     <button class="posição3FutMasc escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
     <button class="posição4FutMasc escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
-    <label class="goleiroFutMascText" >Goleiro</label>
-    <label class="posicao1FutMascText">Posição 1</label>
-    <label class="posicao2FutMascText">Posição 2</label>
-    <label class="posicao3FutMascText">Posição 3</label>
-    <label class="posicao4FutMascText">Posição 4</label>
+    <label class="goleiroFutMascText label_escolher_jogador" >Goleiro</label>
+    <label class="posicao1FutMascText label_escolher_jogador">Posição 1</label>
+    <label class="posicao2FutMascText label_escolher_jogador">Posição 2</label>
+    <label class="posicao3FutMascText label_escolher_jogador">Posição 3</label>
+    <label class="posicao4FutMascText label_escolher_jogador">Posição 4</label>
 </div>
 </div>`)
 
@@ -131,7 +132,8 @@ HTMLs.set("HTML_bloco_escalacao_futsal_feminino", `
     </p>
 </div>
 <div class="container_pontos_e_salvar">
-<div style="
+<span id="mercado_fechado"></span>
+<div class="pontos_escalacao" style="
     width: 70px;
     padding: 0;
     border-radius: 13px;
@@ -140,6 +142,7 @@ HTMLs.set("HTML_bloco_escalacao_futsal_feminino", `
     border: 1px solid #0F3B5E;
     text-align: center;
 ">
+<span style="margin: 5px; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">Pontos:</span>
 <p style="margin: 5px; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">PONTUACAONOESPORTEATUAL</p>
 </div>
 <button type="submit" id="btn_salvar" onclick="submit()">Salvar</button>
@@ -151,11 +154,11 @@ HTMLs.set("HTML_bloco_escalacao_futsal_feminino", `
     <button class="posicao2FutFem escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
     <button class="posicao3FutFem escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
     <button class="posicao4FutFem escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
-    <label class="goleiroFutFemText" >Goleira</label>
-    <label class="posicao1FutFemText">Posição 1</label>
-    <label class="posicao2FutFemText">Posição 2</label>
-    <label class="posicao3FutFemText">Posição 3</label>
-    <label class="posicao4FutFemText">Posição 4</label>
+    <label class="goleiroFutFemText label_escolher_jogador" >Goleira</label>
+    <label class="posicao1FutFemText label_escolher_jogador">Posição 1</label>
+    <label class="posicao2FutFemText label_escolher_jogador">Posição 2</label>
+    <label class="posicao3FutFemText label_escolher_jogador">Posição 3</label>
+    <label class="posicao4FutFemText label_escolher_jogador">Posição 4</label>
 </div>
 </div>`)
 
@@ -171,7 +174,8 @@ HTMLs.set("HTML_bloco_escalacao_basquete", `
     </p>
 </div>
 <div class="container_pontos_e_salvar">
-<div style="
+<span id="mercado_fechado"></span>
+<div class="pontos_escalacao" style="
     width: 70px;
     padding: 0;
     border-radius: 13px;
@@ -180,6 +184,7 @@ HTMLs.set("HTML_bloco_escalacao_basquete", `
     border: 1px solid #0F3B5E;
     text-align: center;
 ">
+<span style="margin: 5px; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">Pontos:</span>
 <p style="margin: 5px; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">PONTUACAONOESPORTEATUAL</p>
 </div>
 <button type="submit" id="btn_salvar" onclick="submit()">Salvar</button>
@@ -191,11 +196,11 @@ HTMLs.set("HTML_bloco_escalacao_basquete", `
     <button class="posicao3Basket escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
     <button class="posicao4Basket escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
     <button class="posicao5Basket escolher_jogador" id="jogador5" onclick="verJogadoresaVenda('jogador5')">+</button>
-    <label class="posicao1BasketText">Posição 1</label>
-    <label class="posicao2BasketText">Posição 2</label>
-    <label class="posicao3BasketText">Posição 3</label>
-    <label class="posicao4BasketText">Posição 4</label>
-    <label class="posicao5BasketText">Posição 5</label>
+    <label class="posicao1BasketText label_escolher_jogador">Posição 1</label>
+    <label class="posicao2BasketText label_escolher_jogador">Posição 2</label>
+    <label class="posicao3BasketText label_escolher_jogador">Posição 3</label>
+    <label class="posicao4BasketText label_escolher_jogador">Posição 4</label>
+    <label class="posicao5BasketText label_escolher_jogador">Posição 5</label>
 </div>`)
 
 HTMLs.set("HTML_bloco_escalacao_handebol", `
@@ -210,7 +215,8 @@ HTMLs.set("HTML_bloco_escalacao_handebol", `
     </p>
 </div>
 <div class="container_pontos_e_salvar">
-<div style="
+<span id="mercado_fechado"></span>
+<div class="pontos_escalacao" style="
     width: 70px;
     padding: 0;
     border-radius: 13px;
@@ -219,6 +225,7 @@ HTMLs.set("HTML_bloco_escalacao_handebol", `
     border: 1px solid #0F3B5E;
     text-align: center;
 ">
+<span style="margin: 5px; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">Pontos:</span>
 <p style="margin: 5px; font-family: 'Open Sans', sans-serif; color: #0F3B5E;">PONTUACAONOESPORTEATUAL</p>
 </div>
 <button type="submit" id="btn_salvar" onclick="submit()">Salvar</button>
@@ -232,13 +239,13 @@ HTMLs.set("HTML_bloco_escalacao_handebol", `
     <button class="posicao4Handebol escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
     <button class="posicao5Handebol escolher_jogador" id="jogador5" onclick="verJogadoresaVenda('jogador5')">+</button>
     <button class="posicao6Handebol escolher_jogador" id="jogador6" onclick="verJogadoresaVenda('jogador6')">+</button>
-    <label class="goleiroHandebolText" >Goleiro</label>
-    <label class="posicao1HandebolText">Posição 1</label>
-    <label class="posicao2HandebolText">Posição 2</label>
-    <label class="posicao3HandebolText">Posição 3</label>
-    <label class="posicao4HandebolText">Posição 4</label>
-    <label class="posicao5HandebolText">Posição 5</label>
-    <label class="posicao6HandebolText">Posição 6</label>
+    <label class="goleiroHandebolText label_escolher_jogador" >Goleiro</label>
+    <label class="posicao1HandebolText label_escolher_jogador">Posição 1</label>
+    <label class="posicao2HandebolText label_escolher_jogador">Posição 2</label>
+    <label class="posicao3HandebolText label_escolher_jogador">Posição 3</label>
+    <label class="posicao4HandebolText label_escolher_jogador">Posição 4</label>
+    <label class="posicao5HandebolText label_escolher_jogador">Posição 5</label>
+    <label class="posicao6HandebolText label_escolher_jogador">Posição 6</label>
 </div>
 </div>`)
 
@@ -292,13 +299,14 @@ const sleep = ms => new Promise(r => setTimeout(r, ms))
 
 async function escalacao(esporte) {
     esporteAtual = esporte
+    
     let escalao_atual_nome = "escalacao_" + esporte
     let escalao_atual = escalacoes.get(escalao_atual_nome)
 
     HTML_escalacao = HTMLs.get("HTML_bloco_escalacao_" + esporte)
     HTML_escalacao = HTML_escalacao.replace("PONTUACAONOESPORTEATUAL", escalacoes.get(escalao_atual_nome)["pontos"])
     
-    await sleep(100)
+    await sleep(150)
     blocoEscolherEsporte.css("opacity", "0%")
     await sleep(100)
     blocoEscolherEsporte.html("")
@@ -309,6 +317,30 @@ async function escalacao(esporte) {
     
     carregarJogadoresDoBD()
     carregarEscalacaoNoHTML(escalao_atual)
+
+    if (mercado_aberto[esporteAtual] == "False") {
+        $("#mercado_fechado").html("MERCADO FECHADO")
+        $(".escolher_jogador").prop("disabled", true)
+
+        $(".container_pontos_e_salvar").css("flex-direction", "column")
+        $(".container_pontos_e_salvar").css("justify-content", "center")
+        $("#btn_salvar").css("opacity", "0%")
+
+        $(".escolher_jogador").css("opacity", "70%")
+        $(".label_escolher_jogador").css("opacity", "70%")
+        $("#quadra").css("opacity", "70%")
+        $(".escolher_jogador").css("opacity", "70%")
+        $(".pontos_escalacao").css("opacity", "70%")
+        $(".esc_title2").css("opacity", "70%")
+
+    } else {
+        $("#mercado_fechado").remove()
+        $(".container_pontos_e_salvar").css("justify-content", "space-evenly")
+        $(".container_pontos_e_salvar").css("align-items", "stretch")
+        $(".container_pontos_e_salvar").css("flex-direction", "row")
+        $("#btn_salvar").css("opacity", "100%")
+        $(blocoEscalacao).css("opacity", "100%")
+    }
 }
 
 function carregarEscalacaoDoBancoDados() {
