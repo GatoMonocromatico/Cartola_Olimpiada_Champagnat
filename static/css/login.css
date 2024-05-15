@@ -234,24 +234,3 @@ label {
     z-index:1;
     text-shadow: #c16359 -2px 2px;
 }
-
-@media screen and (max-width: 720px) and (max-height: 1280px) {
-    .form {
-        height: 65%;
-        width: 90%;
-        min-width: 300px;
-        max-width: 500px;
-        min-height: 400px;
-        max-height: 500px;
-    }
-    .input{
-        height: 60px;
-        width: 400px;
-        font-size: 20px;
-        padding-left: 10px;
-    }
-    .sign-up{
-        height: 120px;
-        width: 400px;
-    }
-}
