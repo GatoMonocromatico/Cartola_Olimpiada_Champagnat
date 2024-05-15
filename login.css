@@ -235,7 +235,7 @@ label {
     text-shadow: #c16359 -2px 2px;
 }
 
-@media screen and (max-width: 480px){
+@media screen and (max-width: 720px){
     .form {
         height: 65%;
         width: 90%;
