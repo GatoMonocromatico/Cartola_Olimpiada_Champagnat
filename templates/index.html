@@ -23,7 +23,12 @@
         }
     });
 
-    const mercado_aberto = {{ mercado_aberto }}
+    const mercado_aberto = {
+    "futsal_masculino": '{{ mercado_aberto["futsal_masculino"] }}',
+    "futsal_feminino": '{{ mercado_aberto["futsal_feminino"] }}',
+    "basquete": '{{ mercado_aberto["basquete"] }}',
+    "handebol": '{{ mercado_aberto["handebol"] }}'
+    }
     </script>
 </head>
 <body>
