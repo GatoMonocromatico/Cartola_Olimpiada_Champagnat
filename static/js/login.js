@@ -23,6 +23,11 @@ const introdutorBtnTrocaSigninSignup = $("#introdutor_trocar_signin_signup")
 const inpLoginNomeAparente = $("#inp_nome_login_aparente")
 const inpLoginNomeForm = $("#inp_nome_login_form")
 
+const inpLoginEquipeAfricaForm = $("#radio_africa_form")
+const inpLoginEquipeAmericaForm = $("#radio_america_form")
+const inpLoginEquipeAsiaForm = $("#radio_asia_form")
+
+
 // função de loop
 function loop() {
     // pegando as larguras e alturas  
@@ -98,6 +103,7 @@ btnTrocaSigninSignup.on("click", function() {
   if (button_jq.attr("name") == "signin") {
       novoAttr = "signup"
       bloco_login_inputs.append('<input type="text" placeholder="Nome" class="input" id="inp_nome_login_aparente"/>')
+      bloco_login_inputs.append('<div id="radios_container"><div class="div_radio"><input type="radio" name="equipeAparente" id="radio_africa" value="africa" checked><label for="radio_africa">Equipe Africa</label></div><div class="div_radio"><input type="radio" name="equipeAparente" id="radio_america" value="america"><label for="radio_america">Equipe América</label></div><div class="div_radio"><input type="radio" name="equipeAparente" id="radio_asia" value="asia"><label for="radio_asia">Equipe Ásia</label></div></div>')
       button_jq.css("margin-top", "20px")
       introdutorBtnTrocaSigninSignup.html("Já possui uma conta?")
       btnTrocaSigninSignup.html("Sign in")
@@ -106,10 +112,10 @@ btnTrocaSigninSignup.on("click", function() {
   else {
       novoAttr = "signin"
       $("#inp_nome_login_aparente").remove()
+      $("#radios_container").remove()
       button_jq.css("margin-top", "70px")
       introdutorBtnTrocaSigninSignup.html("Não possui uma conta?")
       btnTrocaSigninSignup.html("Registrar")
-      button_jq.html('<b class="sign-up-text">Registrar</b>')
       button_jq.html('<b class="sign-up-text">Sign in</b>')
       inpLoginNomeForm.val("")
   }
@@ -117,11 +123,76 @@ btnTrocaSigninSignup.on("click", function() {
   button_jq.attr("name", novoAttr)
 })
 
-$("body").on("keyup", function() {
+$("#myform").on("submit", function(event) {
+  let acao, usuario, senha, nome, equipe
+  event.preventDefault();
+
   if (button_jq.attr("name") == "signup") {
     inpLoginNomeForm.val($("#inp_nome_login_aparente").val())
+
+    if ($("#radio_africa").is(":checked")) {
+      inpLoginEquipeAfricaForm.prop("checked", true)
+      equipe = "africa"
+    }
+    else if ($("#radio_america").is(":checked")) {
+      inpLoginEquipeAmericaForm.prop("checked", true)
+      equipe = "america"
+    }
+    else {
+      inpLoginEquipeAsiaForm.prop("checked", true)
+      equipe = "asia"
+    }
   }
   else {
     inpLoginNomeForm.val("None")
   }
-})
+  acao = button_jq.attr("name")
+  usuario = $("#matrícula").val()
+  senha = $("#password").val()
+  nome = $("#inp_nome_login_form").val()
+
+  dados = {
+    [acao]: true,
+    "usuario" : usuario,
+    "senha": senha,
+    "nome": nome,
+    "equipe": equipe
+  }
+
+  console.log(dados)
+
+  $.ajax({
+    url: "/login",
+    type: "POST",
+    data: dados,
+    contentType: "application/x-www-form-urlencoded",
+    success: function(data) {
+        status_login = data["login"]
+        if (status_login == 20000) {
+          $("#matrícula").val("None")
+          $("#password").val("None")
+          $("#inp_nome_login_form").val("None")
+          
+          window.location.replace("/")
+        }
+        else {
+          let erro
+          if (status_login == 40001) {
+            erro = "Você já possui uma conta"
+          }else if (status_login == 40002) {
+            erro = "Usuário inexistente"
+          }else if (status_login == 40010) {
+            erro = "Número de matrícula inválido"
+          }else if (status_login == 40020) {
+            erro = "Senha inválida"
+          }else if (status_login == 40030) {
+            erro = "Nome inválido"
+          }
+          $("#erro").html(erro)
+        }
+    },
+    error: function(e) {
+        console.log(e)
+    }
+  })}
+)

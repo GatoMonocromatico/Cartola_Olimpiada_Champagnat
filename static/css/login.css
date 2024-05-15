@@ -145,3 +145,83 @@ body{
     position:absolute;
     transition: transform 300ms;
 }
+
+/* Estilo para os inputs de rádio */
+input[type="radio"] {
+    appearance: none; /* Remove o estilo padrão do navegador */
+    -webkit-appearance: none; /* Para navegadores WebKit */
+    -moz-appearance: none; /* Para navegadores Firefox */
+    width: 20px; /* Largura do input */
+    height: 20px; /* Altura do input */
+    border-radius: 50%; /* Deixa o input como um círculo */
+    border: 2px solid #0F3B5E; /* Cor da borda */
+    background: transparent;
+    margin-right: 10px; /* Espaçamento à direita */
+}
+
+/* Estilo para os inputs de rádio quando estão selecionados */
+input[type="radio"]:checked {
+    background-color: #FBB834; /* Cor de fundo quando selecionado */
+    transition: 200ms;
+}
+
+.div_radio:active{
+    box-shadow: #0F3B5E 0px 0px 0px 0px;
+    transition: 200ms;
+    transform: translateY(6px) translateX(-6px);
+    z-index: 10;
+}
+
+/* Estilo para os labels dos inputs de rádio */
+label {
+    color: black; /* Cor do texto */
+    font-size: 14px; /* Tamanho da fonte */
+    font-family: Arial; /* Tipo de fonte */
+    cursor: pointer; /* Altera o cursor para indicar que é clicável */
+    width: 90%;
+    text-align: center;
+    font-weight: 400;
+    line-height: 20px;
+    user-select: none;
+}
+
+.div_radio {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: stretch;
+    padding: 4px 0;
+    border-right: 2px solid #0F3B5E;
+    border-left: 2px solid #0F3B5E;
+    box-shadow: #0F3B5E -6px 6px 0 0;
+    z-index: 5;
+    background: white;
+}
+
+.div_radio:first-of-type {
+    border-radius: 15px 15px 0 0;
+    border-top: 2px solid #0F3B5E;
+    z-index: 4;
+}
+
+.div_radio:last-of-type {
+    border-radius: 0 0 15px 15px;
+    border-bottom: 2px solid #0F3B5E;
+    z-index: 10;
+}
+
+#radios_container {
+    width: 70%;
+    border-radius: 15px;
+}
+
+#erro {
+    width: 100%;
+    text-align: center;
+    color: #ffc835;
+    font-family:arial;
+    font-weight: bold;
+    z-index:1;
+    text-shadow: #c16359 -2px 2px;
+}
