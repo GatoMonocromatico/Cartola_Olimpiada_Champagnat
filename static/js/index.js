@@ -267,9 +267,9 @@ HTMLs.set("bloco_escolhe_jogador_conteudo", `
 </div>`)
 
 HTMLs.set("bloco_escolhe_jogador", `
-<div class="popUp" id="bloco_escolhe_jogador">
+<div class="popUp" id="bloco_escolhe_jogador" style="opacity: 0%">
 <i class="fa fa-arrow-left simbolo icon3" id="btn_voltar_escolhe_jogador" onclick="fechar_escolhe_jogador()"></i>
-<div class="players" id="bloco_mostra_jogadores"></div>
+<div class="players" id="bloco_mostra_jogadores" style="opacity: 0%"></div>
 </div>`)
 
 
@@ -288,16 +288,24 @@ var dadosJogadoresDoEsporteAtual
 var proibido_voltar = false
 //variaveis escalacao
 
-function escalacao(esporte) {
+const sleep = ms => new Promise(r => setTimeout(r, ms))
+
+async function escalacao(esporte) {
     esporteAtual = esporte
     let escalao_atual_nome = "escalacao_" + esporte
     let escalao_atual = escalacoes.get(escalao_atual_nome)
 
     HTML_escalacao = HTMLs.get("HTML_bloco_escalacao_" + esporte)
     HTML_escalacao = HTML_escalacao.replace("PONTUACAONOESPORTEATUAL", escalacoes.get(escalao_atual_nome)["pontos"])
-
+    
+    await sleep(100)
+    blocoEscolherEsporte.css("opacity", "0%")
+    await sleep(100)
     blocoEscolherEsporte.html("")
+
+    blocoEscalacao.css("opacity", "0%")
     blocoEscalacao.append(HTML_escalacao)
+    blocoEscalacao.css("opacity", "100%")
     
     carregarJogadoresDoBD()
     carregarEscalacaoNoHTML(escalao_atual)
@@ -335,10 +343,15 @@ function carregarEscalacaoNoHTML(escalacao) {
     
 }
 
-function voltar(blocoAtual, blocoDestino) {
+async function voltar(blocoAtual, blocoDestino) {
     if (!proibido_voltar) {
+        $("#" + blocoAtual).css("opacity", "0%")
+        await sleep(100)
         $("#" + blocoAtual).html("")
+
+        $("#" + blocoDestino).css("opacity", "0%")
         $("#" + blocoDestino).append(HTMLs.get("HTML_" + blocoDestino))
+        $("#" + blocoDestino).css("opacity", "100%")
     }
 }
 
@@ -353,7 +366,7 @@ function carregarJogadoresDoBD() {
         data: JSON.stringify({"esporte": esporteAtual}),
         contentType: "application/json",
         success: function(data) {
-            console.log(data)
+            console.log(data, "dados")
             dadosJogadoresDoEsporteAtual = data
             $(".btn_escolhe_jogador").prop("disabled", false)
         },
@@ -363,7 +376,7 @@ function carregarJogadoresDoBD() {
     })
 }
 
-function colocaJogadoresNoHTML(idPosição, posicao) {
+async function colocaJogadoresNoHTML(idPosição, posicao) {
     let HTML_escolhe_jogador_conteudo = HTMLs.get("bloco_escolhe_jogador_conteudo")    
 
     let conteudo = ""
@@ -414,6 +427,10 @@ function colocaJogadoresNoHTML(idPosição, posicao) {
         conteudo += conteudoJogador
     }
     $("#bloco_mostra_jogadores").append(conteudo)
+    await sleep(1)
+    $(blocoEscolheJogador).css("opacity", "100%")
+    $("#bloco_mostra_jogadores").css("opacity", "100%")
+
 }
 
 function verJogadoresaVenda(idPosição) {
@@ -446,7 +463,9 @@ function escolher_jogador(idPosição, imagemJogador, idJogador) {
     fechar_escolhe_jogador()
 }
 
-function fechar_escolhe_jogador() {
+async function fechar_escolhe_jogador() {
+    $("#bloco_escolhe_jogador").css("opacity", "0%")
+    await sleep(1000)
     $("#bloco_escolhe_jogador").remove("")
 }
 
