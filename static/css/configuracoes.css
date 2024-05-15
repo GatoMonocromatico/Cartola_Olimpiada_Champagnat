@@ -323,3 +323,9 @@ p{
     text-align: center;
     font-size: 10px;
 }
+
+@media screen and (max-width: 600px) {
+    #matricula_e_credito {
+        font-size: 8px;
+    }
+}
