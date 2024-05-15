@@ -531,6 +531,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    align-items: center;
     width: 50vw;
 }
 
@@ -554,4 +555,18 @@ body{
 
 #bloco_mostra_jogadores {
     transition: 100ms;
+}
+
+#mercado_fechado {
+    font-size: 27px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    background: linear-gradient(#ffea00, #ffc835);
+    padding: 12px;
+    border-radius: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0px 8px #0f3b5e;
 }
