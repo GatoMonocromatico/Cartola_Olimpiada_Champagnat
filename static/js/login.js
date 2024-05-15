@@ -10,7 +10,6 @@ const detail4 = document.getElementById('detail4');
 
 const matriculaInput = document.getElementById('matrícula');
 const passwordInput = document.getElementById('password');
-const eye = document.getElementById('eye-icon');
 
 const button = document.getElementById('button');
 const goToRegister = document.getElementById('goToRegister');
@@ -30,78 +29,85 @@ const inpLoginEquipeAsiaForm = $("#radio_asia_form")
 
 // função de loop
 function loop() {
-    // pegando as larguras e alturas  
-    var formWidth = form.offsetWidth
-    var formHeight = form.offsetHeight 
-    var bodyWidth = body.offsetWidth
-    var passwordInputWidth = passwordInput.offsetWidth
-    var inputColunmHeight = inputColunm.offsetHeight
+  const eye = document.getElementById('eye-icon');
 
-    // calculando os valores do posicionamento animado dos elementos
-    var iconTopValue = 245.5 + ((formHeight - inputColunmHeight) / 2)
-    var iconRigthValue = (bodyWidth - passwordInputWidth) / 2 + 15
-    var detail1RightValue = ((bodyWidth - formWidth) / 2) - 16
-    var detail2TopValue = 100 + formHeight
-    var detail2LeftValue = (bodyWidth - formWidth) / 2 - 27
-    var detail3rightValue = ((bodyWidth - formWidth) / 2) - 32.5
-    var detail4LeftValue = ((bodyWidth - formWidth) / 2) - 32.5
+  // pegando as larguras e alturas  
+  var formWidth = form.offsetWidth
+  var formHeight = form.offsetHeight 
+  var bodyWidth = body.offsetWidth
+  var passwordInputWidth = passwordInput.offsetWidth
+  var inputColunmHeight = inputColunm.offsetHeight
 
-    //setando a posição dos elementos
-    detail1.style.right = detail1RightValue + 'px';
-    detail2.style.top = detail2TopValue + 'px';
-    detail2.style.left = detail2LeftValue + 'px';
-    detail3.style.right =  detail3rightValue+ 'px';
-    detail4.style.left = detail4LeftValue + 'px';
+  // calculando os valores do posicionamento animado dos elementos
+  var iconTopValue = 245.5 + ((formHeight - inputColunmHeight) / 2)
+  var iconRigthValue = (bodyWidth - passwordInputWidth) / 2 + 15
+  var detail1RightValue = ((bodyWidth - formWidth) / 2) - 16
+  var detail2TopValue = 100 + formHeight
+  var detail2LeftValue = (bodyWidth - formWidth) / 2 - 27
+  var detail3rightValue = ((bodyWidth - formWidth) / 2) - 32.5
+  var detail4LeftValue = ((bodyWidth - formWidth) / 2) - 32.5
+
+  //setando a posição dos elementos
+  detail1.style.right = detail1RightValue + 'px';
+  detail2.style.top = detail2TopValue + 'px';
+  detail2.style.left = detail2LeftValue + 'px';
+  detail3.style.right =  detail3rightValue+ 'px';
+  detail4.style.left = detail4LeftValue + 'px';
+
+  if (eye) {
     eye.style.right = iconRigthValue + 'px';
     eye.style.top = iconTopValue + 'px';
-    console.log("rodou")
-
-    setTimeout(loop, 50);
   }
+  
+  console.log("rodou")
+
+  setTimeout(loop, 50);
+}
   
 // Inicia o loop
 loop();
 
 //eventListeners:
   //o botão do olho foi clicado?
-  eye.addEventListener('click', function() {
-    if (eye.className == 'fas fa-eye') {
-      passwordInput.type = 'password';
-      eye.className = 'fas fa-eye-slash';
+function eyeClicado () {
+  if (eye.className == 'fas fa-eye') {
+    passwordInput.type = 'password';
+    eye.className = 'fas fa-eye-slash';
+  }
+  else{
+    passwordInput.type = "text"
+    eye.className = 'fas fa-eye';
+  }
+};
+//animação do botão do olho
+passwordInput.addEventListener('mousedown', function() {
+  eye.style.transform = "translateY(6px) translateX(-6px)";
+})
+passwordInput.addEventListener('mouseup', function() {
+  eye.style.transform = "translateY(0px) translateX(0px)";
+})
+// botão de registrar foi clicado?
+button.addEventListener('click', function() {
+  if ( matriculaInput.value == "" || passwordInput.value == "") {
+    matriculaInput.style.borderColor = "#0F3B5E";
+    passwordInput.style.borderColor = "#0F3B5E";
+    if (matriculaInput.value == "") {
+      matriculaInput.style.borderColor = "#ff0000";
     }
-    else{
-      passwordInput.type = "text"
-      eye.className = 'fas fa-eye';
+    if (passwordInput.value == "") {
+      passwordInput.style.borderColor = "#ff0000";
     }
-  });
-  //animação do botão do olho
-  passwordInput.addEventListener('mousedown', function() {
-    eye.style.transform = "translateY(6px) translateX(-6px)";
-  })
-  passwordInput.addEventListener('mouseup', function() {
-    eye.style.transform = "translateY(0px) translateX(0px)";
-  })
-  // botão de registrar foi clicado?
-  button.addEventListener('click', function() {
-    if ( matriculaInput.value == "" || passwordInput.value == "") {
-      matriculaInput.style.borderColor = "#0F3B5E";
-      passwordInput.style.borderColor = "#0F3B5E";
-      if (matriculaInput.value == "") {
-        matriculaInput.style.borderColor = "#ff0000";
-      }
-      if (passwordInput.value == "") {
-        passwordInput.style.borderColor = "#ff0000";
-      }
-    }else{
-      matriculaInput.style.borderColor = "#0F3B5E";
-      passwordInput.style.borderColor = "#0F3B5E";
-    }
-  })
+  }else{
+    matriculaInput.style.borderColor = "#0F3B5E";
+    passwordInput.style.borderColor = "#0F3B5E";
+  }
+})
 
 btnTrocaSigninSignup.on("click", function() {
   let novoAttr = ""
   if (button_jq.attr("name") == "signin") {
       novoAttr = "signup"
+      bloco_login_inputs.append('<i id="eye-icon" class="fas fa-eye-slash" style="z-index: 2" onclick="eyeClicado()"></i>')
       bloco_login_inputs.append('<input type="text" placeholder="Nome" class="input" id="inp_nome_login_aparente"/>')
       bloco_login_inputs.append('<div id="radios_container"><div class="div_radio"><input type="radio" name="equipeAparente" id="radio_africa" value="africa" checked><label for="radio_africa">Equipe Africa</label></div><div class="div_radio"><input type="radio" name="equipeAparente" id="radio_america" value="america"><label for="radio_america">Equipe América</label></div><div class="div_radio"><input type="radio" name="equipeAparente" id="radio_asia" value="asia"><label for="radio_asia">Equipe Ásia</label></div></div>')
       button_jq.css("margin-top", "20px")
@@ -111,6 +117,7 @@ btnTrocaSigninSignup.on("click", function() {
   }
   else {
       novoAttr = "signin"
+      $("#eye-icon").remove()
       $("#inp_nome_login_aparente").remove()
       $("#radios_container").remove()
       button_jq.css("margin-top", "70px")
