@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ADM.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='logo1.png') }}">
+    <script src="{{ url_for('static', filename='js/ADM.js') }}" defer></script>
+    <meta charset="UTF-8">
+    <title>ADM</title>
+</head>
+<body>
+<form action="{{ url_for('ADM', chave_secreta_fornecida=chave_secreta) }}" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.futsalM(class="normal-content") }}
+    {{ form.futsalF(class="normal-content") }}
+    {{ form.basquete(class="normal-content") }}
+    {{ form.handebol(class="normal-content") }}
+    <div id="container_table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Esporte</th>
+                    <th class="border_off_top">Estado do Mercado</th>
+                    <th>Trocar Estado</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th class="border_off_left">Futsal Masculino</th>
+                    <td class="border">{{ mercado_atual["futsal_masculino"] }}</td>
+                    <td class="border_off_right">{{ form.alterar_mercado_futsalM(class="fit-content") }}</td>
+                </tr>
+                <tr>
+                    <th class="border_off_left">Futsal Feminino</th>
+                    <td class="border">{{ mercado_atual["futsal_feminino"] }}</td>
+                    <td class="border_off_right">{{ form.alterar_mercado_futsalF(class="fit-content") }}</td>
+                </tr>
+                <tr>
+                    <th class="border_off_left">Basquete</th>
+                    <td class="border">{{ mercado_atual["basquete"] }}</td>
+                    <td class="border_off_right">{{ form.alterar_mercado_basquete(class="fit-content") }}</td>
+                </tr>
+                <tr>
+                    <th>Handebol</th>
+                    <td class="border_off_bottom">{{ mercado_atual["handebol"] }}</td>
+                    <td>{{ form.alterar_mercado_handebol(class="fit-content") }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+</body>
+</html>

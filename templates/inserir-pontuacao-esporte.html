@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/inserir-pontuacao-esporte.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='logo1.png') }}">
+    <script src="{{ url_for('static', filename='js/inserir-pontuacao-esporte.js') }}" defer></script>
+    <meta charset="UTF-8">
+    <title>ADM {{ esporte }}</title>
+</head>
+<body>
+<form action="{{ url_for('inserir_pontuacao_esporte', esporte='esporte', chave_secreta_fornecida=chave_secreta_fornecida) }}">
+    {{ form.hidden_tag() }}
+    {% if "futsal" in esporte %}
+        <div class="container">
+        {{ form.goleiro1.label }}
+        {{ form.goleiro1() }}
+        <div class="container_input">
+            {{ form.gols_goleiro1.label }}
+            {{ form.gols_goleiro1() }}
+        </div>
+        <div class="container_input">
+            {{ form.defesas_goleiro1.label }}
+            {{ form.defesas_goleiro1() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_goleiro1.label }}
+            {{ form.amarelos_goleiro1() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_goleiro1.label }}
+            {{ form.vermelho_goleiro1() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_goleiro1.label }}
+            {{ form.faltas_goleiro1() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_goleiro1.label }}
+            {{ form.assistencias_goleiro1() }}
+        </div>
+        </div>
+        <div class="container">
+
+        {{ form.jogador1.label }}
+        {{ form.jogador1() }}
+        <div class="container_input">
+            {{ form.gols_jogador1.label }}
+            {{ form.gols_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador1.label }}
+            {{ form.amarelos_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador1.label }}
+            {{ form.vermelho_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador1.label }}
+            {{ form.faltas_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador1.label }}
+            {{ form.assistencias_jogador1() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador2.label }}
+        {{ form.jogador2() }}
+        <div class="container_input">
+            {{ form.gols_jogador2.label }}
+            {{ form.gols_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador2.label }}
+            {{ form.amarelos_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador2.label }}
+            {{ form.vermelho_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador2.label }}
+            {{ form.faltas_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador2.label }}
+            {{ form.assistencias_jogador2() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador3.label }}
+        {{ form.jogador3() }}
+        <div class="container_input">
+            {{ form.gols_jogador3.label }}
+            {{ form.gols_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador3.label }}
+            {{ form.amarelos_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador3.label }}
+            {{ form.vermelho_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador3.label }}
+            {{ form.faltas_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador3.label }}
+            {{ form.assistencias_jogador3() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador4.label }}
+        {{ form.jogador4() }}
+        <div class="container_input">
+            {{ form.gols_jogador4.label }}
+            {{ form.gols_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador4.label }}
+            {{ form.amarelos_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador4.label }}
+            {{ form.vermelho_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador4.label }}
+            {{ form.faltas_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador4.label }}
+            {{ form.assistencias_jogador4() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.goleiro2.label }}
+        {{ form.goleiro2() }}
+        <div class="container_input">
+            {{ form.gols_goleiro2.label }}
+            {{ form.gols_goleiro2() }}
+        </div>
+        <div class="container_input">
+            {{ form.defesas_goleiro2.label }}
+            {{ form.defesas_goleiro2() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_goleiro2.label }}
+            {{ form.amarelos_goleiro2() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_goleiro2.label }}
+            {{ form.vermelho_goleiro2() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_goleiro2.label }}
+            {{ form.faltas_goleiro2() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_goleiro2.label }}
+            {{ form.assistencias_goleiro2() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador5.label }}
+        {{ form.jogador5() }}
+        <div class="container_input">
+            {{ form.gols_jogador5.label }}
+            {{ form.gols_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador5.label }}
+            {{ form.amarelos_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador5.label }}
+            {{ form.vermelho_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador5.label }}
+            {{ form.faltas_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador5.label }}
+            {{ form.assistencias_jogador5() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador6.label }}
+        {{ form.jogador6() }}
+        <div class="container_input">
+            {{ form.gols_jogador6.label }}
+            {{ form.gols_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador6.label }}
+            {{ form.amarelos_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador6.label }}
+            {{ form.vermelho_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador6.label }}
+            {{ form.faltas_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador6.label }}
+            {{ form.assistencias_jogador6() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador7.label }}
+        {{ form.jogador7() }}
+        <div class="container_input">
+            {{ form.gols_jogador7.label }}
+            {{ form.gols_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador7.label }}
+            {{ form.amarelos_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador7.label }}
+            {{ form.vermelho_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador7.label }}
+            {{ form.faltas_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador7.label }}
+            {{ form.assistencias_jogador7() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador8.label }}
+        {{ form.jogador8() }}
+        <div class="container_input">
+            {{ form.gols_jogador8.label }}
+            {{ form.gols_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador8.label }}
+            {{ form.amarelos_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador8.label }}
+            {{ form.vermelho_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador8.label }}
+            {{ form.faltas_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador8.label }}
+            {{ form.assistencias_jogador8() }}
+        </div>
+        </div>
+    {% elif esporte == "handebol" %}
+        <div class="container">
+        {{ form.goleiro1.label }}
+        {{ form.goleiro1() }}
+        <div class="container_input">
+            {{ form.gols_goleiro1.label }}
+            {{ form.gols_goleiro1() }}
+        </div>
+        <div class="container_input">
+            {{ form.defesas_goleiro1.label }}
+            {{ form.defesas_goleiro1() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_goleiro1.label }}
+            {{ form.amarelos_goleiro1() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_goleiro1.label }}
+            {{ form.vermelho_goleiro1() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_goleiro1.label }}
+            {{ form.faltas_goleiro1() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_goleiro1.label }}
+            {{ form.assistencias_goleiro1() }}
+        </div>
+        </div>
+        <div class="container">
+
+        {{ form.jogador1.label }}
+        {{ form.jogador1() }}
+        <div class="container_input">
+            {{ form.gols_jogador1.label }}
+            {{ form.gols_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador1.label }}
+            {{ form.amarelos_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador1.label }}
+            {{ form.vermelho_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador1.label }}
+            {{ form.faltas_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador1.label }}
+            {{ form.assistencias_jogador1() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador2.label }}
+        {{ form.jogador2() }}
+        <div class="container_input">
+            {{ form.gols_jogador2.label }}
+            {{ form.gols_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador2.label }}
+            {{ form.amarelos_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador2.label }}
+            {{ form.vermelho_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador2.label }}
+            {{ form.faltas_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador2.label }}
+            {{ form.assistencias_jogador2() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador3.label }}
+        {{ form.jogador3() }}
+        <div class="container_input">
+            {{ form.gols_jogador3.label }}
+            {{ form.gols_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador3.label }}
+            {{ form.amarelos_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador3.label }}
+            {{ form.vermelho_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador3.label }}
+            {{ form.faltas_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador3.label }}
+            {{ form.assistencias_jogador3() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador4.label }}
+        {{ form.jogador4() }}
+        <div class="container_input">
+            {{ form.gols_jogador4.label }}
+            {{ form.gols_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador4.label }}
+            {{ form.amarelos_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador4.label }}
+            {{ form.vermelho_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador4.label }}
+            {{ form.faltas_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador4.label }}
+            {{ form.assistencias_jogador4() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.goleiro2.label }}
+        {{ form.goleiro2() }}
+        <div class="container_input">
+            {{ form.gols_goleiro2.label }}
+            {{ form.gols_goleiro2() }}
+        </div>
+        <div class="container_input">
+            {{ form.defesas_goleiro2.label }}
+            {{ form.defesas_goleiro2() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_goleiro2.label }}
+            {{ form.amarelos_goleiro2() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_goleiro2.label }}
+            {{ form.vermelho_goleiro2() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_goleiro2.label }}
+            {{ form.faltas_goleiro2() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_goleiro2.label }}
+            {{ form.assistencias_goleiro2() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador5.label }}
+        {{ form.jogador5() }}
+        <div class="container_input">
+            {{ form.gols_jogador5.label }}
+            {{ form.gols_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador5.label }}
+            {{ form.amarelos_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador5.label }}
+            {{ form.vermelho_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador5.label }}
+            {{ form.faltas_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador5.label }}
+            {{ form.assistencias_jogador5() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador6.label }}
+        {{ form.jogador6() }}
+        <div class="container_input">
+            {{ form.gols_jogador6.label }}
+            {{ form.gols_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador6.label }}
+            {{ form.amarelos_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador6.label }}
+            {{ form.vermelho_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador6.label }}
+            {{ form.faltas_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador6.label }}
+            {{ form.assistencias_jogador6() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador7.label }}
+        {{ form.jogador7() }}
+        <div class="container_input">
+            {{ form.gols_jogador7.label }}
+            {{ form.gols_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador7.label }}
+            {{ form.amarelos_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador7.label }}
+            {{ form.vermelho_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador7.label }}
+            {{ form.faltas_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador7.label }}
+            {{ form.assistencias_jogador7() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador8.label }}
+        {{ form.jogador8() }}
+        <div class="container_input">
+            {{ form.gols_jogador8.label }}
+            {{ form.gols_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador8.label }}
+            {{ form.amarelos_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador8.label }}
+            {{ form.vermelho_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador8.label }}
+            {{ form.faltas_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador8.label }}
+            {{ form.assistencias_jogador8() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador9.label }}
+        {{ form.jogador9() }}
+        <div class="container_input">
+            {{ form.gols_jogador9.label }}
+            {{ form.gols_jogador9() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador9.label }}
+            {{ form.amarelos_jogador9() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador9.label }}
+            {{ form.vermelho_jogador9() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador9.label }}
+            {{ form.faltas_jogador9() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador9.label }}
+            {{ form.assistencias_jogador9() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador10.label }}
+        {{ form.jogador10() }}
+        <div class="container_input">
+            {{ form.gols_jogador10.label }}
+            {{ form.gols_jogador10() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador10.label }}
+            {{ form.amarelos_jogador10() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador10.label }}
+            {{ form.vermelho_jogador10() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador10.label }}
+            {{ form.faltas_jogador10() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador10.label }}
+            {{ form.assistencias_jogador10() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador11.label }}
+        {{ form.jogador11() }}
+        <div class="container_input">
+            {{ form.gols_jogador11.label }}
+            {{ form.gols_jogador11() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador11.label }}
+            {{ form.amarelos_jogador11() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador11.label }}
+            {{ form.vermelho_jogador11() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador11.label }}
+            {{ form.faltas_jogador11() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador11.label }}
+            {{ form.assistencias_jogador11() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador12.label }}
+        {{ form.jogador12() }}
+        <div class="container_input">
+            {{ form.gols_jogador12.label }}
+            {{ form.gols_jogador12() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador12.label }}
+            {{ form.amarelos_jogador12() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador12.label }}
+            {{ form.vermelho_jogador12() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador12.label }}
+            {{ form.faltas_jogador12() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador12.label }}
+            {{ form.assistencias_jogador12() }}
+        </div>
+        </div>
+    {% elif esporte == "basquete" %}
+        <div class="container">
+        {{ form.jogador1.label }}
+        {{ form.jogador1() }}
+        <div class="container_input">
+            {{ form.pontos_jogador1.label }}
+            {{ form.pontos_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador1.label }}
+            {{ form.amarelos_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador1.label }}
+            {{ form.vermelho_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador1.label }}
+            {{ form.faltas_jogador1() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador1.label }}
+            {{ form.assistencias_jogador1() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador2.label }}
+        {{ form.jogador2() }}
+        <div class="container_input">
+            {{ form.pontos_jogador2.label }}
+            {{ form.pontos_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador2.label }}
+            {{ form.amarelos_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador2.label }}
+            {{ form.vermelho_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador2.label }}
+            {{ form.faltas_jogador2() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador2.label }}
+            {{ form.assistencias_jogador2() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador3.label }}
+        {{ form.jogador3() }}
+        <div class="container_input">
+            {{ form.pontos_jogador3.label }}
+            {{ form.pontos_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador3.label }}
+            {{ form.amarelos_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador3.label }}
+            {{ form.vermelho_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador3.label }}
+            {{ form.faltas_jogador3() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador3.label }}
+            {{ form.assistencias_jogador3() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador4.label }}
+        {{ form.jogador4() }}
+        <div class="container_input">
+            {{ form.pontos_jogador4.label }}
+            {{ form.pontos_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador4.label }}
+            {{ form.amarelos_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador4.label }}
+            {{ form.vermelho_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador4.label }}
+            {{ form.faltas_jogador4() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador4.label }}
+            {{ form.assistencias_jogador4() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador5.label }}
+        {{ form.jogador5() }}
+        <div class="container_input">
+            {{ form.pontos_jogador5.label }}
+            {{ form.pontos_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador5.label }}
+            {{ form.amarelos_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador5.label }}
+            {{ form.vermelho_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador5.label }}
+            {{ form.faltas_jogador5() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador5.label }}
+            {{ form.assistencias_jogador5() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador6.label }}
+        {{ form.jogador6() }}
+        <div class="container_input">
+            {{ form.pontos_jogador6.label }}
+            {{ form.pontos_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador6.label }}
+            {{ form.amarelos_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador6.label }}
+            {{ form.vermelho_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador6.label }}
+            {{ form.faltas_jogador6() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador6.label }}
+            {{ form.assistencias_jogador6() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador7.label }}
+        {{ form.jogador7() }}
+        <div class="container_input">
+            {{ form.pontos_jogador7.label }}
+            {{ form.pontos_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador7.label }}
+            {{ form.amarelos_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador7.label }}
+            {{ form.vermelho_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador7.label }}
+            {{ form.faltas_jogador7() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador7.label }}
+            {{ form.assistencias_jogador7() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador8.label }}
+        {{ form.jogador8() }}
+        <div class="container_input">
+            {{ form.pontos_jogador8.label }}
+            {{ form.pontos_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador8.label }}
+            {{ form.amarelos_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador8.label }}
+            {{ form.vermelho_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador8.label }}
+            {{ form.faltas_jogador8() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador8.label }}
+            {{ form.assistencias_jogador8() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador9.label }}
+        {{ form.jogador9() }}
+        <div class="container_input">
+            {{ form.pontos_jogador9.label }}
+            {{ form.pontos_jogador9() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador9.label }}
+            {{ form.amarelos_jogador9() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador9.label }}
+            {{ form.vermelho_jogador9() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador9.label }}
+            {{ form.faltas_jogador9() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador9.label }}
+            {{ form.assistencias_jogador9() }}
+        </div>
+        </div>
+        <div class="container">
+        {{ form.jogador10.label }}
+        {{ form.jogador10() }}
+        <div class="container_input">
+            {{ form.pontos_jogador10.label }}
+            {{ form.pontos_jogador10() }}
+        </div>
+        <div class="container_input">
+            {{ form.amarelos_jogador10.label }}
+            {{ form.amarelos_jogador10() }}
+        </div>
+        <div class="container_input">
+            {{ form.vermelho_jogador10.label }}
+            {{ form.vermelho_jogador10() }}
+        </div>
+        <div class="container_input">
+            {{ form.faltas_jogador10.label }}
+            {{ form.faltas_jogador10() }}
+        </div>
+        <div class="container_input">
+            {{ form.assistencias_jogador10.label }}
+            {{ form.assistencias_jogador10() }}
+        </div>
+        </div>
+    {% endif %}
+    {{ form.submit() }}
+</form>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ADM-autorizar.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='logo1.png') }}">
+    <script src="{{ url_for('static', filename='js/ADM-autorizar.js') }}" defer></script>
+    <meta charset="UTF-8">
+    <title>Autorize ADM</title>
+</head>
+<body>
+<form action="{{ url_for('ADM_autorizar') }}" method="post">
+    <span>{{ erro }}</span>
+    {{ form.hidden_tag() }}
+    <div class="container">
+       {{ form.code.label }}
+        {{ form.code(placeholder="Código") }}
+    </div>
+    {{ form.submit }}
+    <a href="/inserir-pontuacao/autorizar">Reenviar código de verificação</a>
+</form>
+</body>
+</html>
