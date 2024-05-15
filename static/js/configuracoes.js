@@ -6,20 +6,26 @@ const form = document.getElementById("form");
 const voltarIndex = document.getElementById("voltar_index");
 const sairAviso = document.getElementById("sair_aviso");
 
-button.addEventListener("click", () => {
-    blurr.style.filter = "blur(10px)";
-    popUp.style.transform = "translate(-50%, -50%) scale(1)"
-    popUp.style.visibility = "visible"
-})
 voltarIndex.addEventListener("click", () => {
     window.location.href = "/"
 })
-sairAviso.addEventListener("click",()=>{
-    blurr.style.filter = "blur(0px)";
-    popUp.style.transform = "translate(-50%, 0) scale(0)"
-    popUp.style.visibility = "hidden"
-})
 
+if (booleanNaoCadastrouEsportes) {
+    button.addEventListener("click", () => {
+        blurr.style.filter = "blur(10px)";
+        popUp.style.transform = "translate(-50%, -50%) scale(1)"
+        popUp.style.visibility = "visible"
+    })
+    sairAviso.addEventListener("click",()=>{
+        blurr.style.filter = "blur(0px)";
+        popUp.style.transform = "translate(-50%, 0) scale(0)"
+        popUp.style.visibility = "hidden"
+    })
+} else {
+    button.addEventListener("click", () => {
+        $('#myform').trigger("submit")
+    })
+}
 const btnSubmit = $("#submit")
 const inpFotoDePerfil = $("#inp_foto_perfil")
 const foto = $("#profile-picture")
