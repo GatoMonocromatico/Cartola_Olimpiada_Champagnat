@@ -40,6 +40,12 @@ body{
     flex-direction: column;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .form{
     background: linear-gradient(to top, #c7c7c7, #ffffff);
     border-radius: 25px;
@@ -217,6 +223,7 @@ label {
 }
 
 #erro {
+    margin-bottom: 5px;
     width: 100%;
     text-align: center;
     color: #ffc835;
