@@ -1,5 +1,5 @@
 import re
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 import pyrebase
 import base64
 import io
@@ -7,30 +7,22 @@ from PIL import Image
 from flask_login import current_user, UserMixin, login_user, LoginManager, login_required
 import os
 from dotenv import load_dotenv
+from flask_wtf.csrf import CSRFProtect
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, SelectField, IntegerField, BooleanField
+from wtforms.validators import data_required, Length
+import smtplib
+import email.message
+import secrets
+import string
+
 
 load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv('CHAVE_SECRETA_FLASK')
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
 
-class User(UserMixin):
-    def __init__(self, dados, eh_novo):
-        self.id = dados["id"]
-        self.nome = dados["nome"]
-        self.senha = dados["senha"]
-        if eh_novo:
-            self.foto_de_perfil = "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"
-            self.esportes_cadastrados = ""
-            bd.child(f"usuarios/{self.id}").set({
-                "esportes_cadastrados": "", "foto_de_perfil": self.foto_de_perfil, "nome": self.nome, "senha": self.senha, "id": self.id
-            })
-        else:
-            self.foto_de_perfil = dados["foto_de_perfil"]
-            self.esportes_cadastrados = dados["esportes_cadastrados"]
-
+csrf = CSRFProtect(app)
 
 config = {
     "apiKey": os.getenv("FIREBASE_API_KEY"),
@@ -47,6 +39,445 @@ firebase = pyrebase.initialize_app(config)
 bd = firebase.database()
 
 
+class ADMAutorizarForm(FlaskForm):
+    code = StringField("Código", validators=[Length(min=6, max=6)])
+    submit = SubmitField("Enviar")
+
+
+class ADMForm(FlaskForm):
+    alterar_mercado_futsalM = SubmitField("Trocar")
+    alterar_mercado_futsalF = SubmitField("Trocar")
+    alterar_mercado_basquete = SubmitField("Trocar")
+    alterar_mercado_handebol = SubmitField("Trocar")
+
+    futsalM = SubmitField("Pontuar Futsal Masculino")
+    futsalF = SubmitField("Pontuar Futsal Feminino")
+    basquete = SubmitField("Pontuar Basquete")
+    handebol = SubmitField("Pontuar Handebol")
+
+
+class InserirPontuacaoFormFutsalM(FlaskForm):
+    jogadores_raw = bd.child("jogadores/futsal_masculino").get().val()
+    jogadores_ataque = {}
+    jogadores_gol = {}
+    for posicao in jogadores_raw:
+        if posicao == "ataque":
+            jogadores_ataque = jogadores_raw[posicao]
+        else:
+            jogadores_gol = jogadores_raw[posicao]
+
+    escolhas_goleiro = [("", "-Escolha um jogador se preciso-")]
+    for jogador in jogadores_gol:
+        tupla_escolha = (jogador, f"{jogadores_gol[jogador]['nome']} - {jogadores_gol[jogador]['equipe']} ({jogador})")
+        escolhas_goleiro.append(tupla_escolha)
+
+    escolhas_ataque = [("", "-Escolha um jogador se preciso-")]
+    for jogador in jogadores_ataque:
+        tupla_escolha = (jogador, f"{jogadores_ataque[jogador]['nome']} - {jogadores_ataque[jogador]['equipe']} ({jogador})")
+        escolhas_ataque.append(tupla_escolha)
+
+    gols_goleiro1 = IntegerField("Gols", default=0)
+    gols_goleiro2 = IntegerField("Gols", default=0)
+    defesas_goleiro1 = IntegerField("Defesas", default=0)
+    defesas_goleiro2 = IntegerField("Defesas", default=0)
+    amarelos_goleiro1 = IntegerField("Cartões amarelos", default=0)
+    amarelos_goleiro2 = IntegerField("Cartões amarelos", default=0)
+    vermelho_goleiro1 = BooleanField("Cartão vermelho")
+    vermelho_goleiro2 = BooleanField("Cartão vermelho")
+    faltas_goleiro1 = IntegerField("Faltas", default=0)
+    faltas_goleiro2 = IntegerField("Faltas", default=0)
+    assistencias_goleiro1 = IntegerField("Assistências", default=0)
+    assistencias_goleiro2 = IntegerField("Assistências", default=0)
+
+    goleiro1 = SelectField("Goleiro time 1", choices=escolhas_goleiro)
+    goleiro2 = SelectField("Goleiro time 2", choices=escolhas_goleiro)
+
+    jogador1 = SelectField("Jogador1 time 1", choices=escolhas_ataque)
+    jogador2 = SelectField("Jogador2 time 1", choices=escolhas_ataque)
+    jogador3 = SelectField("Jogador3 time 1", choices=escolhas_ataque)
+    jogador4 = SelectField("Jogador4 time 1", choices=escolhas_ataque)
+    jogador5 = SelectField("Jogador1 time 2", choices=escolhas_ataque)
+    jogador6 = SelectField("Jogador2 time 2", choices=escolhas_ataque)
+    jogador7 = SelectField("Jogador3 time 2", choices=escolhas_ataque)
+    jogador8 = SelectField("Jogador4 time 2", choices=escolhas_ataque)
+
+    gols_jogador1 = IntegerField("Gols", default=0)
+    gols_jogador2 = IntegerField("Gols", default=0)
+    gols_jogador3 = IntegerField("Gols", default=0)
+    gols_jogador4 = IntegerField("Gols", default=0)
+    gols_jogador5 = IntegerField("Gols", default=0)
+    gols_jogador6 = IntegerField("Gols", default=0)
+    gols_jogador7 = IntegerField("Gols", default=0)
+    gols_jogador8 = IntegerField("Gols", default=0)
+
+    amarelos_jogador1 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador2 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador3 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador4 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador5 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador6 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador7 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador8 = IntegerField("Cartões amarelos", default=0)
+
+    vermelho_jogador1 = BooleanField("Cartão vermelho")
+    vermelho_jogador2 = BooleanField("Cartão vermelho")
+    vermelho_jogador3 = BooleanField("Cartão vermelho")
+    vermelho_jogador4 = BooleanField("Cartão vermelho")
+    vermelho_jogador5 = BooleanField("Cartão vermelho")
+    vermelho_jogador6 = BooleanField("Cartão vermelho")
+    vermelho_jogador7 = BooleanField("Cartão vermelho")
+    vermelho_jogador8 = BooleanField("Cartão vermelho")
+
+    faltas_jogador1 = IntegerField("Faltas", default=0)
+    faltas_jogador2 = IntegerField("Faltas", default=0)
+    faltas_jogador3 = IntegerField("Faltas", default=0)
+    faltas_jogador4 = IntegerField("Faltas", default=0)
+    faltas_jogador5 = IntegerField("Faltas", default=0)
+    faltas_jogador6 = IntegerField("Faltas", default=0)
+    faltas_jogador7 = IntegerField("Faltas", default=0)
+    faltas_jogador8 = IntegerField("Faltas", default=0)
+
+    assistencias_jogador1 = IntegerField("Assistências", default=0)
+    assistencias_jogador2 = IntegerField("Assistências", default=0)
+    assistencias_jogador3 = IntegerField("Assistências", default=0)
+    assistencias_jogador4 = IntegerField("Assistências", default=0)
+    assistencias_jogador5 = IntegerField("Assistências", default=0)
+    assistencias_jogador6 = IntegerField("Assistências", default=0)
+    assistencias_jogador7 = IntegerField("Assistências", default=0)
+    assistencias_jogador8 = IntegerField("Assistências", default=0)
+
+    submit = SubmitField("Confirmar")
+
+
+class InserirPontuacaoFormFutsalF(FlaskForm):
+    jogadores_raw = bd.child("jogadores/futsal_feminino").get().val()
+    jogadores_ataque = {}
+    jogadores_gol = {}
+    for posicao in jogadores_raw:
+        if posicao == "ataque":
+            jogadores_ataque = jogadores_raw[posicao]
+        else:
+            jogadores_gol = jogadores_raw[posicao]
+
+    escolhas_goleiro = [("", "-Escolha um jogador se preciso-")]
+    for jogador in jogadores_gol:
+        tupla_escolha = (jogador, f"{jogadores_gol[jogador]['nome']} - {jogadores_gol[jogador]['equipe']} ({jogador})")
+        escolhas_goleiro.append(tupla_escolha)
+
+    escolhas_ataque = [("", "-Escolha um jogador se preciso-")]
+    for jogador in jogadores_ataque:
+        tupla_escolha = (jogador, f"{jogadores_ataque[jogador]['nome']} - {jogadores_ataque[jogador]['equipe']} ({jogador})")
+        escolhas_ataque.append(tupla_escolha)
+
+    goleiro1 = SelectField("Goleira time 1", choices=escolhas_goleiro)
+    goleiro2 = SelectField("Goleira time 2", choices=escolhas_goleiro)
+    gols_goleiro1 = IntegerField("Gols", default=0)
+    gols_goleiro2 = IntegerField("Gols", default=0)
+    defesas_goleiro1 = IntegerField("Defesas", default=0)
+    defesas_goleiro2 = IntegerField("Defesas", default=0)
+    amarelos_goleiro1 = IntegerField("Cartões amarelos", default=0)
+    amarelos_goleiro2 = IntegerField("Cartões amarelos", default=0)
+    vermelho_goleiro1 = BooleanField("Cartão vermelho")
+    vermelho_goleiro2 = BooleanField("Cartão vermelho")
+    faltas_goleiro1 = IntegerField("Faltas", default=0)
+    faltas_goleiro2 = IntegerField("Faltas", default=0)
+    assistencias_goleiro1 = IntegerField("Assistências", default=0)
+    assistencias_goleiro2 = IntegerField("Assistências", default=0)
+
+    jogador1 = SelectField("Jogadora1 time 1", choices=escolhas_ataque)
+    jogador2 = SelectField("Jogadora2 time 1", choices=escolhas_ataque)
+    jogador3 = SelectField("Jogadora3 time 1", choices=escolhas_ataque)
+    jogador4 = SelectField("Jogadora4 time 1", choices=escolhas_ataque)
+    jogador5 = SelectField("Jogadora1 time 2", choices=escolhas_ataque)
+    jogador6 = SelectField("Jogadora2 time 2", choices=escolhas_ataque)
+    jogador7 = SelectField("Jogadora3 time 2", choices=escolhas_ataque)
+    jogador8 = SelectField("Jogadora4 time 2", choices=escolhas_ataque)
+
+    gols_jogador1 = IntegerField("Gols", default=0)
+    gols_jogador2 = IntegerField("Gols", default=0)
+    gols_jogador3 = IntegerField("Gols", default=0)
+    gols_jogador4 = IntegerField("Gols", default=0)
+    gols_jogador5 = IntegerField("Gols", default=0)
+    gols_jogador6 = IntegerField("Gols", default=0)
+    gols_jogador7 = IntegerField("Gols", default=0)
+    gols_jogador8 = IntegerField("Gols", default=0)
+
+    amarelos_jogador1 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador2 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador3 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador4 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador5 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador6 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador7 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador8 = IntegerField("Cartões amarelos", default=0)
+
+    vermelho_jogador1 = BooleanField("Cartão vermelho")
+    vermelho_jogador2 = BooleanField("Cartão vermelho")
+    vermelho_jogador3 = BooleanField("Cartão vermelho")
+    vermelho_jogador4 = BooleanField("Cartão vermelho")
+    vermelho_jogador5 = BooleanField("Cartão vermelho")
+    vermelho_jogador6 = BooleanField("Cartão vermelho")
+    vermelho_jogador7 = BooleanField("Cartão vermelho")
+    vermelho_jogador8 = BooleanField("Cartão vermelho")
+
+    faltas_jogador1 = IntegerField("Faltas", default=0)
+    faltas_jogador2 = IntegerField("Faltas", default=0)
+    faltas_jogador3 = IntegerField("Faltas", default=0)
+    faltas_jogador4 = IntegerField("Faltas", default=0)
+    faltas_jogador5 = IntegerField("Faltas", default=0)
+    faltas_jogador6 = IntegerField("Faltas", default=0)
+    faltas_jogador7 = IntegerField("Faltas", default=0)
+    faltas_jogador8 = IntegerField("Faltas", default=0)
+
+    assistencias_jogador1 = IntegerField("Assistências", default=0)
+    assistencias_jogador2 = IntegerField("Assistências", default=0)
+    assistencias_jogador3 = IntegerField("Assistências", default=0)
+    assistencias_jogador4 = IntegerField("Assistências", default=0)
+    assistencias_jogador5 = IntegerField("Assistências", default=0)
+    assistencias_jogador6 = IntegerField("Assistências", default=0)
+    assistencias_jogador7 = IntegerField("Assistências", default=0)
+    assistencias_jogador8 = IntegerField("Assistências", default=0)
+
+    submit = SubmitField("Confirmar")
+
+
+class InserirPontuacaoFormBasquete(FlaskForm):
+    jogadores = bd.child("jogadores/basquete/ataque").get().val()
+
+    escolhas = [("", "-Escolha um jogador se preciso-")]
+    for jogador in jogadores:
+        tupla_escolha = (jogador, f"{jogadores[jogador]['nome']} - {jogadores[jogador]['equipe']} ({jogador})")
+        escolhas.append(tupla_escolha)
+
+    jogador1 = SelectField("Jogador1 time 1", choices=escolhas)
+    jogador2 = SelectField("Jogador2 time 1", choices=escolhas)
+    jogador3 = SelectField("Jogador3 time 1", choices=escolhas)
+    jogador4 = SelectField("Jogador4 time 1", choices=escolhas)
+    jogador5 = SelectField("Jogador5 time 1", choices=escolhas)
+    jogador6 = SelectField("Jogador1 time 2", choices=escolhas)
+    jogador7 = SelectField("Jogador2 time 2", choices=escolhas)
+    jogador8 = SelectField("Jogador3 time 2", choices=escolhas)
+    jogador9 = SelectField("Jogador4 time 2", choices=escolhas)
+    jogador10 = SelectField("Jogador5 time 2", choices=escolhas)
+
+
+    pontos_jogador1 = IntegerField("Pontos", default=0)
+    pontos_jogador2 = IntegerField("Pontos", default=0)
+    pontos_jogador3 = IntegerField("Pontos", default=0)
+    pontos_jogador4 = IntegerField("Pontos", default=0)
+    pontos_jogador5 = IntegerField("Pontos", default=0)
+    pontos_jogador6 = IntegerField("Pontos", default=0)
+    pontos_jogador7 = IntegerField("Pontos", default=0)
+    pontos_jogador8 = IntegerField("Pontos", default=0)
+    pontos_jogador9 = IntegerField("Pontos", default=0)
+    pontos_jogador10 = IntegerField("Pontos", default=0)
+
+    amarelos_jogador1 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador2 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador3 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador4 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador5 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador6 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador7 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador8 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador9 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador10 = IntegerField("Cartões amarelos", default=0)
+
+
+    vermelho_jogador1 = BooleanField("Cartão vermelho")
+    vermelho_jogador2 = BooleanField("Cartão vermelho")
+    vermelho_jogador3 = BooleanField("Cartão vermelho")
+    vermelho_jogador4 = BooleanField("Cartão vermelho")
+    vermelho_jogador5 = BooleanField("Cartão vermelho")
+    vermelho_jogador6 = BooleanField("Cartão vermelho")
+    vermelho_jogador7 = BooleanField("Cartão vermelho")
+    vermelho_jogador8 = BooleanField("Cartão vermelho")
+    vermelho_jogador9 = BooleanField("Cartão vermelho")
+    vermelho_jogador10 = BooleanField("Cartão vermelho")
+
+    faltas_jogador1 = IntegerField("Faltas", default=0)
+    faltas_jogador2 = IntegerField("Faltas", default=0)
+    faltas_jogador3 = IntegerField("Faltas", default=0)
+    faltas_jogador4 = IntegerField("Faltas", default=0)
+    faltas_jogador5 = IntegerField("Faltas", default=0)
+    faltas_jogador6 = IntegerField("Faltas", default=0)
+    faltas_jogador7 = IntegerField("Faltas", default=0)
+    faltas_jogador8 = IntegerField("Faltas", default=0)
+    faltas_jogador9 = IntegerField("Faltas", default=0)
+    faltas_jogador10 = IntegerField("Faltas", default=0)
+
+    assistencias_jogador1 = IntegerField("Assistências", default=0)
+    assistencias_jogador2 = IntegerField("Assistências", default=0)
+    assistencias_jogador3 = IntegerField("Assistências", default=0)
+    assistencias_jogador4 = IntegerField("Assistências", default=0)
+    assistencias_jogador5 = IntegerField("Assistências", default=0)
+    assistencias_jogador6 = IntegerField("Assistências", default=0)
+    assistencias_jogador7 = IntegerField("Assistências", default=0)
+    assistencias_jogador8 = IntegerField("Assistências", default=0)
+    assistencias_jogador9 = IntegerField("Assistências", default=0)
+    assistencias_jogador10 = IntegerField("Assistências", default=0)
+
+    submit = SubmitField("Confirmar")
+
+
+class InserirPontuacaoFormHandebol(FlaskForm):
+    jogadores_raw = bd.child("jogadores/handebol").get().val()
+    jogadores_ataque = {}
+    jogadores_gol = {}
+    for posicao in jogadores_raw:
+        if posicao == "ataque":
+            jogadores_ataque = jogadores_raw[posicao]
+        else:
+            jogadores_gol = jogadores_raw[posicao]
+
+    escolhas_goleiro = [("", "-Escolha um jogador se preciso-")]
+    for jogador in jogadores_gol:
+        tupla_escolha = (jogador, f"{jogadores_gol[jogador]['nome']} - {jogadores_gol[jogador]['equipe']} ({jogador})")
+        escolhas_goleiro.append(tupla_escolha)
+
+    escolhas_ataque = [("", "-Escolha um jogador se preciso-")]
+    for jogador in jogadores_ataque:
+        tupla_escolha = (jogador, f"{jogadores_ataque[jogador]['nome']} - {jogadores_ataque[jogador]['equipe']} ({jogador})")
+        escolhas_ataque.append(tupla_escolha)
+
+    goleiro1 = SelectField("Goleira time 1", choices=escolhas_goleiro)
+    goleiro2 = SelectField("Goleira time 2", choices=escolhas_goleiro)
+    gols_goleiro1 = IntegerField("Gols", default=0)
+    gols_goleiro2 = IntegerField("Gols", default=0)
+    defesas_goleiro1 = IntegerField("Defesas", default=0)
+    defesas_goleiro2 = IntegerField("Defesas", default=0)
+    amarelos_goleiro1 = IntegerField("Cartões amarelos", default=0)
+    amarelos_goleiro2 = IntegerField("Cartões amarelos", default=0)
+    vermelho_goleiro1 = BooleanField("Cartão vermelho")
+    vermelho_goleiro2 = BooleanField("Cartão vermelho")
+    faltas_goleiro1 = IntegerField("Faltas", default=0)
+    faltas_goleiro2 = IntegerField("Faltas", default=0)
+    assistencias_goleiro1 = IntegerField("Assistências", default=0)
+    assistencias_goleiro2 = IntegerField("Assistências", default=0)
+
+    jogador1 = SelectField("Jogadora1 time 1", choices=escolhas_ataque)
+    jogador2 = SelectField("Jogadora2 time 1", choices=escolhas_ataque)
+    jogador3 = SelectField("Jogadora3 time 1", choices=escolhas_ataque)
+    jogador4 = SelectField("Jogadora4 time 1", choices=escolhas_ataque)
+    jogador5 = SelectField("Jogadora5 time 1", choices=escolhas_ataque)
+    jogador6 = SelectField("Jogadora6 time 1", choices=escolhas_ataque)
+    jogador7 = SelectField("Jogadora1 time 2", choices=escolhas_ataque)
+    jogador8 = SelectField("Jogadora2 time 2", choices=escolhas_ataque)
+    jogador9 = SelectField("Jogadora3 time 2", choices=escolhas_ataque)
+    jogador10 = SelectField("Jogadora4 time 2", choices=escolhas_ataque)
+    jogador11 = SelectField("Jogadora5 time 2", choices=escolhas_ataque)
+    jogador12 = SelectField("Jogadora6 time 2", choices=escolhas_ataque)
+
+    gols_jogador1 = IntegerField("Gols", default=0)
+    gols_jogador2 = IntegerField("Gols", default=0)
+    gols_jogador3 = IntegerField("Gols", default=0)
+    gols_jogador4 = IntegerField("Gols", default=0)
+    gols_jogador5 = IntegerField("Gols", default=0)
+    gols_jogador6 = IntegerField("Gols", default=0)
+    gols_jogador7 = IntegerField("Gols", default=0)
+    gols_jogador8 = IntegerField("Gols", default=0)
+    gols_jogador9 = IntegerField("Gols", default=0)
+    gols_jogador10 = IntegerField("Gols", default=0)
+    gols_jogador11 = IntegerField("Gols", default=0)
+    gols_jogador12 = IntegerField("Gols", default=0)
+
+    amarelos_jogador1 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador2 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador3 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador4 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador5 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador6 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador7 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador8 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador9 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador10 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador11 = IntegerField("Cartões amarelos", default=0)
+    amarelos_jogador12 = IntegerField("Cartões amarelos", default=0)
+
+    vermelho_jogador1 = BooleanField("Cartão vermelho")
+    vermelho_jogador2 = BooleanField("Cartão vermelho")
+    vermelho_jogador3 = BooleanField("Cartão vermelho")
+    vermelho_jogador4 = BooleanField("Cartão vermelho")
+    vermelho_jogador5 = BooleanField("Cartão vermelho")
+    vermelho_jogador6 = BooleanField("Cartão vermelho")
+    vermelho_jogador7 = BooleanField("Cartão vermelho")
+    vermelho_jogador8 = BooleanField("Cartão vermelho")
+    vermelho_jogador9 = BooleanField("Cartões vermelhos")
+    vermelho_jogador10 = BooleanField("Cartões vermelhos")
+    vermelho_jogador11 = BooleanField("Cartões vermelhos")
+    vermelho_jogador12 = BooleanField("Cartões vermelhos")
+
+    faltas_jogador1 = IntegerField("Faltas", default=0)
+    faltas_jogador2 = IntegerField("Faltas", default=0)
+    faltas_jogador3 = IntegerField("Faltas", default=0)
+    faltas_jogador4 = IntegerField("Faltas", default=0)
+    faltas_jogador5 = IntegerField("Faltas", default=0)
+    faltas_jogador6 = IntegerField("Faltas", default=0)
+    faltas_jogador7 = IntegerField("Faltas", default=0)
+    faltas_jogador8 = IntegerField("Faltas", default=0)
+    faltas_jogador9 = IntegerField("faltas", default=0)
+    faltas_jogador10 = IntegerField("faltas", default=0)
+    faltas_jogador11 = IntegerField("faltas", default=0)
+    faltas_jogador12 = IntegerField("faltas", default=0)
+
+    assistencias_jogador1 = IntegerField("Assistências", default=0)
+    assistencias_jogador2 = IntegerField("Assistências", default=0)
+    assistencias_jogador3 = IntegerField("Assistências", default=0)
+    assistencias_jogador4 = IntegerField("Assistências", default=0)
+    assistencias_jogador5 = IntegerField("Assistências", default=0)
+    assistencias_jogador6 = IntegerField("Assistências", default=0)
+    assistencias_jogador7 = IntegerField("Assistências", default=0)
+    assistencias_jogador8 = IntegerField("Assistências", default=0)
+    assistencias_jogador9 = IntegerField("Assistências", default=0)
+    assistencias_jogador10 = IntegerField("Assistências", default=0)
+    assistencias_jogador11 = IntegerField("Assistências", default=0)
+    assistencias_jogador12 = IntegerField("Assistências", default=0)
+
+    submit = SubmitField("Confirmar")
+
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+
+class User(UserMixin):
+    def __init__(self, dados, eh_novo):
+        self.id = dados["id"]
+        self.nome = dados["nome"]
+        self.senha = dados["senha"]
+        self.equipe = dados["equipe"]
+        if eh_novo:
+            self.foto_de_perfil = "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"
+            self.esportes_cadastrados = ""
+            self.tem_foto_de_perfil_default = True
+            self.escalacao = {"basquete": {"jogador1": "", "jogador2": "", "jogador3": "", "jogador4": "", "jogador5": ""},
+                              "handebol": {"goleiro": "", "jogador1": "", "jogador2": "", "jogador3": "", "jogador4": "", "jogador5": "", "jogador6": ""},
+                              "futsal_feminino": {"goleiro": "", "jogador1": "", "jogador2": "", "jogador3": "", "jogador4": ""},
+                              "futsal_masculino": {"goleiro": "", "jogador1": "", "jogador2": "", "jogador3": "", "jogador4": ""}}
+            self.pontos = {"futsal_masculino": 0, "futsal_feminino": 0, "basquete": 0, "handebol": 0}
+            self.posicao = ""
+            bd.child(f"usuarios/{self.id}").set({
+                "esportes_cadastrados": "",
+                "foto_de_perfil": self.foto_de_perfil,
+                "nome": self.nome,
+                "senha": self.senha,
+                "id": self.id,
+                "tem_foto_de_perfil_default": self.tem_foto_de_perfil_default,
+                "equipe": self.equipe,
+                "escalacao": self.escalacao,
+                "pontos": self.pontos,
+                "posicao": self.posicao
+            })
+        else:
+            self.tem_foto_de_perfil_default = dados["tem_foto_de_perfil_default"]
+            self.foto_de_perfil = dados["foto_de_perfil"]
+            self.esportes_cadastrados = dados["esportes_cadastrados"]
+            self.escalacao = dados["escalacao"]
+            self.pontos = dados["pontos"]
+            self.posicao = dados["posicao"]
+
+
 @login_manager.user_loader
 def carrega_usuario(user_id):
     dados_usuario = bd.child(f"usuarios/{user_id}").get().val()
@@ -55,108 +486,492 @@ def carrega_usuario(user_id):
     else:
         return None
 
-@app.route("/", methods=["GET"])
-def index():
-    nome = ""
-    foto_de_perfil = ""
-    if current_user.is_authenticated:
-        nome = current_user.nome
-        foto_de_perfil = current_user.foto_de_perfil
 
-    return render_template("index.html", nome_de_usuario=nome, foto_de_perfil=foto_de_perfil)
+@app.route("/", methods=["GET", "POST"])
+@login_required
+def index():
+    mercado_aberto = bd.child("mercado_aberto").get().val()
+
+    if request.method == "POST":
+        dados_raw = request.get_json()
+
+        esporte = dados_raw['1']
+        if mercado_aberto[esporte]:
+            dados_raw_escalacao = dados_raw['0'].split(";")
+
+            dados_format = []
+            for string in dados_raw_escalacao:
+                par_info = string.split(",")
+                dados_format.append(par_info)
+
+            dict_dados = {}
+            for jogador, posicao in dados_format:
+                dict_dados[posicao] = jogador
+
+            bd.child(f"usuarios/{current_user.id}/escalacao/{esporte}").update(dict_dados)
+            return "escalacao salva com sucesso"
+        else:
+            return "mercado fechado", 400
+
+    return render_template("index.html", nome_de_usuario=current_user.nome, foto_de_perfil=current_user.foto_de_perfil, mercado_aberto=mercado_aberto)
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        usuario = request.form["usuario"]
-        senha = request.form["senha"]
+        dados = request.form
 
-        if "signup" in request.form and not bd.child(f"usuarios/{usuario}").get().val():
+        usuario = dados["usuario"]
+        senha = dados["senha"]
 
-            nome = request.form["nome"]
-            lista_partes_nome = nome.split(" ")
+        if "signup" in dados:
+            if not bd.child(f"usuarios/{usuario}").get().val():
+                equipe = dados["equipe"]
+                nome = dados["nome"]
+                lista_partes_nome = nome.split(" ")
 
-            padrao_nome = re.compile(r"[A-Z][a-z]+")  # padrão (nome começa com letra maiúscula)
-            lista_excecoes = ("de", "da", "do", "dos", "das")  # partes de um nome que podem não começar com letra maiúscula
+                padrao_nome = re.compile(r"[A-Z][a-z]+")  # padrão (nome começa com letra maiúscula)
+                lista_excecoes = (
+                    "de", "da", "do", "dos", "das")  # partes de um nome que podem não começar com letra maiúscula
 
-            index_for = 0
-            for parte_nome in lista_partes_nome:
-                if not re.fullmatch(padrao_nome, parte_nome):  # se a parte do nome não atende o padrão
-                    if parte_nome not in lista_excecoes:
-                        return render_template("login.html", erro="Nome inválido")  # ela não pode não estar na lista de exceções
-                    elif index_for == 0:
-                        return render_template("login.html", erro="Nome inválido")  # nenhum nome começa com preposição
-                index_for += 1
+                index_for = 0
+                for parte_nome in lista_partes_nome:
+                    if not re.fullmatch(padrao_nome, parte_nome):  # se a parte do nome não atende o padrão
+                        if parte_nome not in lista_excecoes:
+                            return jsonify({"login": 40030})  # ela não pode não estar na lista de exceções
+                        elif index_for == 0:
+                            return jsonify({"login": 40030})  # nenhum nome começa com preposição
+                    index_for += 1
 
-            nome = ""
-            index_for = 0
-            for nome_parte in lista_partes_nome:
-                if index_for > 0:
-                    nome += f" {nome_parte}"
-                else:
-                    nome += nome_parte
-                index_for += 1
+                nome = ""
+                index_for = 0
+                for nome_parte in lista_partes_nome:
+                    if index_for > 0:
+                        nome += f" {nome_parte}"
+                    else:
+                        nome += nome_parte
+                    index_for += 1
 
-            padrao_usuario = re.compile(r"\d\d\d\d\d\d\d\d")
+                padrao_usuario = re.compile(r"\d\d\d\d\d\d\d\d")
 
-            if not re.fullmatch(padrao_usuario, usuario):
-                return render_template("login.html", erro="Número de matrícula inválido")
+                if not re.fullmatch(padrao_usuario, usuario):
+                    return jsonify({"login": 40010})
 
-            user = User({
-                "nome": nome,
-                "senha": senha,
-                "id": usuario
+                user = User({
+                    "nome": nome,
+                    "senha": senha,
+                    "id": usuario,
+                    "equipe": equipe
                 }, True)
-            login_user(user)  # loga usuario
-            return redirect(url_for("index"))
+                login_user(user)  # loga usuario
+                return jsonify({"login": 20000})
+            else:
+                return jsonify({"login": 40001})
         else:
             dados = bd.child(f"usuarios/{usuario}").get().val()
 
             if not dados:
-                return render_template("login.html", erro="Usuário inexistente")
+                return jsonify({"login": 40002})
             elif dados["senha"] != senha:
-                return render_template("login.html", erro="Senha inválida")
+                return jsonify({"login": 40020})
             else:
                 user = User(dados, False)
                 login_user(user)
-                return redirect(url_for("index"))
-    return render_template("login.html", erro="")
+                return jsonify({"login": 20000})
+
+    return render_template("login.html")
 
 
 @app.route("/configurações", methods=["GET", "POST"])
 @login_required
 def configuracoes():
+    nao_cadastrou_esportes = True if current_user.esportes_cadastrados == "" else False  # boolean se o usuario já cadastrou algum esporte
     if request.method == "POST":
-        imagem_bytes = request.files["imagem"].read()
-        buffer = io.BytesIO(imagem_bytes)
-        imagem = Image.open(buffer)
-        # com a imagem iniciada na biblioteca pillow vou recorta-la para formar um quadrado perfeito, caso não seja
-        largura, altura = imagem.size
-        if altura != largura:
-            if largura > altura:
-                quantidade_cortar_cada = int((largura - altura)/2)
-                recorte_coordenadas = (quantidade_cortar_cada, 0, int(largura-quantidade_cortar_cada), altura)
+        if request.form["tem_imagem"] == "true":
+            imagem_bytes = request.files["imagem"].read()
+            buffer = io.BytesIO(imagem_bytes)
+            imagem = Image.open(buffer)
+            # com a imagem iniciada na biblioteca pillow vou recorta-la para formar um quadrado perfeito, caso não seja
+            largura, altura = imagem.size
+            if altura != largura:
+                if largura > altura:
+                    quantidade_cortar_cada = int((largura - altura) / 2)
+                    recorte_coordenadas = (quantidade_cortar_cada, 0, int(largura - quantidade_cortar_cada), altura)
+                else:
+                    quantidade_cortar_cada = int((altura - largura) / 2)
+                    recorte_coordenadas = (0, quantidade_cortar_cada, largura, int(altura - quantidade_cortar_cada))
+
+                imagem_formatada = imagem.crop(recorte_coordenadas)
             else:
-                quantidade_cortar_cada = int((altura - largura)/2)
-                recorte_coordenadas = (0, quantidade_cortar_cada, largura, int(altura-quantidade_cortar_cada))
+                imagem_formatada = imagem
 
-            imagem_formatada = imagem.crop(recorte_coordenadas)
-        else:
-            imagem_formatada = imagem
+            buffer_png = io.BytesIO()
+            imagem_formatada.save(buffer_png, format="PNG")
+            bytes_png = buffer_png.getvalue()
+            imagem_b64_png = base64.b64encode(bytes_png).decode("utf-8")
+            bd.child(f"usuarios/{current_user.id}").update({"foto_de_perfil": imagem_b64_png})
+            current_user.foto_de_perfil = imagem_b64_png
+            if not nao_cadastrou_esportes:
+                esportes = current_user.esportes_cadastrados
+                index_for = 0
+                for esporte in esportes:
+                    pos = current_user.posicao[index_for]
+                    bd.child(f"jogadores/{esporte}/{pos}/{current_user.id}").update({"foto_de_perfil": imagem_b64_png})
+                    index_for += 1
 
-        buffer_png = io.BytesIO()
-        imagem_formatada.save(buffer_png, format="PNG")
-        bytes_png = buffer_png.getvalue()
-        imagem_b64_png = base64.b64encode(bytes_png).decode("utf-8")
-        bd.child(f"usuarios/{current_user.id}").update({"foto_de_perfil": imagem_b64_png})
-        current_user.foto_de_perfil = imagem_b64_png
+            if current_user.tem_foto_de_perfil_default:
+                bd.child(f"usuarios/{current_user.id}").update({"tem_foto_de_perfil_default": False})
+                current_user.tem_foto_de_perfil_default = False
+
+        if nao_cadastrou_esportes:  # se o usuario não cadastrou roda o código
+            inscrever_como_jogador = False if request.form["modalidade"] == "E" else True
+
+            if inscrever_como_jogador:
+                esportes = request.form["esportes_selecionados"]
+                esportes = esportes.split(",")
+                esportes_dict = {}
+                index_for = 0
+                for esporte in esportes:
+                    posicao = "gol" if f"gol_{esporte}" in request.form else "ataque"
+
+                    esportes_dict[str(index_for)] = esporte
+
+                    bd.child(f"jogadores/{esporte}/{posicao}").update({
+                        current_user.id: {
+                            "foto_de_perfil": current_user.foto_de_perfil,
+                            "nome": current_user.nome,
+                            "equipe": current_user.equipe,
+                            "pontos_ultima_partida": "",
+                            "pontos_historico": ""
+                        }
+                    })
+                    if current_user.posicao:
+                        lista = current_user.posicao
+                        lista[index_for] = posicao
+                    else:
+                        current_user.posicao = {0: posicao}
+
+                    index_for += 1
+
+                current_user.esportes_cadastrados = esportes_dict
+
+                bd.child(f"usuarios/{current_user.id}").update({"esportes_cadastrados": esportes_dict})
+                bd.child(f"usuarios/{current_user.id}").update({"posicao": current_user.posicao})
+
+        return "sucesso"
 
     foto_de_perfil = current_user.foto_de_perfil
     id = current_user.id
     nome = current_user.nome
 
-    return render_template("configuracoes.html", nome_e_matricula=f"{id} {nome}", imagem_b64=foto_de_perfil)
+    return render_template("configuracoes.html", nome=nome, matricula=id, imagem_b64=foto_de_perfil,
+                           nao_cadastrou_esportes=nao_cadastrou_esportes,
+                           tem_foto_de_perfil_default=current_user.tem_foto_de_perfil_default)
+
+
+@app.route('/dados-do-banco/<info>', methods=['POST', 'GET'])
+def dados_do_banco(info):
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        if info == "jogadores":
+            dados = request.get_json()
+            esporte = dados["esporte"]
+
+            resposta = bd.child(f"jogadores/{esporte}").get().val()
+
+            for posicao in resposta:
+                jogadores_posicao = resposta[posicao]
+                for jogador in jogadores_posicao:
+                    historico_pontos = resposta[posicao][jogador].pop("pontos_historico")
+
+                    if historico_pontos:
+                        total_de_pontos = 0
+
+                        index_for = 1
+                        for pontos in historico_pontos:
+                            total_de_pontos += pontos
+                            index_for += 1
+                        media_pontos = total_de_pontos / index_for
+                    else:
+                        media_pontos = ""
+
+                    resposta[posicao][jogador]["media_pontos"] = media_pontos
+
+            return jsonify(resposta)
+
+        elif info == "escalacao":
+            jogadores_cadastrados = bd.child(f"jogadores").get().val()
+            dados_escalacao = bd.child(f"usuarios/{current_user.id}/escalacao").get().val()
+            jogadores_escalados = []
+            for esporte in dados_escalacao:
+                escalacao_do_esporte = dados_escalacao[esporte]
+                for posicao in escalacao_do_esporte:
+                    if escalacao_do_esporte[posicao]:
+                        jogadores_escalados.append(escalacao_do_esporte[posicao])
+
+            jogadores_escalados = set(jogadores_escalados)
+
+            fotos_jogadores_escalados = {}
+
+            while len(fotos_jogadores_escalados) < len(jogadores_escalados):
+                for esporte in jogadores_cadastrados:
+                    dados_esporte = jogadores_cadastrados[esporte]
+                    for posicao in dados_esporte:
+                        jogadores = dados_esporte[posicao]
+                        for jogador in jogadores:
+                            if jogador in jogadores_escalados:
+                                dados_jogador = jogadores[jogador]
+                                fotos_jogadores_escalados[jogador] = dados_jogador["foto_de_perfil"]
+            dados_return = {}
+            for esporte in dados_escalacao:
+                escalacao_do_esporte = dados_escalacao[esporte]
+                dados_return[esporte] = {}
+                for posicao in escalacao_do_esporte:
+                    if escalacao_do_esporte[posicao]:
+                        id_jogador = escalacao_do_esporte[posicao]
+                        foto_jogador = fotos_jogadores_escalados[id_jogador]
+
+                        dados_return[esporte][posicao] = [id_jogador, foto_jogador]
+
+            pontuacao_atual_cada_esporte = bd.child(f"usuarios/{current_user.id}/pontos").get().val()
+
+            for esporte in pontuacao_atual_cada_esporte:
+                pontos = pontuacao_atual_cada_esporte[esporte]
+                dados_return[esporte]["pontos"] = pontos
+
+            return jsonify(dados_return)
+    else:
+        return "", 404
+
+
+@app.route('/dados-do-banco/escalacao/<esporte>', methods=['POST', 'GET'])
+def dados_do_banco_escalacao_especifica(esporte):
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        dados_esporte = bd.child(f"jogadores/{esporte}").get().val()
+        escalacao_do_esporte = bd.child(f"usuarios/{current_user.id}/escalacao/{esporte}").get().val()
+        jogadores_escalados = []
+
+        for posicao in escalacao_do_esporte:
+            if escalacao_do_esporte[posicao]:
+                jogadores_escalados.append(escalacao_do_esporte[posicao])
+
+        fotos_jogadores_escalados = {}
+
+        while len(fotos_jogadores_escalados) < len(jogadores_escalados):
+            for posicao in dados_esporte:
+                jogadores = dados_esporte[posicao]
+                for jogador in jogadores:
+                    if jogador in jogadores_escalados:
+                        dados_jogador = jogadores[jogador]
+                        fotos_jogadores_escalados[jogador] = dados_jogador["foto_de_perfil"]
+
+        dados_return = {}
+        for posicao in escalacao_do_esporte:
+            if escalacao_do_esporte[posicao]:
+                id_jogador = escalacao_do_esporte[posicao]
+                foto_jogador = fotos_jogadores_escalados[id_jogador]
+
+                dados_return[posicao] = [id_jogador, foto_jogador]
+
+        pontuacao_atual_esporte = bd.child(f"usuarios/{current_user.id}/pontos/{esporte}").get().val()
+        dados_return["pontos"] = pontuacao_atual_esporte
+
+        return jsonify(dados_return)
+
+
+@app.route("/ADM", methods=["GET", "POST"])
+@login_required
+def inserir_pontuao_redirect():
+    administradores = bd.child("administracao/usuarios").get().val()
+
+    if current_user.id in administradores:
+        return redirect(url_for('ADM_autorizar'))
+    else:
+        return "", 404
+
+
+@app.route("/ADM/<chave_secreta_fornecida>", methods=["GET", "POST"])
+@login_required
+def ADM(chave_secreta_fornecida=None):
+    administradores = bd.child("administracao/usuarios").get().val()
+
+    if current_user.id in administradores:
+        form = ADMForm()
+        mercado_atual = bd.child("mercado_aberto").get().val()
+
+        for esporte in mercado_atual:
+            if mercado_atual[esporte]:
+                mercado_atual[esporte] = "Aberto"
+            else:
+                mercado_atual[esporte] = "Fechado"
+
+        if request.method == "GET":
+            if valida_chave_secreta_administracao(chave_secreta_fornecida):
+                return render_template("ADM.html", form=form, chave_secreta=chave_secreta_fornecida, mercado_atual=mercado_atual)
+            else:
+                return "", 404
+        elif form.validate_on_submit():
+            if form.futsalM.data:
+                return redirect(url_for('inserir_pontuacao_esporte', esporte="futsalM", chave_secreta_fornecida=chave_secreta_fornecida))
+            elif form.futsalF.data:
+                return redirect(url_for('inserir_pontuacao_esporte', esporte="futsalF", chave_secreta_fornecida=chave_secreta_fornecida))
+            elif form.basquete.data:
+                return redirect(url_for('inserir_pontuacao_esporte', esporte="basquete", chave_secreta_fornecida=chave_secreta_fornecida))
+            elif form.handebol.data:
+                return redirect(url_for('inserir_pontuacao_esporte', esporte="handebol", chave_secreta_fornecida=chave_secreta_fornecida))
+            else:
+                if valida_chave_secreta_administracao(chave_secreta_fornecida):
+                    if form.alterar_mercado_futsalM.data:
+                        booleano = bd.child("mercado_aberto/futsal_masculino").get().val()
+                        bd.child("mercado_aberto/futsal_masculino").set(not booleano)
+
+                        if not booleano:
+                            mercado_atual["futsal_masculino"] = "Aberto"
+                        else:
+                            mercado_atual["futsal_masculino"] = "Fechado"
+
+                        chave_secreta = troca_chave_secreta_administracao()
+
+                        return render_template("ADM.html", form=form, chave_secreta=chave_secreta, mercado_atual=mercado_atual)
+                    elif form.alterar_mercado_futsalF.data:
+                        booleano = bd.child("mercado_aberto/futsal_feminino").get().val()
+                        bd.child("mercado_aberto/futsal_feminino").set(not booleano)
+
+                        if not booleano:
+                            mercado_atual["futsal_feminino"] = "Aberto"
+                        else:
+                            mercado_atual["futsal_feminino"] = "Fechado"
+
+                        chave_secreta = troca_chave_secreta_administracao()
+
+                        return render_template("ADM.html", form=form, chave_secreta=chave_secreta, mercado_atual=mercado_atual)
+                    elif form.alterar_mercado_basquete.data:
+                        booleano = bd.child("mercado_aberto/basquete").get().val()
+                        bd.child("mercado_aberto/basquete").set(not booleano)
+
+                        if not booleano:
+                            mercado_atual["basquete"] = "Aberto"
+                        else:
+                            mercado_atual["basquete"] = "Fechado"
+
+                        chave_secreta = troca_chave_secreta_administracao()
+
+                        return render_template("ADM.html", form=form, chave_secreta=chave_secreta, mercado_atual=mercado_atual)
+                    elif form.alterar_mercado_handebol.data:
+                        booleano = bd.child("mercado_aberto/handebol").get().val()
+                        bd.child("mercado_aberto/handebol").set(not booleano)
+
+                        if not booleano:
+                            mercado_atual["hendebol"] = "Aberto"
+                        else:
+                            mercado_atual["hendebol"] = "Fechado"
+
+                        chave_secreta = troca_chave_secreta_administracao()
+
+                        return render_template("ADM.html", form=form, chave_secreta=chave_secreta, mercado_atual=mercado_atual)
+                    else:
+                        return "", 404
+                else:
+                    return "", 404
+
+    else:
+        return "", 404
+
+
+@app.route("/ADM/autorizar", methods=["GET", "POST"])
+@login_required
+def ADM_autorizar():
+    administradores = bd.child("administracao/usuarios").get().val()
+    if current_user.id in administradores:
+        form = ADMAutorizarForm()
+        if request.method == "GET":
+            setup_ADM_autorizar()
+
+            return render_template("ADM-autorizar.html", erro="", form=form)
+
+        elif form.validate_on_submit():
+            codigo_fornecido = form.code.data
+            form.code.data = ""
+
+            codigo_desejado = session["code"]
+
+            if codigo_fornecido == codigo_desejado:
+                chave_secreta = bd.child("administracao/chave_de_acesso").get().val()
+                return redirect(url_for("ADM", chave_secreta_fornecida=chave_secreta))
+            else:
+                setup_ADM_autorizar()
+
+                return render_template("ADM-autorizar.html", erro=f"Código inválido, novo código enviado", form=form)
+    else:
+        return "", 404
+
+
+@app.route("/inserir-pontuacao/<esporte>/<chave_secreta_fornecida>", methods=["GET", "POST"])
+@login_required
+def inserir_pontuacao_esporte(esporte, chave_secreta_fornecida=None):
+    chave_bd = bd.child("administracao/chave_de_acesso").get().val()
+
+    if esporte == "futsalM":
+        form = InserirPontuacaoFormFutsalM()
+    elif esporte == "futsalF":
+        form = InserirPontuacaoFormFutsalF()
+    elif esporte == "basquete":
+        form = InserirPontuacaoFormBasquete()
+    elif esporte == "handebol":
+        form = InserirPontuacaoFormHandebol()
+    else:
+        return "", 404
+
+    if request.method == "GET":
+        if chave_bd == chave_secreta_fornecida:
+            return render_template("inserir-pontuacao-esporte.html",
+                                   form=form,
+                                   esporte=esporte,
+                                   chave_secreta_fornecida=chave_secreta_fornecida)
+        else:
+            return "", 404
+    elif form.validate_on_submit():
+        pass
+
+
+def valida_chave_secreta_administracao(chave_fornecida):
+    chave_secreta_bd = bd.child("administracao/chave_de_acesso").get().val()
+    if chave_fornecida == chave_secreta_bd:
+        return True
+    else:
+        return False
+
+
+def troca_chave_secreta_administracao():
+    caracteres = string.ascii_letters + string.digits
+    nova_chave = "".join([secrets.choice(caracteres) for _ in range(32)])
+    bd.child("administracao/chave_de_acesso").set(nova_chave)
+
+    return nova_chave
+
+
+def setup_ADM_autorizar():
+    numeros = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
+
+    numeros_escolhidos = [secrets.choice(numeros) for _ in range(6)]
+    codigo = "".join(numeros_escolhidos)
+
+    session["code"] = codigo
+
+    corpo_email = f"<p>Seu código de verificação é: {codigo}</p>"
+
+    msg = email.message.Message()
+
+    msg['Subject'] = "Código de verificação"
+    msg['From'] = os.getenv("EMAIL_VERIFICACAO")
+    msg['To'] = os.getenv("EMAIL_VERIFICACAO")
+    password = os.getenv("GMAIL_SENHA_APP")
+    msg.add_header('Content-Type', 'text/html')
+    msg.set_payload(corpo_email)
+
+    s = smtplib.SMTP('smtp.gmail.com: 587')
+    s.starttls()
+    s.login(msg['From'], password)
+    s.sendmail(msg['From'], [msg['To']], msg.as_string().encode('utf-8'))
 
 
 if __name__ == '__main__':
