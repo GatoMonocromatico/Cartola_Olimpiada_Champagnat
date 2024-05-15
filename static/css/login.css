@@ -42,15 +42,17 @@ body{
 
 form {
     display: flex;
-    min-width: 300px;
-    min-height: 400px;
+    max-width: 600px;
+    max-height: 800px;
+    height: 65%;
+    width: 60%;
 }
 
 .form{
     background: linear-gradient(to top, #c7c7c7, #ffffff);
     border-radius: 25px;
-    height: 65%;
-    width: 60%;
+    height: 100%;
+    width: 100%;
     min-width: 300px;
     min-height: 400px;
     display: flex;
