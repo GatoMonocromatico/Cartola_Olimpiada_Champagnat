@@ -539,3 +539,19 @@ body{
     transform: translateY(5px);
     transition: 300ms;
 }
+
+#bloco_escolha_do_esporte {
+    transition: 100ms;
+}
+
+#bloco_escalacao {
+    transition: 100ms;
+}
+
+#bloco_escolhe_jogador {
+    transition: 100ms;
+}
+
+#bloco_mostra_jogadores {
+    transition: 100ms;
+}
