@@ -424,7 +424,7 @@ async function colocaJogadoresNoHTML(idPosição, posicao) {
 
     let conteudo = ""
     let conteudoJogador
-    let escalaoAtual
+    let escalacaoAtual
     jogadores = dadosJogadoresDoEsporteAtual[posicao]
 
     for (const jogador in jogadores) {
@@ -448,12 +448,12 @@ async function colocaJogadoresNoHTML(idPosição, posicao) {
         }
 
         conteudoJogador = HTML_escolhe_jogador_conteudo.replaceAll("IDJOGADOR", jogador).replaceAll("FOTOJOGADOR", imagem).replaceAll("NOMEJOGADOR", nome).replaceAll("EQUIPEJOGADOR", equipe).replaceAll("ULTIMOSPONTOSJOGADOR", pontosUltimaPartida).replaceAll("MEDIAPONTOSJOGADOR", mediaPontos).replaceAll("IDPOSICAO", idPosição)
-        escalaoAtual = escalacoes.get(`escalacao_${esporteAtual}`)
+        escalacaoAtual = escalacoes.get(`escalacao_${esporteAtual}`)
         
         let jogadorEstaNaEscalacao = false
-        for (posicao in escalaoAtual) {
-            if (escalaoAtual[posicao]) {
-                if (escalaoAtual[posicao][0].includes(jogador)) {
+        for (posicao in escalacaoAtual) {
+            if (escalacaoAtual[posicao] && posicao != "pontos") {
+                if (escalacaoAtual[posicao][0].includes(jogador)) {
                     jogadorEstaNaEscalacao = true
                 }
             }
@@ -503,6 +503,16 @@ function escolher_jogador(idPosição, imagemJogador, idJogador) {
     
     inpFormulario.val(dadosSalvarAtualizados)
 
+    let chave = "escalacao_" + esporteAtual
+
+    console.log(escalacoes.get(chave))
+    
+    conteudo_map_na_chave_modificar = escalacoes.get(chave)
+    conteudo_map_na_chave_modificar[idPosição] = [idJogador, imagemJogador]
+    escalacoes.set(chave, conteudo_map_na_chave_modificar)
+    
+    console.log(escalacoes.get(chave)[idPosição])
+
     fechar_escolhe_jogador()
 }
 
@@ -516,10 +526,14 @@ function submit() {
     form.trigger("submit")
 }
 
-form.on("submit", function salvar_escolhas(event) {
+form.on("submit", async function salvar_escolhas(event) {
     event.preventDefault()
     dados = {0: inpFormulario.val(), 1: esporteAtual}
     if (inpFormulario.val()) {
+        inpFormulario.val("")
+        //let ajax1Rodou = false
+        //let ajax2Rodou = false
+
         proibido_voltar = true
         $.ajax({
             url: "/",
@@ -527,28 +541,39 @@ form.on("submit", function salvar_escolhas(event) {
             data: JSON.stringify(dados),
             contentType: "application/json",
             success: function(response) {
+                //ajax1Rodou = true
+                proibido_voltar = false
                 console.log(response)
             },
             error: function(e) {
                 console.log(e)
             }
         })
-        $.ajax({
-            url: `/dados-do-banco/escalacao/${esporteAtual}`,
-            type: "get",
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            success: function(data) {
-                let key = "escalacao_"+esporteAtual
-                escalacoes.set(key, data)
-                proibido_voltar = false
-            },
-            error: function(e) {
-                window.location.reload()
-                console.log(e)
-            }
-        })
+        //$.ajax({
+        //    url: `/dados-do-banco/escalacao/${esporteAtual}`,
+        //    type: "get",
+        //    headers: {
+        //        'X-Requested-With': 'XMLHttpRequest'
+        //    },
+        //    success: function(data) {
+        //        let key = "escalacao_"+esporteAtual
+        //        escalacoes.set(key, data)
+        //        ajax2Rodou = true
+        //        console.log("escalacao atualizada")
+        //    },
+        //    error: function(e) {
+        //        window.location.reload()
+        //        console.log(e)
+        //    }
+        //})
+//
+        //while (proibido_voltar) {
+        //    if (ajax1Rodou && ajax2Rodou) {
+        //        proibido_voltar = false
+        //        console.log("liberou")
+        //    }
+        //    await sleep(50)
+        //}
     }
     //salvar todos os dados das escolhas do usuario em um form secreto e dar submit no mesmo após o salvamento das escolhas pelo usuario
 })

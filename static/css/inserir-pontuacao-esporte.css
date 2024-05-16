@@ -146,3 +146,7 @@ input[type="submit"]:active{
     box-shadow: #0F3B5E 0px 0px 0px 0px;
     transform: translateY(6px) translateX(-6px);
 }
+
+.hidden {
+    opacity: 0;
+}
