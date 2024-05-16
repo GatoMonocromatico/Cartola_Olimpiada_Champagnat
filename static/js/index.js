@@ -546,6 +546,7 @@ form.on("submit", async function salvar_escolhas(event) {
                 console.log(response)
             },
             error: function(e) {
+                window.location.reload()
                 console.log(e)
             }
         })
