@@ -74,7 +74,7 @@ body{
     transition: transform 200ms ease-in-out, color 200ms ease-in-out;
 }
 #trophy:hover{
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.5);
     color:#E4786E;
 }
 #trophy:active{
@@ -570,4 +570,18 @@ body{
     text-align: center;
     margin-bottom: 20px;
     box-shadow: 0px 8px #0f3b5e;
+}
+
+#admin {
+    color: #FBB834;
+    transition: color 200ms ease-in-out ;
+    margin-left: 10px;
+}
+
+#admin:hover {
+    color: #E4786E;
+}
+
+.icon {
+    transform: scale(1.5);
 }

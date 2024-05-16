@@ -260,7 +260,6 @@ class InserirPontuacaoFormBasquete(FlaskForm):
     jogador9 = SelectField("Jogador4 time 2", choices=escolhas)
     jogador10 = SelectField("Jogador5 time 2", choices=escolhas)
 
-
     pontos_jogador1 = IntegerField("Pontos", default=0)
     pontos_jogador2 = IntegerField("Pontos", default=0)
     pontos_jogador3 = IntegerField("Pontos", default=0)
@@ -457,6 +456,8 @@ class User(UserMixin):
                               "futsal_masculino": {"goleiro": "", "jogador1": "", "jogador2": "", "jogador3": "", "jogador4": ""}}
             self.pontos = {"futsal_masculino": 0, "futsal_feminino": 0, "basquete": 0, "handebol": 0}
             self.posicao = ""
+            self.ADM = False
+
             bd.child(f"usuarios/{self.id}").set({
                 "esportes_cadastrados": "",
                 "foto_de_perfil": self.foto_de_perfil,
@@ -467,7 +468,8 @@ class User(UserMixin):
                 "equipe": self.equipe,
                 "escalacao": self.escalacao,
                 "pontos": self.pontos,
-                "posicao": self.posicao
+                "posicao": self.posicao,
+                "ADM": self.ADM
             })
         else:
             self.tem_foto_de_perfil_default = dados["tem_foto_de_perfil_default"]
@@ -476,6 +478,7 @@ class User(UserMixin):
             self.escalacao = dados["escalacao"]
             self.pontos = dados["pontos"]
             self.posicao = dados["posicao"]
+            self.ADM = dados["ADM"]
 
 
 @login_manager.user_loader
@@ -513,7 +516,7 @@ def index():
         else:
             return "mercado fechado", 400
 
-    return render_template("index.html", nome_de_usuario=current_user.nome, foto_de_perfil=current_user.foto_de_perfil, mercado_aberto=mercado_aberto)
+    return render_template("index.html", nome_de_usuario=current_user.nome, foto_de_perfil=current_user.foto_de_perfil, mercado_aberto=mercado_aberto, ADM=current_user.ADM)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -884,7 +887,7 @@ def ADM_autorizar():
     if current_user.id in administradores:
         form = ADMAutorizarForm()
         if request.method == "GET":
-            setup_ADM_autorizar()
+            setup_ADM_autorizar(administradores[current_user.id])
 
             return render_template("ADM-autorizar.html", erro="", form=form)
 
@@ -898,7 +901,7 @@ def ADM_autorizar():
                 chave_secreta = bd.child("administracao/chave_de_acesso").get().val()
                 return redirect(url_for("ADM", chave_secreta_fornecida=chave_secreta))
             else:
-                setup_ADM_autorizar()
+                setup_ADM_autorizar(administradores[current_user.id])
 
                 return render_template("ADM-autorizar.html", erro=f"Código inválido, novo código enviado", form=form)
     else:
@@ -933,6 +936,11 @@ def inserir_pontuacao_esporte(esporte, chave_secreta_fornecida=None):
         pass
 
 
+@app.route("/leaderboards", methods=["GET"])
+def leaderboards():
+    return render_template("leaderboards.html")
+
+
 def valida_chave_secreta_administracao(chave_fornecida):
     chave_secreta_bd = bd.child("administracao/chave_de_acesso").get().val()
     if chave_fornecida == chave_secreta_bd:
@@ -949,7 +957,7 @@ def troca_chave_secreta_administracao():
     return nova_chave
 
 
-def setup_ADM_autorizar():
+def setup_ADM_autorizar(email_adm):
     numeros = ("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
 
     numeros_escolhidos = [secrets.choice(numeros) for _ in range(6)]
@@ -963,7 +971,7 @@ def setup_ADM_autorizar():
 
     msg['Subject'] = "Código de verificação"
     msg['From'] = os.getenv("EMAIL_VERIFICACAO")
-    msg['To'] = os.getenv("EMAIL_VERIFICACAO")
+    msg['To'] = email_adm
     password = os.getenv("GMAIL_SENHA_APP")
     msg.add_header('Content-Type', 'text/html')
     msg.set_payload(corpo_email)

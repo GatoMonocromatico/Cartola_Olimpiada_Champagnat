@@ -34,6 +34,17 @@ function unhover_btn(idBtn, idDetalhe) {
 
 }
 
+const admin = $("#admin")
+const trophy = $("#trophy")
+
+admin.on("click", () => {
+    window.location.href = "/ADM"
+})
+
+trophy.on("click", () => {
+    window.location.href = "/leaderboards"
+})
+
 // código original abaixo
 // código original abaixo
 // código original abaixo
