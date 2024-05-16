@@ -9,8 +9,9 @@
     <title>ADM {{ esporte }}</title>
 </head>
 <body>
-<form action="{{ url_for('inserir_pontuacao_esporte', esporte='esporte', chave_secreta_fornecida=chave_secreta_fornecida) }}">
+<form action="{{ url_for('inserir_pontuacao_esporte', esporte=esporte, chave_secreta_fornecida=chave_secreta_fornecida) }}" method="post">
     {{ form.hidden_tag() }}
+    {{ form.nome_esporte(disabled="true", class="hidden") }}
     {% if "futsal" in esporte %}
         <div class="container">
         {{ form.goleiro1.label }}
@@ -45,8 +46,8 @@
         {{ form.jogador1.label }}
         {{ form.jogador1() }}
         <div class="container_input">
-            {{ form.gols_jogador1.label }}
-            {{ form.gols_jogador1() }}
+            {{ form.pontos_jogador1.label }}
+            {{ form.pontos_jogador1() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador1.label }}
@@ -69,8 +70,8 @@
         {{ form.jogador2.label }}
         {{ form.jogador2() }}
         <div class="container_input">
-            {{ form.gols_jogador2.label }}
-            {{ form.gols_jogador2() }}
+            {{ form.pontos_jogador2.label }}
+            {{ form.pontos_jogador2() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador2.label }}
@@ -93,8 +94,8 @@
         {{ form.jogador3.label }}
         {{ form.jogador3() }}
         <div class="container_input">
-            {{ form.gols_jogador3.label }}
-            {{ form.gols_jogador3() }}
+            {{ form.pontos_jogador3.label }}
+            {{ form.pontos_jogador3() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador3.label }}
@@ -117,8 +118,8 @@
         {{ form.jogador4.label }}
         {{ form.jogador4() }}
         <div class="container_input">
-            {{ form.gols_jogador4.label }}
-            {{ form.gols_jogador4() }}
+            {{ form.pontos_jogador4.label }}
+            {{ form.pontos_jogador4() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador4.label }}
@@ -169,8 +170,8 @@
         {{ form.jogador5.label }}
         {{ form.jogador5() }}
         <div class="container_input">
-            {{ form.gols_jogador5.label }}
-            {{ form.gols_jogador5() }}
+            {{ form.pontos_jogador5.label }}
+            {{ form.pontos_jogador5() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador5.label }}
@@ -193,8 +194,8 @@
         {{ form.jogador6.label }}
         {{ form.jogador6() }}
         <div class="container_input">
-            {{ form.gols_jogador6.label }}
-            {{ form.gols_jogador6() }}
+            {{ form.pontos_jogador6.label }}
+            {{ form.pontos_jogador6() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador6.label }}
@@ -217,8 +218,8 @@
         {{ form.jogador7.label }}
         {{ form.jogador7() }}
         <div class="container_input">
-            {{ form.gols_jogador7.label }}
-            {{ form.gols_jogador7() }}
+            {{ form.pontos_jogador7.label }}
+            {{ form.pontos_jogador7() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador7.label }}
@@ -241,8 +242,8 @@
         {{ form.jogador8.label }}
         {{ form.jogador8() }}
         <div class="container_input">
-            {{ form.gols_jogador8.label }}
-            {{ form.gols_jogador8() }}
+            {{ form.pontos_jogador8.label }}
+            {{ form.pontos_jogador8() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador8.label }}
@@ -295,8 +296,8 @@
         {{ form.jogador1.label }}
         {{ form.jogador1() }}
         <div class="container_input">
-            {{ form.gols_jogador1.label }}
-            {{ form.gols_jogador1() }}
+            {{ form.pontos_jogador1.label }}
+            {{ form.pontos_jogador1() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador1.label }}
@@ -319,8 +320,8 @@
         {{ form.jogador2.label }}
         {{ form.jogador2() }}
         <div class="container_input">
-            {{ form.gols_jogador2.label }}
-            {{ form.gols_jogador2() }}
+            {{ form.pontos_jogador2.label }}
+            {{ form.pontos_jogador2() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador2.label }}
@@ -343,8 +344,8 @@
         {{ form.jogador3.label }}
         {{ form.jogador3() }}
         <div class="container_input">
-            {{ form.gols_jogador3.label }}
-            {{ form.gols_jogador3() }}
+            {{ form.pontos_jogador3.label }}
+            {{ form.pontos_jogador3() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador3.label }}
@@ -367,8 +368,8 @@
         {{ form.jogador4.label }}
         {{ form.jogador4() }}
         <div class="container_input">
-            {{ form.gols_jogador4.label }}
-            {{ form.gols_jogador4() }}
+            {{ form.pontos_jogador4.label }}
+            {{ form.pontos_jogador4() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador4.label }}
@@ -419,8 +420,8 @@
         {{ form.jogador5.label }}
         {{ form.jogador5() }}
         <div class="container_input">
-            {{ form.gols_jogador5.label }}
-            {{ form.gols_jogador5() }}
+            {{ form.pontos_jogador5.label }}
+            {{ form.pontos_jogador5() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador5.label }}
@@ -443,8 +444,8 @@
         {{ form.jogador6.label }}
         {{ form.jogador6() }}
         <div class="container_input">
-            {{ form.gols_jogador6.label }}
-            {{ form.gols_jogador6() }}
+            {{ form.pontos_jogador6.label }}
+            {{ form.pontos_jogador6() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador6.label }}
@@ -467,8 +468,8 @@
         {{ form.jogador7.label }}
         {{ form.jogador7() }}
         <div class="container_input">
-            {{ form.gols_jogador7.label }}
-            {{ form.gols_jogador7() }}
+            {{ form.pontos_jogador7.label }}
+            {{ form.pontos_jogador7() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador7.label }}
@@ -491,8 +492,8 @@
         {{ form.jogador8.label }}
         {{ form.jogador8() }}
         <div class="container_input">
-            {{ form.gols_jogador8.label }}
-            {{ form.gols_jogador8() }}
+            {{ form.pontos_jogador8.label }}
+            {{ form.pontos_jogador8() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador8.label }}
@@ -515,8 +516,8 @@
         {{ form.jogador9.label }}
         {{ form.jogador9() }}
         <div class="container_input">
-            {{ form.gols_jogador9.label }}
-            {{ form.gols_jogador9() }}
+            {{ form.pontos_jogador9.label }}
+            {{ form.pontos_jogador9() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador9.label }}
@@ -539,8 +540,8 @@
         {{ form.jogador10.label }}
         {{ form.jogador10() }}
         <div class="container_input">
-            {{ form.gols_jogador10.label }}
-            {{ form.gols_jogador10() }}
+            {{ form.pontos_jogador10.label }}
+            {{ form.pontos_jogador10() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador10.label }}
@@ -563,8 +564,8 @@
         {{ form.jogador11.label }}
         {{ form.jogador11() }}
         <div class="container_input">
-            {{ form.gols_jogador11.label }}
-            {{ form.gols_jogador11() }}
+            {{ form.pontos_jogador11.label }}
+            {{ form.pontos_jogador11() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador11.label }}
@@ -587,8 +588,8 @@
         {{ form.jogador12.label }}
         {{ form.jogador12() }}
         <div class="container_input">
-            {{ form.gols_jogador12.label }}
-            {{ form.gols_jogador12() }}
+            {{ form.pontos_jogador12.label }}
+            {{ form.pontos_jogador12() }}
         </div>
         <div class="container_input">
             {{ form.amarelos_jogador12.label }}

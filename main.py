@@ -57,6 +57,8 @@ class ADMForm(FlaskForm):
 
 
 class InserirPontuacaoFormFutsalM(FlaskForm):
+    nome_esporte = StringField("esporte", default="futsal_masculino")
+
     jogadores_raw = bd.child("jogadores/futsal_masculino").get().val()
     jogadores_ataque = {}
     jogadores_gol = {}
@@ -101,14 +103,14 @@ class InserirPontuacaoFormFutsalM(FlaskForm):
     jogador7 = SelectField("Jogador3 time 2", choices=escolhas_ataque)
     jogador8 = SelectField("Jogador4 time 2", choices=escolhas_ataque)
 
-    gols_jogador1 = IntegerField("Gols", default=0)
-    gols_jogador2 = IntegerField("Gols", default=0)
-    gols_jogador3 = IntegerField("Gols", default=0)
-    gols_jogador4 = IntegerField("Gols", default=0)
-    gols_jogador5 = IntegerField("Gols", default=0)
-    gols_jogador6 = IntegerField("Gols", default=0)
-    gols_jogador7 = IntegerField("Gols", default=0)
-    gols_jogador8 = IntegerField("Gols", default=0)
+    pontos_jogador1 = IntegerField("Gols", default=0)
+    pontos_jogador2 = IntegerField("Gols", default=0)
+    pontos_jogador3 = IntegerField("Gols", default=0)
+    pontos_jogador4 = IntegerField("Gols", default=0)
+    pontos_jogador5 = IntegerField("Gols", default=0)
+    pontos_jogador6 = IntegerField("Gols", default=0)
+    pontos_jogador7 = IntegerField("Gols", default=0)
+    pontos_jogador8 = IntegerField("Gols", default=0)
 
     amarelos_jogador1 = IntegerField("Cartões amarelos", default=0)
     amarelos_jogador2 = IntegerField("Cartões amarelos", default=0)
@@ -150,6 +152,8 @@ class InserirPontuacaoFormFutsalM(FlaskForm):
 
 
 class InserirPontuacaoFormFutsalF(FlaskForm):
+    nome_esporte = StringField("esporte", default="futsal_feminino")
+
     jogadores_raw = bd.child("jogadores/futsal_feminino").get().val()
     jogadores_ataque = {}
     jogadores_gol = {}
@@ -193,14 +197,14 @@ class InserirPontuacaoFormFutsalF(FlaskForm):
     jogador7 = SelectField("Jogadora3 time 2", choices=escolhas_ataque)
     jogador8 = SelectField("Jogadora4 time 2", choices=escolhas_ataque)
 
-    gols_jogador1 = IntegerField("Gols", default=0)
-    gols_jogador2 = IntegerField("Gols", default=0)
-    gols_jogador3 = IntegerField("Gols", default=0)
-    gols_jogador4 = IntegerField("Gols", default=0)
-    gols_jogador5 = IntegerField("Gols", default=0)
-    gols_jogador6 = IntegerField("Gols", default=0)
-    gols_jogador7 = IntegerField("Gols", default=0)
-    gols_jogador8 = IntegerField("Gols", default=0)
+    pontos_jogador1 = IntegerField("Gols", default=0)
+    pontos_jogador2 = IntegerField("Gols", default=0)
+    pontos_jogador3 = IntegerField("Gols", default=0)
+    pontos_jogador4 = IntegerField("Gols", default=0)
+    pontos_jogador5 = IntegerField("Gols", default=0)
+    pontos_jogador6 = IntegerField("Gols", default=0)
+    pontos_jogador7 = IntegerField("Gols", default=0)
+    pontos_jogador8 = IntegerField("Gols", default=0)
 
     amarelos_jogador1 = IntegerField("Cartões amarelos", default=0)
     amarelos_jogador2 = IntegerField("Cartões amarelos", default=0)
@@ -242,6 +246,8 @@ class InserirPontuacaoFormFutsalF(FlaskForm):
 
 
 class InserirPontuacaoFormBasquete(FlaskForm):
+    nome_esporte = StringField("esporte", default="basquete")
+
     jogadores = bd.child("jogadores/basquete/ataque").get().val()
 
     escolhas = [("", "-Escolha um jogador se preciso-")]
@@ -320,6 +326,8 @@ class InserirPontuacaoFormBasquete(FlaskForm):
 
 
 class InserirPontuacaoFormHandebol(FlaskForm):
+    nome_esporte = StringField("esporte", default="handebol")
+
     jogadores_raw = bd.child("jogadores/handebol").get().val()
     jogadores_ataque = {}
     jogadores_gol = {}
@@ -367,18 +375,18 @@ class InserirPontuacaoFormHandebol(FlaskForm):
     jogador11 = SelectField("Jogadora5 time 2", choices=escolhas_ataque)
     jogador12 = SelectField("Jogadora6 time 2", choices=escolhas_ataque)
 
-    gols_jogador1 = IntegerField("Gols", default=0)
-    gols_jogador2 = IntegerField("Gols", default=0)
-    gols_jogador3 = IntegerField("Gols", default=0)
-    gols_jogador4 = IntegerField("Gols", default=0)
-    gols_jogador5 = IntegerField("Gols", default=0)
-    gols_jogador6 = IntegerField("Gols", default=0)
-    gols_jogador7 = IntegerField("Gols", default=0)
-    gols_jogador8 = IntegerField("Gols", default=0)
-    gols_jogador9 = IntegerField("Gols", default=0)
-    gols_jogador10 = IntegerField("Gols", default=0)
-    gols_jogador11 = IntegerField("Gols", default=0)
-    gols_jogador12 = IntegerField("Gols", default=0)
+    pontos_jogador1 = IntegerField("Gols", default=0)
+    pontos_jogador2 = IntegerField("Gols", default=0)
+    pontos_jogador3 = IntegerField("Gols", default=0)
+    pontos_jogador4 = IntegerField("Gols", default=0)
+    pontos_jogador5 = IntegerField("Gols", default=0)
+    pontos_jogador6 = IntegerField("Gols", default=0)
+    pontos_jogador7 = IntegerField("Gols", default=0)
+    pontos_jogador8 = IntegerField("Gols", default=0)
+    pontos_jogador9 = IntegerField("Gols", default=0)
+    pontos_jogador10 = IntegerField("Gols", default=0)
+    pontos_jogador11 = IntegerField("Gols", default=0)
+    pontos_jogador12 = IntegerField("Gols", default=0)
 
     amarelos_jogador1 = IntegerField("Cartões amarelos", default=0)
     amarelos_jogador2 = IntegerField("Cartões amarelos", default=0)
@@ -689,11 +697,11 @@ def dados_do_banco(info):
                     if historico_pontos:
                         total_de_pontos = 0
 
-                        index_for = 1
+                        index_for = 0
                         for pontos in historico_pontos:
                             total_de_pontos += pontos
                             index_for += 1
-                        media_pontos = total_de_pontos / index_for
+                        media_pontos = round((total_de_pontos / index_for), 1)
                     else:
                         media_pontos = ""
 
@@ -908,6 +916,185 @@ def ADM_autorizar():
         return "", 404
 
 
+def pontuar_esporte(form, esporte_a_pontuar):
+    dados = {
+        "jogador1": form.jogador1.data,
+        "jogador2": form.jogador2.data,
+        "jogador3": form.jogador3.data,
+        "jogador4": form.jogador4.data,
+        "jogador5": form.jogador5.data,
+        "jogador6": form.jogador6.data,
+        "jogador7": form.jogador7.data,
+        "jogador8": form.jogador8.data
+    }
+
+    if esporte_a_pontuar != "basquete":
+        modificador_de_pontos = 2
+
+        if esporte_a_pontuar == "handebol":
+            dados["jogador9"] = form.jogador9.data
+            dados["jogador10"] = form.jogador10.data
+            dados["jogador11"] = form.jogador11.data
+            dados["jogador12"] = form.jogador12.data
+
+        dados["goleiro1"] = form.goleiro1.data
+        dados["goleiro2"] = form.goleiro2.data
+    else:
+        modificador_de_pontos = 1
+
+        dados["jogador9"] = form.jogador9.data
+        dados["jogador10"] = form.jogador10.data
+
+    jogadores_com_mudancas = {}
+    dados_atualizar = {}
+
+    for jogador in dados:
+        if dados[jogador]:
+            pontos = 0
+            id_jogador = dados[jogador]
+
+            if "goleiro" in jogador:
+                pontos_historico = bd.child(f"jogadores/{esporte_a_pontuar}/gol/{id_jogador}/pontos_historico").get().val()
+
+                if jogador == "goleiro1":
+                    gols = form.gols_goleiro1.data * 2
+                    defesas = form.defesas_goleiro1.data * 2
+                    amarelos = form.amarelos_goleiro1.data * -0.2
+                    vermelho = form.vermelho_goleiro1.data * -3
+                    faltas = form.faltas_goleiro1.data * -1
+                    assistencias = form.assistencias_goleiro1.data * 0.5
+                else:
+                    gols = form.gols_goleiro2.data * 2
+                    defesas = form.defesas_goleiro2.data * 2
+                    amarelos = form.amarelos_goleiro2.data * -0.2
+                    vermelho = form.vermelho_goleiro2.data * -3
+                    faltas = form.faltas_goleiro2.data * -1
+                    assistencias = form.assistencias_goleiro2.data * 0.5
+
+                pontos = round(gols + amarelos + vermelho + faltas + assistencias, 1)
+
+                if pontos_historico:
+                    pontos_historico.append(pontos)
+                else:
+                    pontos_historico = [pontos, ]
+
+                dados_atualizar[f"gol/{id_jogador}/pontos_ultima_partida"] = pontos
+                dados_atualizar[f"gol/{id_jogador}/pontos_historico"] = pontos_historico
+
+                jogadores_com_mudancas[id_jogador] = pontos
+            else:
+                pontos_historico = bd.child(f"jogadores/{esporte_a_pontuar}/ataque/{id_jogador}/pontos_historico").get().val()
+
+                if "12" in jogador:
+                    gols = form.pontos_jogador12.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador12.data * -0.2
+                    vermelho = form.vermelho_jogador12.data * -3
+                    faltas = form.faltas_jogador12.data * -1
+                    assistencias = form.assistencias_jogador12.data * 0.5
+
+                elif "11" in jogador:
+                    gols = form.pontos_jogador11.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador11.data * -0.2
+                    vermelho = form.vermelho_jogador11.data * -3
+                    faltas = form.faltas_jogador11.data * -1
+                    assistencias = form.assistencias_jogador11.data * 0.5
+                elif "10" in jogador:
+                    gols = form.pontos_jogador10.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador10.data * -0.2
+                    vermelho = form.vermelho_jogador10.data * -3
+                    faltas = form.faltas_jogador10.data * -1
+                    assistencias = form.assistencias_jogador10.data * 0.5
+                elif "9" in jogador:
+                    gols = form.pontos_jogador9.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador9.data * -0.2
+                    vermelho = form.vermelho_jogador9.data * -3
+                    faltas = form.faltas_jogador9.data * -1
+                    assistencias = form.assistencias_jogador9.data * 0.5
+                elif "8" in jogador:
+                    gols = form.pontos_jogador8.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador8.data * -0.2
+                    vermelho = form.vermelho_jogador8.data * -3
+                    faltas = form.faltas_jogador8.data * -1
+                    assistencias = form.assistencias_jogador8.data * 0.5
+                elif "7" in jogador:
+                    gols = form.pontos_jogador7.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador7.data * -0.2
+                    vermelho = form.vermelho_jogador7.data * -3
+                    faltas = form.faltas_jogador7.data * -1
+                    assistencias = form.assistencias_jogador7.data * 0.5
+                elif "6" in jogador:
+                    gols = form.pontos_jogador6.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador6.data * -0.2
+                    vermelho = form.vermelho_jogador6.data * -3
+                    faltas = form.faltas_jogador6.data * -1
+                    assistencias = form.assistencias_jogador6.data * 0.5
+                elif "5" in jogador:
+                    gols = form.pontos_jogador5.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador5.data * -0.2
+                    vermelho = form.vermelho_jogador5.data * -3
+                    faltas = form.faltas_jogador5.data * -1
+                    assistencias = form.assistencias_jogador5.data * 0.5
+                elif "4" in jogador:
+                    gols = form.pontos_jogador4.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador4.data * -0.2
+                    vermelho = form.vermelho_jogador4.data * -3
+                    faltas = form.faltas_jogador4.data * -1
+                    assistencias = form.assistencias_jogador4.data * 0.5
+                elif "3" in jogador:
+                    gols = form.pontos_jogador3.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador3.data * -0.2
+                    vermelho = form.vermelho_jogador3.data * -3
+                    faltas = form.faltas_jogador3.data * -1
+                    assistencias = form.assistencias_jogador3.data * 0.5
+                elif "2" in jogador:
+                    gols = form.pontos_jogador2.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador2.data * -0.2
+                    vermelho = form.vermelho_jogador2.data * -3
+                    faltas = form.faltas_jogador2.data * -1
+                    assistencias = form.assistencias_jogador2.data * 0.5
+                else:
+                    gols = form.pontos_jogador1.data * modificador_de_pontos
+                    amarelos = form.amarelos_jogador1.data * -0.2
+                    vermelho = form.vermelho_jogador1.data * -3
+                    faltas = form.faltas_jogador1.data * -1
+                    assistencias = form.assistencias_jogador1.data * 0.5
+
+                pontos = round(gols + amarelos + vermelho + faltas + assistencias, 1)
+
+                if pontos_historico:
+                    pontos_historico.append(pontos)
+                else:
+                    pontos_historico = [pontos,]
+                dados_atualizar[f"ataque/{id_jogador}/pontos_ultima_partida"] = pontos
+                dados_atualizar[f"ataque/{id_jogador}/pontos_historico"] = pontos_historico
+
+                jogadores_com_mudancas[id_jogador] = pontos
+
+    bd.child(f"jogadores/{esporte_a_pontuar}").update(dados_atualizar)
+
+    usuarios = bd.child("usuarios").get().val()
+    dados_atualizar_usuarios = {}
+    for usuario in usuarios:
+        pontuacao_a_adicionar = 0
+
+        escalacao_do_esporte = usuarios[usuario]["escalacao"][esporte_a_pontuar]
+        for posicao in escalacao_do_esporte:
+            jogador = escalacao_do_esporte[posicao]
+
+            for jogador_com_mudanca in jogadores_com_mudancas:
+                if jogador_com_mudanca == jogador:
+                    pontuacao_a_adicionar += jogadores_com_mudancas[jogador_com_mudanca]
+
+        if pontuacao_a_adicionar != 0:
+            pontuacao_atual = usuarios[usuario]["pontos"][esporte_a_pontuar]
+            pontuacao_final = pontuacao_atual + pontuacao_a_adicionar
+            dados_atualizar_usuarios[f"{usuario}/pontos/{esporte_a_pontuar}"] = pontuacao_final
+
+    bd.child("usuarios").update(dados_atualizar_usuarios)
+
+    return troca_chave_secreta_administracao()
+
+
 @app.route("/inserir-pontuacao/<esporte>/<chave_secreta_fornecida>", methods=["GET", "POST"])
 @login_required
 def inserir_pontuacao_esporte(esporte, chave_secreta_fornecida=None):
@@ -933,7 +1120,11 @@ def inserir_pontuacao_esporte(esporte, chave_secreta_fornecida=None):
         else:
             return "", 404
     elif form.validate_on_submit():
-        pass
+        esporte_a_pontuar = form.nome_esporte.data
+
+        nova_chave_secreta = pontuar_esporte(form, esporte_a_pontuar)
+
+        return redirect(url_for("ADM", chave_secreta_fornecida=nova_chave_secreta))
 
 
 @app.route("/leaderboards", methods=["GET"])
