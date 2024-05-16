@@ -35,12 +35,13 @@
                 <div class="input-colunm" id="input-colunm">
                     <span id="erro"></span>
                     <div id="bloco_login_inputs">
-                        <input name="usuario" type="text" placeholder="Número de matrícula" class="input" id="matrícula" required>
-                        <input name="senha" type="password" placeholder="Senha" class="input" id="password" maxlength="8" required>
+                        <div id="usuario_e_senha">
+                            <input name="usuario" type="text" placeholder="Número de matrícula" class="input" id="matrícula" required>
+                            <input name="senha" type="password" placeholder="Senha" class="input" id="password" maxlength="8" required>
+                            <i id="eye-icon" class="fas fa-eye-slash" style="z-index: 2" onclick="eyeClicado()"></i>
+                        </div>
 
                         <input type="text" placeholder="Nome" class="input" id="inp_nome_login_aparente"/>
-
-                        <i id="eye-icon" class="fas fa-eye-slash" style="z-index: 2"></i>
                         <div id="radios_container">
                             <div class="div_radio">
                                 <input type="radio" name="equipeAparente" id="radio_africa" value="africa" checked>
