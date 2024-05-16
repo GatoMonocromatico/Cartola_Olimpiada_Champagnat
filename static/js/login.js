@@ -2,6 +2,7 @@
 const body = document.getElementById('body');
 const form = document.getElementById('form');
 const inputColunm = document.getElementById('input-colunm');
+const usuarioESenha = document.getElementById('usuario_e_senha');
 
 const detail1 = document.getElementById('detail1');
 const detail2 = document.getElementById('detail2');
@@ -10,6 +11,7 @@ const detail4 = document.getElementById('detail4');
 
 const matriculaInput = document.getElementById('matrícula');
 const passwordInput = document.getElementById('password');
+const eye = document.getElementById('eye-icon');
 
 const button = document.getElementById('button');
 const goToRegister = document.getElementById('goToRegister');
@@ -26,20 +28,18 @@ const inpLoginEquipeAfricaForm = $("#radio_africa_form")
 const inpLoginEquipeAmericaForm = $("#radio_america_form")
 const inpLoginEquipeAsiaForm = $("#radio_asia_form")
 
-
-// função de loop
-function loop() {
-  const eye = document.getElementById('eye-icon');
+// função de posicionamento dinâmico dos detalhes
+function placingElements() {
 
   // pegando as larguras e alturas  
   var formWidth = form.offsetWidth
   var formHeight = form.offsetHeight 
   var bodyWidth = body.offsetWidth
   var passwordInputWidth = passwordInput.offsetWidth
-  var inputColunmHeight = inputColunm.offsetHeight
+  var passwordInputHeight = passwordInput.offsetHeight
 
   // calculando os valores do posicionamento animado dos elementos
-  var iconTopValue = 245.5 + ((formHeight - inputColunmHeight) / 2)
+  var iconMarginTopValue = - (((passwordInputHeight - 16) / 2 + 16) + 15)
   var iconRigthValue = (bodyWidth - passwordInputWidth) / 2 + 15
   var detail1RightValue = ((bodyWidth - formWidth) / 2) - 16
   var detail2TopValue = 100 + formHeight
@@ -54,22 +54,20 @@ function loop() {
   detail3.style.right =  detail3rightValue+ 'px';
   detail4.style.left = detail4LeftValue + 'px';
 
-  if (eye) {
-    eye.style.right = iconRigthValue + 'px';
-    eye.style.top = iconTopValue + 'px';
-  }
+  eye.style.right = iconRigthValue + 'px';
+  eye.style.marginTop = iconMarginTopValue + 'px';
+  
   
   console.log("rodou")
-
-  setTimeout(loop, 50);
 }
-  
-// Inicia o loop
-loop();
 
 //eventListeners:
+
+document.addEventListener("DOMContentLoaded", placingElements())
+window.onresize = placingElements
+
   //o botão do olho foi clicado?
-function eyeClicado () {
+function eyeClicado() {
   if (eye.className == 'fas fa-eye') {
     passwordInput.type = 'password';
     eye.className = 'fas fa-eye-slash';
@@ -107,7 +105,6 @@ btnTrocaSigninSignup.on("click", function() {
   let novoAttr = ""
   if (button_jq.attr("name") == "signin") {
       novoAttr = "signup"
-      bloco_login_inputs.append('<i id="eye-icon" class="fas fa-eye-slash" style="z-index: 2" onclick="eyeClicado()"></i>')
       bloco_login_inputs.append('<input type="text" placeholder="Nome" class="input" id="inp_nome_login_aparente"/>')
       bloco_login_inputs.append('<div id="radios_container"><div class="div_radio"><input type="radio" name="equipeAparente" id="radio_africa" value="africa" checked><label for="radio_africa">Equipe Africa</label></div><div class="div_radio"><input type="radio" name="equipeAparente" id="radio_america" value="america"><label for="radio_america">Equipe América</label></div><div class="div_radio"><input type="radio" name="equipeAparente" id="radio_asia" value="asia"><label for="radio_asia">Equipe Ásia</label></div></div>')
       button_jq.css("margin-top", "20px")
@@ -117,7 +114,6 @@ btnTrocaSigninSignup.on("click", function() {
   }
   else {
       novoAttr = "signin"
-      $("#eye-icon").remove()
       $("#inp_nome_login_aparente").remove()
       $("#radios_container").remove()
       button_jq.css("margin-top", "70px")
