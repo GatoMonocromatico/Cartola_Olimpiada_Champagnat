@@ -1129,7 +1129,46 @@ def inserir_pontuacao_esporte(esporte, chave_secreta_fornecida=None):
 
 @app.route("/leaderboards", methods=["GET"])
 def leaderboards():
-    return render_template("leaderboards.html")
+    usuarios = bd.child("usuarios").get().val()
+    dados_por_pontos = {}
+    pontos_equipes = {
+        "asia": 0,
+        "africa": 0,
+        "america": 0
+    }
+    for usuario in usuarios:
+        qtd_pontos = 0
+        dados_pontos = usuarios[usuario]["pontos"]
+
+        for esporte in dados_pontos:
+            qtd_pontos += float(dados_pontos[esporte])
+
+        nome = usuarios[usuario]["nome"]
+        equipe = usuarios[usuario]["equipe"]
+        foto_de_perfil = usuarios[usuario]["foto_de_perfil"]
+
+        pontos_equipes[equipe] += qtd_pontos
+
+        dados_por_pontos[qtd_pontos] = [nome, equipe, foto_de_perfil]
+
+    dados_envio = {}
+    index_for = 1
+    for pontuacao in sorted(dados_por_pontos, reverse=True):
+        dados_usuario = dados_por_pontos[pontuacao]
+        dados_usuario.append(pontuacao)
+
+        dados_envio[index_for] = dados_usuario
+
+        if index_for == 50:
+            break
+
+        index_for += 1
+
+    pontos_equipes_str = {}
+    for equipe in pontos_equipes:
+        pontos_equipes_str[equipe] = str(int(pontos_equipes[equipe]))
+
+    return render_template("leaderboards.html", dados=dados_envio, pontos_equipes=pontos_equipes, pontos_equipes_str=pontos_equipes_str)
 
 
 def valida_chave_secreta_administracao(chave_fornecida):
