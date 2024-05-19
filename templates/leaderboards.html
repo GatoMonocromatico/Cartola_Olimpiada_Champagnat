@@ -1,10 +1,123 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
+    <link rel="icon" href="{{ url_for('static', filename='logo1.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&family=Signika:wght@300..700&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/leaderboards.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboards.css') }}">
     <meta charset="UTF-8">
-    <title>Placar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartola Champagnat</title>
 </head>
 <body>
-
+    <div class="container">
+        <div class="tab_box">
+            <button class="tab_btn"><p>Times</p></button>
+            <button class="tab_btn"><p>Cartoleiros</p></button>
+            <div class="line"></div>
+        </div>
+        <div class="content_box">
+            <div class="content active">
+                <div class="time_bars">
+                    <div class="africa">
+                        <div class="africaBar"></div>
+                        <img src="{{url_for('static', filename='africa.png')}}" class="img">
+                    </div>
+                    <div class="asia">
+                        <div class="asiaBar"></div>
+                        <img src="{{url_for('static', filename='asia.png')}}" class="img">
+                    </div>
+                    <div class="america">
+                        <div class="americaBar"></div>
+                        <img src="{{url_for('static', filename='america.png')}}" class="img">
+                    </div>
+                </div>
+                <i class="fa fa-arrow-right" id="icon1" ></i>
+            </div>
+            <div class="content">
+                <i class="fa fa-arrow-left" id="icon2"></i>
+                <div class="cartoleiros">
+                    <div class="cartoleiroBar">
+                        <div class="profile">
+                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
+                            <p>Nome</p>
+                        </div>
+                        <div class="profileDetail">
+                            <div class="points">
+                                <p>9999</p>
+                            </div>
+                            <img src="{{url_for('static', filename='africa.png')}}">
+                        </div>
+                    </div>
+                    <div class="cartoleiroBar">
+                        <div class="profile">
+                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
+                            <p>Nome</p>
+                        </div>
+                        <div class="profileDetail">
+                            <div class="points">
+                                <p>9999</p>
+                            </div>
+                            <img src="{{url_for('static', filename='africa.png')}}">
+                        </div>
+                    </div>
+                    <div class="cartoleiroBar">
+                        <div class="profile">
+                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
+                            <p>Nome</p>
+                        </div>
+                        <div class="profileDetail">
+                            <div class="points">
+                                <p>9999</p>
+                            </div>
+                            <img src="{{url_for('static', filename='asia.png')}}">
+                        </div>
+                    </div>
+                    <div class="cartoleiroBar">
+                        <div class="profile">
+                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
+                            <p>Nome</p>
+                        </div>
+                        <div class="profileDetail">
+                            <div class="points">
+                                <p>9999</p>
+                            </div>
+                            <img src="{{url_for('static', filename='america.png')}}">
+                        </div>
+                    </div>
+                    <div class="cartoleiroBar">
+                        <div class="profile">
+                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
+                            <p>Nome</p>
+                        </div>
+                        <div class="profileDetail">
+                            <div class="points">
+                                <p>9999</p>
+                            </div>
+                            <img src="{{url_for('static', filename='africa.png')}}">
+                        </div>
+                    </div>
+                    <div class="cartoleiroBar">
+                        <div class="profile">
+                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
+                            <p>Nome</p>
+                        </div>
+                        <div class="profileDetail">
+                            <div class="points">
+                                <p>9999</p>
+                            </div>
+                            <img src="{{url_for('static', filename='asia.png')}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="logo_container">
+        <img src="{{url_for('static', filename='leaderboardlogo.png')}}"  >
+    </div>
 </body>
 </html>
