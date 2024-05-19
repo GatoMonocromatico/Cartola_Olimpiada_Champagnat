@@ -168,7 +168,7 @@ p{
     justify-content: start;
 }
 .cartoleiroBar{
-    width: 99%;
+    width: 235px;
     border-radius: 30px;
     border: 2px solid #0F3B5E;
     box-shadow: 0 5px 0 0 #0F3B5E;
@@ -240,4 +240,20 @@ p{
         width: 242px;
         height: 50%;
     }
+}
+
+.barra_pontos_equipes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    padding-bottom: 20px;
+}
+
+.barra_pontos_equipes span {
+    display: block;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 22px;
+    margin-bottom: -3px;
+    color: white;
 }
