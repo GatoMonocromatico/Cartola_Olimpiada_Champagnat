@@ -11,6 +11,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cartola Champagnat</title>
+    <script>
+        const africaPoints = {{ pontos_equipes["africa"] }}
+        const asiaPoints = {{ pontos_equipes["asia"] }}
+        const americaPoints = {{ pontos_equipes["america"] }}
+    </script>
 </head>
 <body>
     <div class="container">
@@ -23,15 +28,27 @@
             <div class="content active">
                 <div class="time_bars">
                     <div class="africa">
-                        <div class="africaBar"></div>
+                        <div class="africaBar barra_pontos_equipes">
+                            {% for numero in pontos_equipes_str["africa"] %}
+                                <span>{{ numero }}</span>
+                            {% endfor %}
+                        </div>
                         <img src="{{url_for('static', filename='africa.png')}}" class="img">
                     </div>
                     <div class="asia">
-                        <div class="asiaBar"></div>
+                        <div class="asiaBar barra_pontos_equipes">
+                            {% for numero in pontos_equipes_str["asia"] %}
+                                <span>{{ numero }}</span>
+                            {% endfor %}
+                        </div>
                         <img src="{{url_for('static', filename='asia.png')}}" class="img">
                     </div>
                     <div class="america">
-                        <div class="americaBar"></div>
+                        <div class="americaBar barra_pontos_equipes">
+                            {% for numero in pontos_equipes_str["america"] %}
+                                <span>{{ numero }}</span>
+                            {% endfor %}
+                        </div>
                         <img src="{{url_for('static', filename='america.png')}}" class="img">
                     </div>
                 </div>
@@ -40,78 +57,20 @@
             <div class="content">
                 <i class="fa fa-arrow-left" id="icon2"></i>
                 <div class="cartoleiros">
-                    <div class="cartoleiroBar">
-                        <div class="profile">
-                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
-                            <p>Nome</p>
-                        </div>
-                        <div class="profileDetail">
-                            <div class="points">
-                                <p>9999</p>
+                    {% for posicao in dados %}
+                        <div class="cartoleiroBar">
+                            <div class="profile">
+                                <img src="data:image/png;base64, {{ dados[posicao][2] }}" class="profilePicture">
+                                <p>{{ dados[posicao][0] }}</p>
                             </div>
-                            <img src="{{url_for('static', filename='africa.png')}}">
-                        </div>
-                    </div>
-                    <div class="cartoleiroBar">
-                        <div class="profile">
-                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
-                            <p>Nome</p>
-                        </div>
-                        <div class="profileDetail">
-                            <div class="points">
-                                <p>9999</p>
+                            <div class="profileDetail">
+                                <div class="points">
+                                    <p>{{ dados[posicao][3] }}</p>
+                                </div>
+                                <img src="static/{{ dados[posicao][1] }}.png">
                             </div>
-                            <img src="{{url_for('static', filename='africa.png')}}">
                         </div>
-                    </div>
-                    <div class="cartoleiroBar">
-                        <div class="profile">
-                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
-                            <p>Nome</p>
-                        </div>
-                        <div class="profileDetail">
-                            <div class="points">
-                                <p>9999</p>
-                            </div>
-                            <img src="{{url_for('static', filename='asia.png')}}">
-                        </div>
-                    </div>
-                    <div class="cartoleiroBar">
-                        <div class="profile">
-                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
-                            <p>Nome</p>
-                        </div>
-                        <div class="profileDetail">
-                            <div class="points">
-                                <p>9999</p>
-                            </div>
-                            <img src="{{url_for('static', filename='america.png')}}">
-                        </div>
-                    </div>
-                    <div class="cartoleiroBar">
-                        <div class="profile">
-                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
-                            <p>Nome</p>
-                        </div>
-                        <div class="profileDetail">
-                            <div class="points">
-                                <p>9999</p>
-                            </div>
-                            <img src="{{url_for('static', filename='africa.png')}}">
-                        </div>
-                    </div>
-                    <div class="cartoleiroBar">
-                        <div class="profile">
-                            <img src="{{url_for('static', filename='profilePicture.png')}}" class="profilePicture">
-                            <p>Nome</p>
-                        </div>
-                        <div class="profileDetail">
-                            <div class="points">
-                                <p>9999</p>
-                            </div>
-                            <img src="{{url_for('static', filename='asia.png')}}">
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
