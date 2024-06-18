@@ -118,11 +118,11 @@ HTMLs.set("HTML_bloco_escalacao_futsal_masculino", `
 </div>
 <div class="escalações">
     <img src="static/quadra.png" id="quadra" class="escalações_img">
-    <button class="goleiroFutMasc escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
-    <button class="posição1FutMasc escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
-    <button class="posição2FutMasc escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
-    <button class="posição3FutMasc escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
-    <button class="posição4FutMasc escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
+    <button class="btn_escolhe_jogador goleiroFutMasc escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
+    <button class="btn_escolhe_jogador posição1FutMasc escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
+    <button class="btn_escolhe_jogador posição2FutMasc escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
+    <button class="btn_escolhe_jogador posição3FutMasc escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
+    <button class="btn_escolhe_jogador posição4FutMasc escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
     <label class="goleiroFutMascText label_escolher_jogador" >Goleiro</label>
     <label class="posicao1FutMascText label_escolher_jogador">Posição 1</label>
     <label class="posicao2FutMascText label_escolher_jogador">Posição 2</label>
@@ -160,11 +160,11 @@ HTMLs.set("HTML_bloco_escalacao_futsal_feminino", `
 </div>
 <div class="escalações">
     <img src="static/quadra.png" id="quadra" class="escalações_img">
-    <button class="goleiroFutFem escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
-    <button class="posicao1FutFem escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
-    <button class="posicao2FutFem escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
-    <button class="posicao3FutFem escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
-    <button class="posicao4FutFem escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
+    <button class="btn_escolhe_jogador goleiroFutFem escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
+    <button class="btn_escolhe_jogador posicao1FutFem escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
+    <button class="btn_escolhe_jogador posicao2FutFem escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
+    <button class="btn_escolhe_jogador posicao3FutFem escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
+    <button class="btn_escolhe_jogador posicao4FutFem escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
     <label class="goleiroFutFemText label_escolher_jogador" >Goleira</label>
     <label class="posicao1FutFemText label_escolher_jogador">Posição 1</label>
     <label class="posicao2FutFemText label_escolher_jogador">Posição 2</label>
@@ -202,11 +202,11 @@ HTMLs.set("HTML_bloco_escalacao_basquete", `
 </div>
 <div class="escalações">
     <img src="static/quadra.png" id="quadra" class="escalações_img">
-    <button class="posicao1Basket escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
-    <button class="posicao2Basket escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
-    <button class="posicao3Basket escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
-    <button class="posicao4Basket escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
-    <button class="posicao5Basket escolher_jogador" id="jogador5" onclick="verJogadoresaVenda('jogador5')">+</button>
+    <button class="btn_escolhe_jogador posicao1Basket escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
+    <button class="btn_escolhe_jogador posicao2Basket escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
+    <button class="btn_escolhe_jogador posicao3Basket escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
+    <button class="btn_escolhe_jogador posicao4Basket escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
+    <button class="btn_escolhe_jogador posicao5Basket escolher_jogador" id="jogador5" onclick="verJogadoresaVenda('jogador5')">+</button>
     <label class="posicao1BasketText label_escolher_jogador">Posição 1</label>
     <label class="posicao2BasketText label_escolher_jogador">Posição 2</label>
     <label class="posicao3BasketText label_escolher_jogador">Posição 3</label>
@@ -243,13 +243,13 @@ HTMLs.set("HTML_bloco_escalacao_handebol", `
 </div>
 <div class="escalações">
     <img src="static/quadra.png" id="quadra" class="escalações_img">
-    <button class="goleiroHandebol escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
-    <button class="posicao1Handebol escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
-    <button class="posicao2Handebol escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
-    <button class="posicao3Handebol escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
-    <button class="posicao4Handebol escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
-    <button class="posicao5Handebol escolher_jogador" id="jogador5" onclick="verJogadoresaVenda('jogador5')">+</button>
-    <button class="posicao6Handebol escolher_jogador" id="jogador6" onclick="verJogadoresaVenda('jogador6')">+</button>
+    <button class="btn_escolhe_jogador goleiroHandebol escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
+    <button class="btn_escolhe_jogador posicao1Handebol escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
+    <button class="btn_escolhe_jogador posicao2Handebol escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
+    <button class="btn_escolhe_jogador posicao3Handebol escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
+    <button class="btn_escolhe_jogador posicao4Handebol escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
+    <button class="btn_escolhe_jogador posicao5Handebol escolher_jogador" id="jogador5" onclick="verJogadoresaVenda('jogador5')">+</button>
+    <button class="btn_escolhe_jogador posicao6Handebol escolher_jogador" id="jogador6" onclick="verJogadoresaVenda('jogador6')">+</button>
     <label class="goleiroHandebolText label_escolher_jogador" >Goleiro</label>
     <label class="posicao1HandebolText label_escolher_jogador">Posição 1</label>
     <label class="posicao2HandebolText label_escolher_jogador">Posição 2</label>
