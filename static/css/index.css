@@ -585,31 +585,3 @@ body{
 .icon {
     transform: scale(1.5);
 }
-#container_loading_screen {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(56, 56, 56, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden;
-  z-index: 100;
-}
-
-#loading_symbol {
-  height: 260px;
-  width: 260px;
-  animation: 1s infinite linear loading_screen_anima;
-}
-
-@keyframes loading_screen_anima {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-    }
-    }

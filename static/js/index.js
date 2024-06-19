@@ -48,10 +48,6 @@ trophy.on("click", () => {
 // código original abaixo
 // código original abaixo
 // código original abaixo
-const container_loading = $("#container_loading_screen")
-const simbolo_loading = $("#loading_symbol")
-
-var carregando_jogadores_escalacao = 0
 
 const inpFormulario = $("#form_data")
 const form = $("#myform")
@@ -122,11 +118,11 @@ HTMLs.set("HTML_bloco_escalacao_futsal_masculino", `
 </div>
 <div class="escalações">
     <img src="static/quadra.png" id="quadra" class="escalações_img">
-    <button class="btn_escolhe_jogador goleiroFutMasc escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
-    <button class="btn_escolhe_jogador posição1FutMasc escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
-    <button class="btn_escolhe_jogador posição2FutMasc escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
-    <button class="btn_escolhe_jogador posição3FutMasc escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
-    <button class="btn_escolhe_jogador posição4FutMasc escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
+    <button class="goleiroFutMasc escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
+    <button class="posição1FutMasc escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
+    <button class="posição2FutMasc escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
+    <button class="posição3FutMasc escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
+    <button class="posição4FutMasc escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
     <label class="goleiroFutMascText label_escolher_jogador" >Goleiro</label>
     <label class="posicao1FutMascText label_escolher_jogador">Posição 1</label>
     <label class="posicao2FutMascText label_escolher_jogador">Posição 2</label>
@@ -164,11 +160,11 @@ HTMLs.set("HTML_bloco_escalacao_futsal_feminino", `
 </div>
 <div class="escalações">
     <img src="static/quadra.png" id="quadra" class="escalações_img">
-    <button class="btn_escolhe_jogador goleiroFutFem escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
-    <button class="btn_escolhe_jogador posicao1FutFem escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
-    <button class="btn_escolhe_jogador posicao2FutFem escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
-    <button class="btn_escolhe_jogador posicao3FutFem escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
-    <button class="btn_escolhe_jogador posicao4FutFem escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
+    <button class="goleiroFutFem escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
+    <button class="posicao1FutFem escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
+    <button class="posicao2FutFem escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
+    <button class="posicao3FutFem escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
+    <button class="posicao4FutFem escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
     <label class="goleiroFutFemText label_escolher_jogador" >Goleira</label>
     <label class="posicao1FutFemText label_escolher_jogador">Posição 1</label>
     <label class="posicao2FutFemText label_escolher_jogador">Posição 2</label>
@@ -206,11 +202,11 @@ HTMLs.set("HTML_bloco_escalacao_basquete", `
 </div>
 <div class="escalações">
     <img src="static/quadra.png" id="quadra" class="escalações_img">
-    <button class="btn_escolhe_jogador posicao1Basket escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
-    <button class="btn_escolhe_jogador posicao2Basket escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
-    <button class="btn_escolhe_jogador posicao3Basket escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
-    <button class="btn_escolhe_jogador posicao4Basket escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
-    <button class="btn_escolhe_jogador posicao5Basket escolher_jogador" id="jogador5" onclick="verJogadoresaVenda('jogador5')">+</button>
+    <button class="posicao1Basket escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
+    <button class="posicao2Basket escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
+    <button class="posicao3Basket escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
+    <button class="posicao4Basket escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
+    <button class="posicao5Basket escolher_jogador" id="jogador5" onclick="verJogadoresaVenda('jogador5')">+</button>
     <label class="posicao1BasketText label_escolher_jogador">Posição 1</label>
     <label class="posicao2BasketText label_escolher_jogador">Posição 2</label>
     <label class="posicao3BasketText label_escolher_jogador">Posição 3</label>
@@ -247,13 +243,13 @@ HTMLs.set("HTML_bloco_escalacao_handebol", `
 </div>
 <div class="escalações">
     <img src="static/quadra.png" id="quadra" class="escalações_img">
-    <button class="btn_escolhe_jogador goleiroHandebol escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
-    <button class="btn_escolhe_jogador posicao1Handebol escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
-    <button class="btn_escolhe_jogador posicao2Handebol escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
-    <button class="btn_escolhe_jogador posicao3Handebol escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
-    <button class="btn_escolhe_jogador posicao4Handebol escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
-    <button class="btn_escolhe_jogador posicao5Handebol escolher_jogador" id="jogador5" onclick="verJogadoresaVenda('jogador5')">+</button>
-    <button class="btn_escolhe_jogador posicao6Handebol escolher_jogador" id="jogador6" onclick="verJogadoresaVenda('jogador6')">+</button>
+    <button class="goleiroHandebol escolher_jogador" id="goleiro" onclick="verJogadoresaVenda('goleiro')">+</button>
+    <button class="posicao1Handebol escolher_jogador" id="jogador1" onclick="verJogadoresaVenda('jogador1')">+</button>
+    <button class="posicao2Handebol escolher_jogador" id="jogador2" onclick="verJogadoresaVenda('jogador2')">+</button>
+    <button class="posicao3Handebol escolher_jogador" id="jogador3" onclick="verJogadoresaVenda('jogador3')">+</button>
+    <button class="posicao4Handebol escolher_jogador" id="jogador4" onclick="verJogadoresaVenda('jogador4')">+</button>
+    <button class="posicao5Handebol escolher_jogador" id="jogador5" onclick="verJogadoresaVenda('jogador5')">+</button>
+    <button class="posicao6Handebol escolher_jogador" id="jogador6" onclick="verJogadoresaVenda('jogador6')">+</button>
     <label class="goleiroHandebolText label_escolher_jogador" >Goleiro</label>
     <label class="posicao1HandebolText label_escolher_jogador">Posição 1</label>
     <label class="posicao2HandebolText label_escolher_jogador">Posição 2</label>
@@ -266,7 +262,7 @@ HTMLs.set("HTML_bloco_escalacao_handebol", `
 
 HTMLs.set("bloco_escolhe_jogador_conteudo", `
 <div class="player">
-<img src="data:image/png;base64, FOTOJOGADOR" class="foto_jogador_escolher">
+<img src="FOTOJOGADOR" class="foto_jogador_escolher">
     <div style="display:flex; flex-direction: column; width: 100%;">
         <div style="display: flex; flex-direction: column; margin-left: 20px; margin-bottom: 10px;">
             <p style="margin: 0; font-family: 'Open Sans', sans-serif; color: #0F3B5E;" class="nome_jogador_escolher">NOMEJOGADOR</p>
@@ -403,8 +399,6 @@ async function voltar(blocoAtual, blocoDestino) {
 }
 
 function carregarJogadoresDoBD() {
-    container_loading.css("visibility", "visible")
-    carregando_jogadores_escalacao += 1
     $(".btn_escolhe_jogador").prop("disabled", true)
     $.ajax({
         url: "/dados-do-banco/jogadores",
@@ -415,18 +409,11 @@ function carregarJogadoresDoBD() {
         data: JSON.stringify({"esporte": esporteAtual}),
         contentType: "application/json",
         success: function(data) {
-            carregando_jogadores_escalacao -= 1
             console.log(data, "dados")
             dadosJogadoresDoEsporteAtual = data
-            if (carregando_jogadores_escalacao == 0) {
-                $(".btn_escolhe_jogador").prop("disabled", false)
-            }
-            container_loading.css("visibility", "hidden")
-                
-            
+            $(".btn_escolhe_jogador").prop("disabled", false)
         },
         error: function(e) {
-            carregando_jogadores_escalacao -= 1
             console.log(e)
         }
     })
@@ -499,7 +486,7 @@ function verJogadoresaVenda(idPosição) {
 
 function colocaJogadorNoHTML(idPosição, imagemJogador) {
     let idElemento = "#"+idPosição
-    let dadosBackgroundImage = "url('data:image/png;base64, " + imagemJogador + "')"
+    let dadosBackgroundImage = "url(" + imagemJogador + ")"
     $(idElemento).html("")
     $(idElemento).css("background-image", dadosBackgroundImage)
 }
