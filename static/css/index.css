@@ -595,7 +595,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-  visibility: normal;
+  visibility: hidden;
   z-index: 100;
 }
 
