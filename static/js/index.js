@@ -399,6 +399,8 @@ async function voltar(blocoAtual, blocoDestino) {
 }
 
 function carregarJogadoresDoBD() {
+    container_loading.css("visibility", "normal")
+    carregando_jogadores_escalacao += 1
     $(".btn_escolhe_jogador").prop("disabled", true)
     $.ajax({
         url: "/dados-do-banco/jogadores",
@@ -409,9 +411,13 @@ function carregarJogadoresDoBD() {
         data: JSON.stringify({"esporte": esporteAtual}),
         contentType: "application/json",
         success: function(data) {
+            carregando_jogadores_escalacao -= 1
             console.log(data, "dados")
             dadosJogadoresDoEsporteAtual = data
-            $(".btn_escolhe_jogador").prop("disabled", false)
+            if (carregando_jogadores_escalacao == 0) {
+                $(".btn_escolhe_jogador").prop("disabled", false)
+            }
+            container_loading.css("visibility", "hidden")
         },
         error: function(e) {
             console.log(e)
