@@ -48,6 +48,9 @@ trophy.on("click", () => {
 // código original abaixo
 // código original abaixo
 // código original abaixo
+const container_loading = $("#container_loading_screen")
+const simbolo_loading = $("#loading_symbol")
+
 var carregando_jogadores_escalacao = 0
 
 const inpFormulario = $("#form_data")
@@ -400,6 +403,7 @@ async function voltar(blocoAtual, blocoDestino) {
 }
 
 function carregarJogadoresDoBD() {
+    container_loading.css("visibility", "normal")
     carregando_jogadores_escalacao += 1
     $(".btn_escolhe_jogador").prop("disabled", true)
     $.ajax({
@@ -417,6 +421,7 @@ function carregarJogadoresDoBD() {
             if (carregando_jogadores_escalacao == 0) {
                 $(".btn_escolhe_jogador").prop("disabled", false)
             }
+            container_loading.css("visibility", "hidden")
                 
             
         },
