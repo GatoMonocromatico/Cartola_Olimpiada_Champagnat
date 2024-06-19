@@ -37,6 +37,7 @@ config = {
 # config para o firebase
 firebase = pyrebase.initialize_app(config)
 bd = firebase.database()
+storage = firebase.storage()
 
 
 class ADMAutorizarForm(FlaskForm):
@@ -618,16 +619,20 @@ def configuracoes():
 
             buffer_png = io.BytesIO()
             imagem_formatada.save(buffer_png, format="PNG")
-            bytes_png = buffer_png.getvalue()
-            imagem_b64_png = base64.b64encode(bytes_png).decode("utf-8")
-            bd.child(f"usuarios/{current_user.id}").update({"foto_de_perfil": imagem_b64_png})
-            current_user.foto_de_perfil = imagem_b64_png
+            # bytes_png = buffer_png.getvalue()
+            # imagem_b64_png = base64.b64encode(bytes_png).decode("utf-8")
+            buffer_png.seek(0)
+
+            url_imagem = upload_image(buffer_png.getvalue(), f"fotos_de_perfil/{current_user.id}.png")
+
+            bd.child(f"usuarios/{current_user.id}").update({"foto_de_perfil": url_imagem})
+            current_user.foto_de_perfil = url_imagem
             if not nao_cadastrou_esportes:
                 esportes = current_user.esportes_cadastrados
                 index_for = 0
                 for esporte in esportes:
                     pos = current_user.posicao[index_for]
-                    bd.child(f"jogadores/{esporte}/{pos}/{current_user.id}").update({"foto_de_perfil": imagem_b64_png})
+                    bd.child(f"jogadores/{esporte}/{pos}/{current_user.id}").update({"foto_de_perfil": url_imagem})
                     index_for += 1
 
             if current_user.tem_foto_de_perfil_default:
@@ -675,9 +680,18 @@ def configuracoes():
     id = current_user.id
     nome = current_user.nome
 
-    return render_template("configuracoes.html", nome=nome, matricula=id, imagem_b64=foto_de_perfil,
+    return render_template("configuracoes.html", nome=nome, matricula=id, foto_de_perfil=foto_de_perfil,
                            nao_cadastrou_esportes=nao_cadastrou_esportes,
                            tem_foto_de_perfil_default=current_user.tem_foto_de_perfil_default)
+
+
+def upload_image(imagem, path):
+    # Faz o upload da imagem para o Firebase Storage diretamente do buffer
+    storage.child(path).put(imagem)
+
+    # Obtém a URL da imagem
+    url = storage.child(path).get_url(None)
+    return url
 
 
 @app.route('/dados-do-banco/<info>', methods=['POST', 'GET'])
@@ -732,6 +746,7 @@ def dados_do_banco(info):
                             if jogador in jogadores_escalados:
                                 dados_jogador = jogadores[jogador]
                                 fotos_jogadores_escalados[jogador] = dados_jogador["foto_de_perfil"]
+
             dados_return = {}
             for esporte in dados_escalacao:
                 escalacao_do_esporte = dados_escalacao[esporte]

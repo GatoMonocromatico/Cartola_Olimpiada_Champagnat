@@ -32,14 +32,10 @@
     </script>
 </head>
 <body>
-    
-    <div id="container_loading_screen">
-        <img src="{{  url_for('static', filename='loading_symbol.png')  }}" id="loading_symbol"/>
-    </div>
     <div class="profile-bar-container">
         <div class="profile-bar">
             <div class="profile">
-                <img id="profile-picture" class="profile-picture" src="data:image/png;base64, {{ foto_de_perfil }}">
+                <img id="profile-picture" class="profile-picture" src="{{ foto_de_perfil }}">
                 <span class="nome-so-de-bonito">{{ nome_de_usuario }}</span>
                 {% if ADM %}
                     <i class="fa fa-solid fa-user-tie icon" id="admin"></i>

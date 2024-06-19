@@ -38,7 +38,7 @@
             <i class="fa fa-arrow-left icon" id="voltar_index"></i>
             <div class="align">
                 <div class="profile">
-                    <img src ="data:imagem/png;base64, {{ imagem_b64 }}" class="profile-picture" id="profile-picture">
+                    <img src ="{{ foto_de_perfil }}" class="profile-picture" id="profile-picture">
                     {% if tem_foto_de_perfil_default %}
                         <input type="file" id="inp_foto_perfil" accept="image/jpeg,image/png" class="plus" name="imagem" required>
                     {% else %}

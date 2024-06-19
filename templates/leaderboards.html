@@ -60,7 +60,7 @@
                     {% for posicao in dados %}
                         <div class="cartoleiroBar">
                             <div class="profile">
-                                <img src="data:image/png;base64, {{ dados[posicao][2] }}" class="profilePicture">
+                                <img src="{{ dados[posicao][2] }}" class="profilePicture">
                                 <p>{{ dados[posicao][0] }}</p>
                             </div>
                             <div class="profileDetail">
