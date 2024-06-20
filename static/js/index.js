@@ -48,6 +48,8 @@ trophy.on("click", () => {
 // código original abaixo
 // código original abaixo
 // código original abaixo
+var carregando_jogadores_escalacao = 0
+        
 const container_loading = $("#container_loading_screen")
 const simbolo_loading = $("#loading_symbol")
 
