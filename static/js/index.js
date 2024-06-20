@@ -399,7 +399,7 @@ async function voltar(blocoAtual, blocoDestino) {
 }
 
 function carregarJogadoresDoBD() {
-    container_loading.css("visibility", "normal")
+    container_loading.css("visibility", "visible")
     carregando_jogadores_escalacao += 1
     $(".btn_escolhe_jogador").prop("disabled", true)
     $.ajax({
