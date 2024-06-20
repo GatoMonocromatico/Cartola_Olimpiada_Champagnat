@@ -48,6 +48,8 @@ trophy.on("click", () => {
 // código original abaixo
 // código original abaixo
 // código original abaixo
+const container_loading = $("#container_loading_screen")
+const simbolo_loading = $("#loading_symbol")
 
 const inpFormulario = $("#form_data")
 const form = $("#myform")
