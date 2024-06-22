@@ -1151,6 +1151,7 @@ def leaderboards():
         "africa": 0,
         "america": 0
     }
+
     for usuario in usuarios:
         qtd_pontos = 0
         dados_pontos = usuarios[usuario]["pontos"]
@@ -1163,21 +1164,24 @@ def leaderboards():
         foto_de_perfil = usuarios[usuario]["foto_de_perfil"]
 
         pontos_equipes[equipe] += qtd_pontos
-
-        dados_por_pontos[qtd_pontos] = [nome, equipe, foto_de_perfil]
+        if qtd_pontos not in dados_por_pontos:
+            dados_por_pontos[qtd_pontos] = [[nome, equipe, foto_de_perfil]]
+        else:
+            dados_por_pontos[qtd_pontos].append([nome, equipe, foto_de_perfil])
 
     dados_envio = {}
     index_for = 1
     for pontuacao in sorted(dados_por_pontos, reverse=True):
-        dados_usuario = dados_por_pontos[pontuacao]
-        dados_usuario.append(pontuacao)
+        for lista in dados_por_pontos[pontuacao]:
+            dados_usuario = lista
+            dados_usuario.append(pontuacao)
 
-        dados_envio[index_for] = dados_usuario
+            dados_envio[index_for] = dados_usuario
 
-        if index_for == 50:
-            break
+            if index_for == 50:
+                break
 
-        index_for += 1
+            index_for += 1
 
     pontos_equipes_str = {}
     for equipe in pontos_equipes:
